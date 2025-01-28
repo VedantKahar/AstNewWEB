@@ -4,12 +4,11 @@
     "\\AST-Intranet",
     "\\AST-Intranet\\Content",
     "\\AST-Intranet\\Content\\css",
+    "\\AST-Intranet\\Controllers",
     "\\AST-Intranet\\Views",
-    "\\AST-Intranet\\Views\\Achievements",
-    "\\AST-Intranet\\Views\\Dashboard",
-    "\\AST-Intranet\\Views\\Employees",
     "\\AST-Intranet\\Views\\Manuals",
     "\\AST-Intranet\\Views\\Updates"
   ],
+  "SelectedNode": "\\AST-Intranet.sln",
   "PreviewInSolutionExplorer": false
 }

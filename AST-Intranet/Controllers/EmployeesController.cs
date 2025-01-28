@@ -68,34 +68,6 @@ namespace AST_Intranet.Controllers
             var departmentData = EmployeeDBConnector.GetEmployeesByDepartmentPerYear(startYear, endYear);
             return Json(departmentData, JsonRequestBehavior.AllowGet);
         }
-        //public JsonResult GetYearRange()
-        //{
-        //    var yearRange = new List<int>();
-
-        //    try
-        //    {
-        //        // Get the earliest and latest join date years from the database
-        //        using (var context = new YourDbContext())
-        //        {
-        //            var earliestYear = context.Employees
-        //                                      .Where(e => e.Status == "Active")
-        //                                      .Min(e => e.JoinDate.Year);
-
-        //            var latestYear = context.Employees
-        //                                    .Where(e => e.Status == "Active")
-        //                                    .Max(e => e.JoinDate.Year);
-
-        //            yearRange.Add(earliestYear);
-        //            yearRange.Add(latestYear);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Error fetching year range: {ex.Message}");
-        //    }
-
-        //    return Json(yearRange, JsonRequestBehavior.AllowGet);
-        //}
-
+        
     }
 }

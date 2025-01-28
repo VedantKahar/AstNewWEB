@@ -1,7 +1,14 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "manualsView";
     Layout = null;
+    var cimFiles = ViewBag.CIMManuals as List<string>;
+    var crrFiles = ViewBag.CRRManuals as List<string>;
+    var eResourceFiles = ViewBag.EResourceManuals as List<string>;
+    var spineHRExpenseFiles = ViewBag.SpineHRExpenseManuals as List<string>;
+    var spineHRTimesheetFiles = ViewBag.SpineHRTimesheetManuals as List<string>;
+    var spineHRPayrollFiles = ViewBag.SpineHRPayrollManuals as List<string>;
+    var productManualsFiles = ViewBag.ProductManuals as List<string>;
+    var othersFiles = ViewBag.OthersManuals as List<string>;
 }
 
 <!DOCTYPE html>
@@ -62,257 +69,192 @@
                 <span class="user-name">q</span>
             </div>
         </div>
-       
-        
+
+
         <div class="manual-category-container">
 
             <!-- CIM Manuals -->
             <div class="manual-category">
                 <h3>CIM Manuals</h3>
                 <div class="manual-box">
-                    <div class="manual-item">
-                        <a href="manual1.pdf" target="_blank">
-                            <span>Manual 1</span>
-                          
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual2.pdf" target="_blank">
-                            <span>Manual 2</span>
-                           
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual3.pdf" target="_blank">
-                            <span>Manual 3</span>
-                            
-                        </a>
-                    </div>
-                    <!-- Add more manuals as needed -->
+                    @if (cimFiles != null && cimFiles.Any())
+                    {
+                        foreach (var file in cimFiles)
+                        {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "Vedant Intern", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No CIM manuals found.</p>
+                    }
                 </div>
             </div>
 
-            
+
+            <!-- CIM Manuals -->
             <div class="manual-category">
                 <h3>CRR Manuals</h3>
                 <div class="manual-box">
-                    <div class="manual-item">
-                        <a href="manual4.pdf" target="_blank">
-                            <span>Manual 1</span>
-                           
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual5.pdf" target="_blank">
-                            <span>Manual 2</span>
-                            
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual6.pdf" target="_blank">
-                            <span>Manual 3</span>
-                           
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual7.pdf" target="_blank">
-                            <span>Manual 4</span>
-                            
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual8.pdf" target="_blank">
-                            <span>Manual 5</span>
-                            
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual9.pdf" target="_blank">
-                            <span>Manual 6</span>
-                            
-                        </a>
-                    </div>
-                    <!-- Add more manuals as needed -->
+                    @if (crrFiles != null && crrFiles.Any())
+                    {
+                        foreach (var file in crrFiles)
+                        {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No CRR manuals found.</p>
+                    }
                 </div>
             </div>
 
-            
+
+            <!-- E Resources Manuals -->
             <div class="manual-category">
-                <h3>E Resource</h3>
+                <h3>E Resources</h3>
                 <div class="manual-box">
-                    <div class="manual-item">
-                        <a href="manual1.pdf" target="_blank">
-                            <span>Manual 1</span>
-                            <div class="manual-description">This is a brief description of Manual 1. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual2.pdf" target="_blank">
-                            <span>Manual 2</span>
-                            <div class="manual-description">This is a brief description of Manual 2. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual3.pdf" target="_blank">
-                            <span>Manual 3</span>
-                            <div class="manual-description">This is a brief description of Manual 3. Click to view details.</div>
-                        </a>
-                    </div>
-                    <!-- Add more manuals as needed -->
+                    @if (crrFiles != null && crrFiles.Any())
+                    {
+                        foreach (var file in crrFiles)
+                        {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No E Resources manuals found.</p>
+                    }
                 </div>
             </div>
 
-            
-            
+
+            <!-- Spine HR - Expense Manuals -->
             <div class="manual-category">
                 <h3>Spine HR - Expense</h3>
                 <div class="manual-box">
-                    <div class="manual-item">
-                        <a href="manual1.pdf" target="_blank">
-                            <span>Manual 1</span>
-                            <div class="manual-description">This is a brief description of Manual 1. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual2.pdf" target="_blank">
-                            <span>Manual 2</span>
-                            <div class="manual-description">This is a brief description of Manual 2. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual3.pdf" target="_blank">
-                            <span>Manual 3</span>
-                            <div class="manual-description">This is a brief description of Manual 3. Click to view details.</div>
-                        </a>
-                    </div>
-                    <!-- Add more manuals as needed -->
+                    @if (spineHRExpenseFiles != null && spineHRExpenseFiles.Any())
+                    {
+                        foreach (var file in spineHRExpenseFiles)
+                        {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No Spine HR - Expense manuals found.</p>
+                    }
                 </div>
             </div>
 
-           
+
+            <!-- Spine HR - Timesheet Manuals -->
             <div class="manual-category">
                 <h3>Spine HR - Timesheet</h3>
                 <div class="manual-box">
-                    <div class="manual-item">
-                        <a href="manual1.pdf" target="_blank">
-                            <span>Manual 1</span>
-                            <div class="manual-description">This is a brief description of Manual 1. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual2.pdf" target="_blank">
-                            <span>Manual 2</span>
-                            <div class="manual-description">This is a brief description of Manual 2. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual3.pdf" target="_blank">
-                            <span>Manual 3</span>
-                            <div class="manual-description">This is a brief description of Manual 3. Click to view details.</div>
-                        </a>
-                    </div>
-                    <!-- Add more manuals as needed -->
+                    @if (spineHRTimesheetFiles != null && spineHRTimesheetFiles.Any())
+                    {
+                        foreach (var file in spineHRTimesheetFiles)
+                        {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No Spine HR - Timesheet manuals found.</p>
+                    }
                 </div>
             </div>
 
-           
+            <!-- Spine HR - Payroll Manuals -->
             <div class="manual-category">
                 <h3>Spine HR - Payroll</h3>
                 <div class="manual-box">
-                    <div class="manual-item">
-                        <a href="manual1.pdf" target="_blank">
-                            <span>Manual 1</span>
-                            <div class="manual-description">This is a brief description of Manual 1. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual2.pdf" target="_blank">
-                            <span>Manual 2</span>
-                            <div class="manual-description">This is a brief description of Manual 2. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual3.pdf" target="_blank">
-                            <span>Manual 3</span>
-                            <div class="manual-description">This is a brief description of Manual 3. Click to view details.</div>
-                        </a>
-                    </div>
-                    <!-- Add more manuals as needed -->
+                    @if (spineHRPayrollFiles != null && spineHRPayrollFiles.Any())
+                    {
+                        foreach (var file in spineHRPayrollFiles)
+                        {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No Spine HR - Payroll manuals found.</p>
+                    }
                 </div>
             </div>
 
-           
+            <!-- Product  Manuals -->
             <div class="manual-category">
-                <h3>Product manuals</h3>
+                <h3>Product</h3>
                 <div class="manual-box">
-                    <div class="manual-item">
-                        <a href="manual1.pdf" target="_blank">
-                            <span>Manual 1</span>
-                            <div class="manual-description">This is a brief description of Manual 1. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual2.pdf" target="_blank">
-                            <span>Manual 2</span>
-                            <div class="manual-description">This is a brief description of Manual 2. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual3.pdf" target="_blank">
-                            <span>Manual 3</span>
-                            <div class="manual-description">This is a brief description of Manual 3. Click to view details.</div>
-                        </a>
-                    </div>
-                    <!-- Add more manuals as needed -->
+                    @if (productManualsFiles != null && productManualsFiles.Any())
+                    {
+                        foreach (var file in productManualsFiles)
+                        {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No Product manuals found.</p>
+                    }
+                </div>
+            </div>
 
-                    <div class="manual-item">
-                        <a href="manual3.pdf" target="_blank">
-                            <span>Manual 3</span>
-                            <div class="manual-description">This is a brief description of Manual 3. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual3.pdf" target="_blank">
-                            <span>Manual 3</span>
-                            <div class="manual-description">This is a brief description of Manual 3. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual3.pdf" target="_blank">
-                            <span>Manual 3</span>
-                            <div class="manual-description">This is a brief description of Manual 3. Click to view details.</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
+            <!-- Other Manuals -->
             <div class="manual-category">
-                <h3>Others</h3>
+                <h3>Others </h3>
                 <div class="manual-box">
-                    <div class="manual-item">
-                        <a href="manual1.pdf" target="_blank">
-                            <span>Manual 1</span>
-                            <div class="manual-description">This is a brief description of Manual 1. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual2.pdf" target="_blank">
-                            <span>Manual 2</span>
-                            <div class="manual-description">This is a brief description of Manual 2. Click to view details.</div>
-                        </a>
-                    </div>
-                    <div class="manual-item">
-                        <a href="manual3.pdf" target="_blank">
-                            <span>Manual 3</span>
-                            <div class="manual-description">This is a brief description of Manual 3. Click to view details.</div>
-                        </a>
-                    </div>
-                    <!-- Add more manuals as needed -->
+                    @if (othersFiles != null && othersFiles.Any())
+                    {
+                        foreach (var file in othersFiles)
+                        {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No other manuals found.</p>
+                    }
                 </div>
             </div>
+            <!-- add similar blocks for other folders like CRR, E Resources, etc. -->
 
         </div>
-
 
         <footer class="footer">
             &copy; 2024 Advanced Sys-Tek Limited | Contact Us | Feedback

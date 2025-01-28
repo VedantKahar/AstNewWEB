@@ -42,7 +42,7 @@ namespace AST_Intranet.Models.Database
                                 var doj = reader["DOJ"] != DBNull.Value ? Convert.ToDateTime(reader["DOJ"]) : (DateTime?)null;
                                 var department = reader["DEPARTMENT"] != DBNull.Value ? reader["DEPARTMENT"].ToString() : "N/A";  // Handle null department
                                 var designation = reader["DESIGNATION"] != DBNull.Value ? reader["DESIGNATION"].ToString() : "N/A";  // Handle null designation
-
+                                var location = reader["LOCATION"] != DBNull.Value ? reader["LOCATION"].ToString() : "N/A";
                                 // Check for birthday
                                 if (dob.HasValue && dob.Value.Month == today.Month && dob.Value.Day == today.Day)
                                 {

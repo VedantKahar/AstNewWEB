@@ -18,79 +18,79 @@
         z-index: 2;
     }
 
-        .sidebar.open {
-            width: 250px;
-        }
+    .sidebar.open {
+        width: 250px;
+    }
 
-        .sidebar:hover {
-            width: 250px;
-            background-color: #34495e;
-        }
+    .sidebar:hover {
+        width: 250px;
+        background-color: #34495e;
+    }
 
-        .sidebar h2 {
-            font-size: 1.2em;
-            margin: 20px;
-            display: flex;
-            align-items: center;
-            color: #ecf0f1;
-        }
+    .sidebar h2 {
+        font-size: 1.2em;
+        margin: 20px;
+        display: flex;
+        align-items: center;
+        color: #ecf0f1;
+    }
 
-            .sidebar h2 img {
-                width: 30px;
-                height: 30px;
-                margin-right: 10px;
-                cursor: pointer;
-            }
+    .sidebar h2 img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
 
-            .sidebar h2 span {
-                opacity: 0;
-                transform: translateX(-20px);
-                transition: opacity 0.3s ease, transform 0.3s ease;
-                white-space: nowrap;
-                overflow: hidden;
-            }
+    .sidebar h2 span {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 
-        .sidebar.open h2 span {
-            opacity: 1;
-            transform: translateX(0);
-        }
+    .sidebar.open h2 span {
+        opacity: 1;
+        transform: translateX(0);
+    }
 
-        .sidebar a {
-            text-decoration: none;
-            color: #bdc3c7;
-            font-size: 1em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 20px;
-            margin: 10px 0;
-            transition: color 0.3s ease, background-color 0.3s ease;
-            border-radius: 5px;
-        }
+    .sidebar a {
+        text-decoration: none;
+        color: #bdc3c7;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 20px;
+        margin: 10px 0;
+        transition: color 0.3s ease, background-color 0.3s ease;
+        border-radius: 5px;
+    }
 
-            .sidebar a img {
-                width: 20px;
-                height: 20px;
-            }
+    .sidebar a img {
+        width: 20px;
+        height: 20px;
+    }
 
-            .sidebar a span {
-                opacity: 0;
-                transform: translateX(-20px);
-                transition: opacity 0.3s ease, transform 0.3s ease;
-                white-space: nowrap;
-                overflow: hidden;
-            }
+    .sidebar a span {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 
-        .sidebar.open a span {
-            opacity: 1;
-            transform: translateX(0);
-        }
+    .sidebar.open a span {
+        opacity: 1;
+        transform: translateX(0);
+    }
 
-        .sidebar a:hover {
-            color: #ecf0f1;
-            background-color: #16a085;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+    .sidebar a:hover {
+        color: #ecf0f1;
+        background-color: #16a085;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
 
     .main-content {
         margin-left: 70px;
@@ -145,9 +145,9 @@
         transition: border 0.3s ease;
     }
 
-        .header input:focus {
-            border: 1px solid #16a085;
-        }
+    .header input:focus {
+        border: 1px solid #16a085;
+    }
 
     /* Profile container */
     .profile-container {
@@ -156,13 +156,13 @@
         gap: 10px; /* Space between profile image and username */
     }
 
-        .profile-container .profile-img {
-            width: 30px !important; /* Force smaller width */
-            height: 30px !important; /* Force smaller height */
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0; /* Ensure no extra margin */
-        }
+    .profile-container .profile-img {
+        width: 30px !important; /* Force smaller width */
+        height: 30px !important; /* Force smaller height */
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0; /* Ensure no extra margin */
+    }
 
     .user-name {
         color: #ecf0f1;
@@ -179,17 +179,17 @@
         animation: fadeInUp 0.6s forwards;
     }
 
-        .manual-category:nth-child(even) {
-            animation-delay: 0.2s;
-        }
+    .manual-category:nth-child(even) {
+        animation-delay: 0.2s;
+    }
 
-        .manual-category h3 {
-            font-size: 1.5em;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-        }
+    .manual-category h3 {
+        font-size: 1.5em;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
 
     /* Grid layout for manual categories */
     .manual-category-container {
@@ -198,7 +198,6 @@
         gap: 20px;
         margin-top: 20px;
     }
-
     /* Individual Manual Box */
     .manual-box {
         background-color: #fff;
@@ -210,51 +209,51 @@
         transition: transform 0.3s ease-in-out;
     }
 
-        .manual-box:hover {
-            transform: translateY(-5px); /* Slight upward movement on hover */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
+    .manual-box:hover {
+        transform: translateY(-2px); /* Slight upward movement on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
     /* Styling for each manual item in the box */
     .manual-item {
         background-color: #ecf0f1;
         border-radius: 8px;
         padding: 15px;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
         cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease; /* Added transition for color */
         display: flex;
         flex-direction: column;
     }
 
-        .manual-item:hover {
-            background-color: #16a085;
-            color: #fff;
-            transform: translateY(-5px);
-        }
+    .manual-item:hover {
+        background-color: #16a085; /* Change background on hover */
+        color: #fff; /* Change text color to white on hover */
+        transform: translateY(-2px);
+    }
 
-        .manual-item a {
-            text-decoration: none;
-            color: inherit;
-        }
+    .manual-item a {
+        text-decoration: none;  
+        color: inherit;
+    }
 
-        .manual-item span {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #34495e;
-            margin-bottom: 10px;
-        }
-
-    .manual-description {
+    .manual-item span {
         font-size: 0.9em;
-        color: #7f8c8d;
-        margin-top: 10px;
+        font-weight: bold;
+        color: #34495e; /* Default color */
+        margin-bottom: 10px;
     }
 
     /* Change text color in the manual description when the list item is hovered */
     .manual-item:hover .manual-description {
         color: #fff;
     }
+
+    /* Optional: if you want to ensure the text color of <span> inside manual-item changes on hover */
+    .manual-item:hover span {
+        color: #fff; /* Change text color to white on hover */
+    }
+
 
     /* Animations */
     @keyframes fadeInUp {

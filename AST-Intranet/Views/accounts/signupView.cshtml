@@ -1,7 +1,175 @@
 ﻿
-@{
-    ViewBag.Title = "signupView";
-}
+@{ ViewBag.Title = "signupView"; }
 
-<h2>signupView</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account</title>
+    <style>
+        /* Similar styles to your login page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('images/AST building.png') center center / cover no-repeat;
+            background-size: cover;
+        }
 
+        .login-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-section {
+            flex: 0 0 30%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150px;
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: #F4F7F5;
+        }
+
+            .logo-container img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+
+        .form-section h1 {
+            font-size: 28px;
+            color: #333;
+            margin: 60px 0 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 14px;
+                outline: none;
+            }
+
+            .form-group label {
+                position: absolute;
+                top: 10px;
+                left: 12px;
+                font-size: 14px;
+                color: #666;
+                transition: 0.3s ease;
+                pointer-events: none;
+            }
+
+            .form-group input:focus + label,
+            .form-group input:not(:placeholder-shown) + label {
+                top: -12px;
+                left: 10px;
+                font-size: 12px;
+                color: #0056b3;
+                background: #f4f6f8;
+                padding: 0 5px;
+            }
+
+        .actions-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .login-link {
+            font-size: 14px;
+            color: #0056b3;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .actions-container button {
+            padding: 10px 20px;
+            background-color: #0056b3;
+            border: none;
+            color: white;
+            font-size: 14px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+            .actions-container button:hover {
+                background-color: #004494;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="form-section">
+            <div class="logo-container">
+                <img src="images/AST-Logo.png" alt="Logo">
+            </div>
+
+            <h1>Create an Account</h1>
+
+            <div class="form-group">
+                <input type="text" id="username" placeholder=" " required>
+                <label for="username">Username</label>
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="email" placeholder=" " required>
+                <label for="email">Email Address</label>
+            </div>
+
+            <div class="form-group password-container">
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">Password</label>
+            </div>
+
+            <div class="actions-container">
+                <a class="login-link" href="login.html">Already have an account? Log in</a>
+                <button type="button" onclick="createAccount()">Create Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function createAccount() {
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (username && email && password) {
+        alert("Account created successfully!");
+        window.location.href = "login.html";  // Redirect to login page
+      } else {
+        alert("Please fill in all the fields.");
+      }
+    }
+    </script>
+</body>
+</html>
