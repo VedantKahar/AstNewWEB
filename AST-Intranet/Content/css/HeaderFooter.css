@@ -1,0 +1,222 @@
+﻿/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Aptos
+}
+
+/* Body and Background */
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+}
+/* Top Navigation Bar */
+
+/* Sticky Navbar */
+.top-nav {
+    position: sticky;
+    top: 0; /* Keeps navbar at the top while scrolling */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #5DADE2, #8bc5b2); /* Lighter blue gradient */
+    padding: 10px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Slightly darker shadow for depth */
+    z-index: 1000; /* Keeps navbar above other elements */
+    transition: all 0.3s ease; /* Smooth transition for background and other effects */
+}
+
+/* Left section (Logo and Search Bar) */
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Search Bar (3D Effect) */
+.search-bar {
+    padding: 8px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 250px;
+    transition: width 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    background-color: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15); /* Deeper shadow for stronger 3D effect */
+}
+
+/* On focus, enhance the 3D effect */
+.search-bar:focus {
+    border-color: #1ABC9C; /* Accent color on focus */
+    outline: none;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25); /* Stronger shadow and depth on focus */
+    transform: translateY(-3px); /* Slight lifting effect when focused */
+}
+
+/* On hover, give a stronger lifting effect */
+.search-bar:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px); /* Slight upward movement on hover */
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: white; /* White text for contrast */
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4), 0 0 15px #5DADE2, 0 0 10px #85C1AE; /* Lighter 3D effect */
+}
+
+.nav-links a:hover {
+    color: #6decd3; /* Hover color to complement the hero section's blue */
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropbtn {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4), 0 0 15px #5DADE2, 0 0 10px #85C1AE; /* Lighter 3D effect for dropdown */
+}
+
+.dropbtn:hover {
+    color: #1ABC9C;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #85C1AE; /* Lighter blue for dropdown */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    padding: 0;
+    border-radius: 15px;
+}
+
+.dropdown-content a {
+    display: block;
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4), 0 0 15px #5DADE2, 0 0 10px #85C1AE; /* Lighter 3D effect for dropdown items */
+}
+
+.dropdown-content a:hover {
+    background-color: #A3D4D6;
+    color: #6decd3;
+    border-radius: 15px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Profile Icon and Logout Dropdown */
+.profile-container {
+    position: relative;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #1ABC9C; /* Border color to match hover color */
+    transition: transform 0.3s ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Logout Dropdown */
+.logout-dropdown {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background: #85C1AE; /* Lighter blue for dropdown */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 150px;
+}
+
+.logout-dropdown a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4), 0 0 15px #5DADE2, 0 0 10px #85C1AE;
+}
+
+.logout-dropdown a:hover {
+    background-color: #A3D4D6;
+    color: #1ABC9C;
+}
+
+.profile-container:hover .logout-dropdown {
+    display: block;
+}
+
+
+/* Main Content Area */
+.main-content {
+    padding: 20px;
+    margin-top: 10px; /* Adjusting content margin to match navbar height */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* Footer */
+.footer {
+    background: linear-gradient(125deg, #5DADE2, #8bc5b2);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    color: #000072;
+}

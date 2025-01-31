@@ -1,4 +1,6 @@
- const toggleSidebar = document.getElementById('toggleSidebar');
+document.getElementById("current-year").textContent = new Date().getFullYear();
+
+/* const toggleSidebar = document.getElementById('toggleSidebar');
     const sidebar = document.getElementById('sidebar');
 
     let isSidebarClicked = false; // Flag to track if sidebar is manually toggled
@@ -46,3 +48,4 @@
     // Initially enable hover effect only when sidebar is closed
     sidebar.addEventListener('mouseenter', hoverOpen);
     sidebar.addEventListener('mouseleave', hoverClose);
+*/

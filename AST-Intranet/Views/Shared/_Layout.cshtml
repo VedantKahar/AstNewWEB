@@ -1,42 +1,66 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- Include your CSS here -->
+    <link rel="stylesheet" href="~/Content/css/HeaderFooter.css" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+
+    <!-- Header Section -->
+    <div class="top-nav">
+        <div class="left-section">
+            <img style="height:30px; border-radius:5px" src="~/Images/images/ast_logo3.jpg" alt="AST logo" class="ast-logo">
+            <input type="text" placeholder="Search..." class="search-bar">
+        </div>
+        <ul class="nav-links">
+            <li><a href="@Url.Action("dashboardView", "Dashboard")">Dashboard</a></li>
+            <li><a href="@Url.Action("EmployeesView", "Employees")">Employees</a></li>
+            <li><a href="@Url.Action("ResourcesView", "Resources")">Resources</a></li>
+            <li><a href="@Url.Action("TownhallView", "Townhall")">Town Hall</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">
+                    Other
+                    <img src="~/Images/icons/down-arrow.png" alt="Other" style="width: 20px; height: 20px; margin-right: 8px;">
+                </a>
+                <div class="dropdown-content">
+                    <a href="@Url.Action("updatesView", "Updates")">Today's Updates</a>
+                    <a href="@Url.Action("manualsView", "Manuals")">Manuals</a>
+                    <a href="@Url.Action("AchievementsView", "Achievements")">Achievements</a>
+                    <a href="@Url.Action("policiesView", "Policies")">Policies</a>
+                    <a href="@Url.Action("EventsView", "Events")">Events</a>
+                </div>
+            </li>
+        </ul>
+
+        <div class="profile-container">
+            <img src="~/Images/images/profile-pic.jfif" alt="Profile Picture" class="profile-img" id="profileIcon">
+            <div class="logout-dropdown" id="logoutDropdown">
+                <a href="@Url.Action("LoginView", "Accounts")">Log Out</a>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+
+    <div class="main-content">
+        <!-- Content of the page will go here -->
+        <div class="content">
+            @RenderBody()
+        </div>
+
+        <!-- Footer Section -->
+        <footer class="footer">
+            &copy; <span id="current-year"></span> Advanced Sys-Tek Limited |
+            <a href="contact-us.html">Contact Us</a> |
+            <a href="feedback.html">Feedback</a>
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        <!-- JavaScript to populate current year -->
+        <script>
+            document.getElementById('current-year').innerText = new Date().getFullYear();
+        </script>
 </body>
 </html>

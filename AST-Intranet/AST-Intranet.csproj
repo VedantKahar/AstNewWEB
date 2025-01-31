@@ -180,6 +180,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\HeaderFooter.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -230,10 +231,11 @@
     <Content Include="Views\accounts\signupView.cshtml" />
     <Content Include="Views\accounts\forgotpasswordView.cshtml" />
     <Content Include="Views\Employees\_EmployeeList.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\css\" />
     <Folder Include="Images\" />
     <Folder Include="Scripts\script\" />
   </ItemGroup>

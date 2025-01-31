@@ -1,394 +1,225 @@
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: #000;
-            transition: background-color 0.3s ease-in-out;
-        }
+/* General container style for centering */
+.container {
+   /* max-width: 1200px;*/
+    margin: 0 auto;
+    padding: 0px;
+}
 
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 70px;
-            background-color: #3e5771;
-            color: #ecf0f1;
-            transition: width 0.3s ease, background-color 0.3s ease-in-out;
-            overflow: hidden;
-            z-index: 2;
-        }
+/* Graph Container */
+.chart-container {
+    width: 100%;
+    height: 400px;
+    margin-top: 20px; /*was 40px*/
+}
 
-        .sidebar.open {
-            width: 250px;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-        }
+/* Flex container for Graph Type dropdown and Year Selector */
+.graph-toggle-year {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
 
-        .sidebar:hover {
-            width: 250px;
-            background-color: #34495e;
-        }
+/* Graph Type Dropdown */
+.graph-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adding space between label and select */
+}
 
-        .sidebar h2 {
-            font-size: 1.2em;
-            margin: 20px;
-            display: flex;
-            align-items: center;
-            color: #ecf0f1;
-        }
+label {
+    font-size: 18px;
+    margin-right: 10px;
+    color: #333;
+}
 
-        .sidebar h2 img {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
+select {
+    padding: 8px;
+    font-size: 16px;
+    margin-right: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: all 0.3s ease;
+}
 
-        .sidebar h2 span {
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
 
-        .sidebar.open h2 span {
-            opacity: 1;
-            transform: translateX(0);
-        }
+/* Year Selector Container */
+.year-selector {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Adding space between dropdowns */
+}
 
-        .sidebar a {
-            text-decoration: none;
-            color: #bdc3c7;
-            font-size: 1em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 20px;
-            margin: 10px 0;
-            transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-            border-radius: 5px;
-        }
+/* Add spacing around the chart container */
+.chart-container {
+    margin-top: 30px;
+}
 
-        .sidebar a img {
-            width: 20px;
-            height: 20px;
-        }
+/* Tooltip styling for better UI experience */
+.tooltip {
+    position: relative;
+    cursor: pointer;
+}
+.tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 10;
+}
+/* Styling for the modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Transparent background */
+}
 
-        .sidebar a span {
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+.modal-content {
+    background-color: black;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Adjust width as needed */
+}
 
-        .sidebar.open a span {
-            opacity: 1;
-            transform: translateX(0);
-        }
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
 
-        .sidebar a:hover {
-            color: #ecf0f1;
-            background-color: #16a085;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            transform: translateX(5px); /* Slightly shifts to the right */
-        }
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Styling for all <h2> headings */
+h2 {
+    color: #2c3e50; /* Dark grey color */
+    letter-spacing: 1px; /* Slight spacing between letters */
+    text-transform: uppercase; /* Make the text uppercase for emphasis */
+    text-align: center; /* Center-align the heading */
+}
+/*
+h2 {
+    font-size: 2em; /* Larger font size */
+    color: #2c3e50; /* Dark grey color */
+    margin-top: 30px; /* Space above the heading */
+    margin-bottom: 20px; /* Space below the heading */
+    text-align: center; /* Center-align the heading */
+    font-weight: bold; /* Make the font bold */
+    letter-spacing: 1px; /* Slight spacing between letters */
+    text-transform: uppercase; /* Make the text uppercase for emphasis */
+    border-bottom: 2px solid #16a085; /* Add a line under the heading */
+    padding-bottom: 10px; /* Add space below the heading and the line */
+}
+*/
+/* Optional: Styling to add a bit of animation */
+h2 {
+    transition: all 0.3s ease;
+}
 
-        .main-content {
-            margin-left: 70px;
-            padding: 20px;
-            transition: margin-left 0.3s ease, background-color 0.3s ease;
-            background-color: #fff;
-            border-radius: 8px;
-            opacity: 0;
-            animation: fadeIn 1s ease-in forwards;
-        }
+.employee-count-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Reduced margin */
+}
 
-        .sidebar.open ~ .main-content {
-            margin-left: 250px;
-        }
+.employee-count-box div {
+    background-color: #FFF;
+    padding: 15px; /* Reduced padding */
+    border-radius: 8px; /* Slightly smaller border-radius */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+    text-align: center;
+    width:35%; /* Reduced width */
+	height:120px;
+    margin-right: 15px;  Reduced right margin */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
+.employee-count-box div:last-child {
+    margin-right: 0;
+}
 
-            to {
-                opacity: 1;
-            }
-        }
+.employee-count-box div:hover {
+    transform: translateY(-2px); /* Slightly less movement on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Reduced hover shadow size */
+}
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #476481;
-            padding: 10px 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            animation: fadeIn 0.5s ease-in;
-            margin-bottom: 15px;
-        }
+.employee-count-box div h3 {
+    margin: 8px 0; /* Reduced margin */
+    font-size: 1em; /* Smaller font size */
+    color: #2C3E50;
+}
 
-        .header img:first-child {
-            width: 120px;
-            height: auto;
-        }
-
-        .header img:last-child {
-            width: 80px;
-            height: auto;
-        }
-
-        .header input {
-            flex-grow: 0;
-            width: 300px;
-            padding: 6px 6px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            transition: border 0.3s ease, transform 0.2s ease;
-        }
-
-        .header input:focus {
-            border: 1px solid #16a085;
-            transform: scale(1.05);
-        }
-
-        .profile-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .profile-container .profile-img {
-            width: 30px !important;
-            height: 30px !important;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0;
-        }
-
-        .user-name {
-            color: #ecf0f1;
-            font-size: 1em;
-            font-weight: bold;
-        }
-
-        .employee-count-box {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px; /* Reduced margin */
-        }
-
-        .employee-count-box div {
-            background-color: #FFF;
-            padding: 15px; /* Reduced padding */
-            border-radius: 8px; /* Slightly smaller border-radius */
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Lighter shadow */
-            text-align: center;
-            width: 25%; /* Reduced width */
-            margin-right: 15px; /* Reduced right margin */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .employee-count-box div:last-child {
-            margin-right: 0;
-        }
-
-        .employee-count-box div:hover {
-            transform: translateY(-8px); /* Slightly less movement on hover */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Reduced hover shadow size */
-        }
-
-        .employee-count-box div h3 {
-            margin: 8px 0; /* Reduced margin */
-            font-size: 1em; /* Smaller font size */
-            color: #2C3E50;
-        }
-
-        .employee-count-box div p {
-            font-size: 1.5em; /* Smaller font size */
-            font-weight: bold;
-            color: #16A085;
-        }
+.employee-count-box div p {
+    font-size: 1.5em; /* Smaller font size */
+    font-weight: bold;
+    color: #16A085;
+}
 
 
-        .department-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columns for responsive layout */
-            gap: 20px;
-            margin-top: 20px;
-        }
+.department-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for responsive layout */
+    gap: 20px;
+    margin-top: 10px;
+}
 
-        .department {
-            background-color: #FFF;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
+.department {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
 
-            .department:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            }
+.department:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-            .department h3 {
-                margin-bottom: 10px;
-                color: #16A085;
-                font-size: 1.5em;
-            }
+.department h3 {
+    margin-bottom: 10px;
+    color: #16A085;
+    font-size: 1.5em;
+}
 
-            .department p {
-                font-size: 1em;
-                color: #34495E;
-                margin-bottom: 15px;
-            }
+.department p {
+    font-size: 1em;
+    color: #34495E;
+    margin-bottom: 15px;
+}
 
-            .department a {
-                font-size: 1em;
-                color: #16A085;
-                text-decoration: none;
-            }
+.department a {
+    font-size: 1em;
+    color: #16A085;
+    text-decoration: none;
+}
 
-                .department a:hover {
-                    color: #2C3E50;
-                }
+.department a:hover {
+    color: #2C3E50;
+}
 
-        /* General container style for centering */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0px;
-        }
-
-        /* Graph Container */
-        .chart-container {
-            width: 100%;
-            height: 400px;
-            margin-top: 40px;
-        }
-
-        /* Flex container for Graph Type dropdown and Year Selector */
-        .graph-toggle-year {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        /* Graph Type Dropdown */
-        .graph-toggle {
-            display: flex;
-            align-items: center;
-            gap: 10px; /* Adding space between label and select */
-        }
-
-        label {
-            font-size: 18px;
-            margin-right: 10px;
-            color: #333;
-        }
-
-        select {
-            padding: 8px;
-            font-size: 16px;
-            margin-right: 20px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        select:focus {
-            border-color: #4CAF50;
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-        }
-
-        /* Year Selector Container */
-        .year-selector {
-            display: flex;
-            align-items: center;
-            gap: 20px; /* Adding space between dropdowns */
-        }
-
-        /* Add spacing around the chart container */
-        .chart-container {
-            margin-top: 30px;
-        }
-
-        /* Tooltip styling for better UI experience */
-        .tooltip {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .tooltip:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 5px;
-            background-color: #333;
-            color: white;
-            font-size: 14px;
-            border-radius: 5px;
-            white-space: nowrap;
-            z-index: 10;
-        }
-        /* Styling for the modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4); /* Transparent background */
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Adjust width as needed */
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-            .close:hover,
-            .close:focus {
-                color: black;
-                text-decoration: none;
-                cursor: pointer;
-            }
-
-
-        .footer {
-            text-align: center;
-            padding: 10px;
-            margin: 20px 10px 10px 80px;
-            background-color: #2c3e50;
-            color: #bdc3c7;
-            border-radius: 8px;
-            font-size: 0.9em;
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-            transition: margin-left 0.3s ease, opacity 0.5s ease-in;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in forwards;
-        }
-
-        .sidebar.open ~ .footer {
-            margin-left: 250px;
-        }

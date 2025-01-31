@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -12,69 +12,15 @@
 
     <!-- Link to the CSS file -->
     <link rel="stylesheet" href="@Url.Content("~/Content/css/HomepageStyles.css")">
+
 </head>
 <body>
 
-    <div class="sidebar" id="sidebar">
-        <h2>
-            <img src="~/Images/icons/menu.png" alt="Toggle Sidebar" id="toggleSidebar">
-            <!--<a href="https://youtube.com" target="_blank" id="companyLink"><span>Advanced Sys-Tek</span></a> --> <!-- Make this clickable, no hover/animation -->
-            <span>Advanced Sys-Tek</span>
-        </h2>
-        <hr>
-
-        <a href="@Url.Action("dashboardView", "Dashboard")">
-            <img src="~/Images/icons/dashboard-icon.png" alt="Dashboard Icon"> <span>Dashboard</span>
-        </a>
-        <a href="@Url.Action("EmployeesView", "Employees")">
-            <img src="~/Images/icons/employees-icon.png" alt="Employees Icon"> <span>Employees</span>
-        </a>
-        <a href="@Url.Action("updatesView", "Updates")">
-            <img src="~/Images/icons/today-icon.png" alt="Updates Icon"> <span>Today's Updates</span>
-        </a>
-        <a href="@Url.Action("TownhallView", "Townhall")">
-            <img src="~/Images/icons/meeting-icon.png" alt="Meeting Icon"> <span>Town Hall</span>
-        </a>
-        <a href="@Url.Action("ResourcesView", "Resources")">
-            <img src="~/Images/icons/resources-icon.png" alt="Resources Icon"> <span>Resources</span>
-        </a>
-        <a href="@Url.Action("manualsView", "Manuals")">
-            <img src="~/Images/icons/manual-icon.png" alt="Manual Icon"> <span>Manuals</span>
-        </a>
-        <a href="@Url.Action("AchievementsView", "Achievements")">
-            <img src="~/Images/icons/achievements-icon.png" alt="Achievements Icon"> <span>Achievements</span>
-        </a>
-        <a href="@Url.Action("policiesView", "Policies")">
-            <img src="~/Images/icons/policies-icon.png" alt="Policies Icon"> <span>Policies</span>
-        </a>
-        <a href="@Url.Action("EventsView", "Events")">
-            <img src="~/Images/icons/events-icon.png" alt="Events Icon"> <span>Events</span>
-        </a>
-        <a href="@Url.Action("LoginView", "Accounts")">
-            <img src="~/Images/icons/logout-icon.png" alt="Log Out Icon"> <span>Log Out</span>
-        </a>
-
-    </div>
+  
 
     <div class="main-content">
-        <div class="header">
-            <img src="~/Images/images/AST-Logo.png" alt="AST logo">
-            <input type="text" placeholder="Search anything...">
-
-            @*<form action="@Url.Action("Search", "Home")" method="get" class="search-form">
-                <input type="text" name="query" placeholder="Search anything..." class="search-input">
-                <button type="submit" class="search-button">Search</button>
-            </form>*@
-
-            <!-- Profile container -->
-            <div class="profile-container">
-                <img src="~/Images/images/profile-pic.jfif" alt="Profile Picture" class="profile-img">
-                <span class="user-name">@User.Identity.Name</span>
-
-            </div>
-        </div>
-
         <div class="hero-section">
+            <img src="~/Images/images/AST-building.png" alt="Advance-Systek" />
             <div class="hero-content">
                 <h1>Advanced Sys-Tek Limited</h1>
                 <p>
@@ -91,7 +37,6 @@
                 </a>
             </div>
         </div>
-        <br /><br />
 
         <hr>
         <h2 class="centered-title">Our Subsidiaries</h2>
@@ -135,7 +80,8 @@
 
         <hr>
 
-        <section class="section">
+        <!-- Our Portals Section -->
+        <section class="section portal-section">
             <h2>Our Portals</h2>
             <div class="stats">
                 <div>
@@ -145,10 +91,10 @@
                         <h4>Open Portal</h4>
                     </a>
                     <a href="@Url.Action("manualsView", "Manuals")">
-                        @*target="_blank"*@
-                        <button class="open-manual-btn">Open Manual</button>
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
                     </a>
                 </div>
+                <!-- Repeat for other portals... -->
                 <div>
                     <a href="your-link-here" target="_blank" class="clickable-box">
                         <span class="portal-name">Spine HR</span>
@@ -157,7 +103,7 @@
                     </a>
                     <a href="@Url.Action("manualsView", "Manuals")">
                         @*target="_blank"*@
-                        <button class="open-manual-btn">Open Manual</button>
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
                     </a>
                 </div>
 
@@ -169,7 +115,7 @@
                     </a>
                     <a href="@Url.Action("manualsView", "Manuals")">
                         @*target="_blank"*@
-                        <button class="open-manual-btn">Open Manual</button>
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
                     </a>
                 </div>
 
@@ -181,28 +127,30 @@
                     </a>
                     <a href="@Url.Action("manualsView", "Manuals")">
                         @*target="_blank"*@
-                        <button class="open-manual-btn">Open Manual</button>
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
                     </a>
                 </div>
+
             </div>
         </section>
 
+        <!-- Orders Overview Section -->
         <hr>
-
-        <section class="section">
+        <section class="section order-section">
             <h2>Orders Overview</h2>
             <div class="stats">
-                <div>
+                <div style="width:50%">
                     <h3>150</h3>
                     <p>Orders Received</p>
                 </div>
-                <div>
+                <div style="width:50%">
                     <h3>$1.5M</h3>
                     <p>Order Value</p>
                 </div>
             </div>
         </section>
 
+        <!-- Manuals Section -->
         <hr>
         <section class="manuals">
             <h2>Manuals</h2>
@@ -232,7 +180,7 @@
                         <img src="https://media.licdn.com/dms/image/v2/D4D22AQGobAIxlOHYKg/feedshare-shrink_800/feedshare-shrink_800/0/1729238416221?e=2147483647&v=beta&t=rlgNJodfrokBuBaLoj-Ghu56o9QtbA2H0zBIQI0fq4Y" alt="Garba">
                         <h3 class="event-title">Garba</h3>
                         <p class="event-description">
-                            A lively traditional dance event celebrating the festival of Navratri. Employees gather to celebrate this vibrant festival with traditional Garba and Dandiya dance forms, fostering team spirit and cultural unity. The event highlights the rich traditions of Gujarat and brings the whole company together in an energetic and colorful celebration of dance and music.
+                            A lively traditional dance event celebrating the festival of Navratri.
                         </p>
                     </a>
                 </div>
@@ -241,7 +189,7 @@
                         <img src="https://media.licdn.com/dms/image/v2/D4D22AQGeeOIbO_5Cnw/feedshare-shrink_800/feedshare-shrink_800/0/1727068347298?e=2147483647&v=beta&t=lMaagA73msBfbfGEvnKA1IUZbhCkrlUFzlshW1C_RHQ" alt="BVM Industrial Visit">
                         <h3 class="event-title">BVM Industrial Visit</h3>
                         <p class="event-description">
-                            A tour to explore industrial advancements and innovations. This event offers our employees a unique opportunity to witness cutting-edge technologies and the latest innovations in the manufacturing sector. The visit helps employees gain hands-on knowledge of industrial processes, strengthening their professional development and connecting them to real-world applications of their work.
+                            A tour to explore industrial advancements and innovations.
                         </p>
                     </a>
                 </div>
@@ -249,20 +197,21 @@
                     <a href="https://link-to-event3.com" target="_blank">
                         <img src="https://media.licdn.com/dms/image/v2/D4D22AQFHpmWf-sNCrA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1723705015505?e=2147483647&v=beta&t=nl4jgJGy5eW_tY1M8EuUmMz4tMll1hMQ2Ls25907F0k" alt="Independence Day">
                         <h3 class="event-title">Independence Day</h3>
-                        <p class="event-description">
-                            A celebration of freedom and patriotism. Our company celebrates India’s Independence Day with pride and reverence. The event includes a flag-hoisting ceremony, followed by speeches that inspire national pride. It is a day to reflect on our values of freedom, unity, and the contributions made by every individual towards the company’s success. The event serves to connect our team with the larger narrative of India’s growth and independence.
-                        </p>
+                        <p class="event-description">A celebration of freedom and patriotism.</p>
                     </a>
                 </div>
             </div>
         </section>
 
-        <footer class="footer">
-            &copy; 2024 Advanced Sys-Tek Limited | Contact Us | Feedback
-        </footer>
+       
+       
+
     </div>
-    <!-- Link to the JavaScript file -->
-    <script src="@Url.Content("~/Scripts/script/HomepageScript.js")"></script>
+
+        <script>
+            // Get the current year
+            document.getElementById("current-year").textContent = new Date().getFullYear();
+        </script>
 
 </body>
 </html>

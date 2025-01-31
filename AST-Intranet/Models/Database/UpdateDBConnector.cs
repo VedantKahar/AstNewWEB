@@ -23,13 +23,12 @@ namespace AST_Intranet.Models.Database
                     var today = DateTime.Today;
 
                     string query = @"
-                        SELECT EMP_NAME, DOB, DOJ, DEPARTMENT, DESIGNATION 
+                        SELECT EMP_NAME, DOB, DOJ, DEPARTMENT, DESIGNATION, LOCATION 
                         FROM cim_emp_master_list
                         WHERE (TO_CHAR(DOB, 'MM-DD') = TO_CHAR(SYSDATE, 'MM-DD') 
-                               OR TO_CHAR(DOJ, 'MM-DD') = TO_CHAR(SYSDATE, 'MM-DD'))
-                          AND STATUS = 'Active'
+                        OR TO_CHAR(DOJ, 'MM-DD') = TO_CHAR(SYSDATE, 'MM-DD'))
+                        AND STATUS = 'Active'
                     ";
-
 
                     using (OracleCommand command = new OracleCommand(query, connection))
                     {
@@ -40,10 +39,11 @@ namespace AST_Intranet.Models.Database
                                 var empName = reader["EMP_NAME"].ToString();
                                 var dob = reader["DOB"] != DBNull.Value ? Convert.ToDateTime(reader["DOB"]) : (DateTime?)null;
                                 var doj = reader["DOJ"] != DBNull.Value ? Convert.ToDateTime(reader["DOJ"]) : (DateTime?)null;
-                                var department = reader["DEPARTMENT"] != DBNull.Value ? reader["DEPARTMENT"].ToString() : "N/A";  // Handle null department
-                                var designation = reader["DESIGNATION"] != DBNull.Value ? reader["DESIGNATION"].ToString() : "N/A";  // Handle null designation
+                                var department = reader["DEPARTMENT"] != DBNull.Value ? reader["DEPARTMENT"].ToString() : "N/A";
+                                var designation = reader["DESIGNATION"] != DBNull.Value ? reader["DESIGNATION"].ToString() : "N/A";
                                 var location = reader["LOCATION"] != DBNull.Value ? reader["LOCATION"].ToString() : "N/A";
-                                // Check for birthday
+
+                                // Handle birthdays
                                 if (dob.HasValue && dob.Value.Month == today.Month && dob.Value.Day == today.Day)
                                 {
                                     var age = today.Year - dob.Value.Year;
@@ -51,7 +51,7 @@ namespace AST_Intranet.Models.Database
                                     birthdays.Add($"{empName} - {age} years old, {department}");
                                 }
 
-                                // Check for work anniversary
+                                // Handle work anniversaries
                                 if (doj.HasValue && doj.Value.Month == today.Month && doj.Value.Day == today.Day)
                                 {
                                     var yearsOfService = today.Year - doj.Value.Year;

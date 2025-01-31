@@ -15,6 +15,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>Sr.No.</th> <!-- New column for numbering -->
                     <th>EmpCode</th>
                     <th>EmpName</th>
                     <th>Designation</th>
@@ -24,15 +25,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var employee in employees)
+                @for (int i = 0; i < employees.Count; i++)
                 {
                     <tr>
-                        <td>@employee["EMP_CODE"]</td>
-                        <td>@employee["EMP_NAME"]</td>
-                        <td>@employee["DESIGNATION"]</td>
-                        <td>@employee["EMAIL"]</td>
-                        <td>@employee["PHONE_NO"]</td>
-                        <td>@employee["LOCATION"]</td>
+                        <!-- Display the row number based on the page number and index -->
+                        <td>@((currentPage - 1) * 15 + i + 1)</td> <!-- Row number -->
+                        <td>@employees[i]["EMP_CODE"]</td>
+                        <td>@employees[i]["EMP_NAME"]</td>
+                        <td>@employees[i]["DESIGNATION"]</td>
+                        <td>@employees[i]["EMAIL"]</td>
+                        <td>@employees[i]["PHONE_NO"]</td>
+                        <td>@employees[i]["LOCATION"]</td>
                     </tr>
                 }
             </tbody>
@@ -44,8 +47,10 @@
     }
 </div>
 
+
 <!-- Pagination Controls -->
-@if (totalPages > 1){
+@if (totalPages > 1)
+{
     <div class="pagination">
         <span>Showing @((currentPage - 1) * 15 + 1) to @(currentPage * 15) of @((totalPages * 15) - (15 - employees.Count)) entries</span>
 
@@ -70,66 +75,107 @@
     </div>
 }
 
+
 <!-- Add custom styles for pagination -->
 <style>
+    /* Page Background */
+    body {
+        background-color: #f7f7f7;
+        font-family: Arial, sans-serif;
+        color: #333;
+        padding: 20px;
+    }
 
+    /* Table Styling */
     .table {
         width: 100%;
-        border-collapse: collapse;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 2px solid #ddd; /* Border around the table */
     }
 
-        .table th, .table td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd; /* Light gray border for each cell */
-        }
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd; /* Border around table cells */
+    }
 
-        .table th {
-            background-color: #f2f2f2; /* Light background color for headers */
-            font-weight: bold;
-        }
+    /* Remove border-collapse for clearer separation */
+    .table {
+        border-collapse: separate;
+    }
 
-        .table tr:nth-child(even) {
-            background-color: #f9f9f9; /* Alternate row background color for better readability */
-        }
+ 
+
+    .table th {
+        background: linear-gradient(225deg, #5DADE2, #8bc5b2);
+        color: white;
+        font-weight: bold;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table tr:hover {
+        background-color: #e0e0e0;
+        transform: scale(1.01); /* Zoom out effect on hover */
+        transition: transform 0.2s ease, background-color 0.2s ease;
+        cursor: pointer;
+    }
 
     .table-bordered {
-        border: 2px solid #ddd; /* Outer border for the table */
+        border: 2px solid #ddd;
     }
 
-
+    /* Pagination Styling */
     .pagination-list {
         list-style: none;
         padding: 0;
         display: inline-flex;
-        gap: 5px;
-        margin-left:100px;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
     }
 
-        .pagination-list li {
-            display: inline;
-        }
+    .pagination-list li {
+        display: inline;
+    }
 
-            .pagination-list li a {
-                text-decoration: none;
-                padding: 5px 10px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                background-color: #f2f2f2;
-                color: #333;
-            }
+    .pagination-list li a {
+        text-decoration: none;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+    }
 
-            .pagination-list li.active a {
-                background-color: #007bff;
-                color: white;
-            }
+    .pagination-list li.active a {
+        background-color: #0056b3;
+    }
 
-            .pagination-list li a:hover {
-                background-color: #ddd;
-            }
+    .pagination-list li a:hover {
+        background-color: #0056b3;
+    }
 
     .pagination {
         margin-top: 20px;
         text-align: center;
+    }
+
+    /* Optional: Add a shadow and padding to the table */
+    .table-container {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: white;
+        padding: 20px;
+        
+    }
+
+    .table-wrapper {
+        padding: 20px;
     }
 </style>

@@ -55,12 +55,14 @@ namespace AST_Intranet.Controllers
 
             return View("_EmployeeList", employees);
         }
+
         // Fetch data for male/female employees per year
-        public JsonResult GetMaleFemaleEmployeesByYear()
-        {
-            var maleFemaleData = EmployeeDBConnector.GetMaleFemaleEmployeesByYear();
-            return Json(maleFemaleData, JsonRequestBehavior.AllowGet);
-        }
+
+        //public JsonResult GetMaleFemaleEmployeesByYear()
+        //{
+        //    var maleFemaleData = EmployeeDBConnector.GetMaleFemaleEmployeesByYear();
+        //    return Json(maleFemaleData, JsonRequestBehavior.AllowGet);
+        //}
 
         // Fetch data for employees per department per year with year range
         public JsonResult GetEmployeesByDepartmentPerYear(int startYear, int endYear)
