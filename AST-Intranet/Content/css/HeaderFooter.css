@@ -188,17 +188,6 @@ body {
     display: block;
 }
 
-
-/* Main Content Area */
-.main-content {
-    padding: 20px;
-    margin-top: 10px; /* Adjusting content margin to match navbar height */
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-
 /* Footer */
 .footer {
     background: linear-gradient(125deg, #5DADE2, #8bc5b2);

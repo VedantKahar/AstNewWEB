@@ -15,7 +15,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Sr.No.</th> <!-- New column for numbering -->
+                    <th>Sr.No.</th>
                     <th>EmpCode</th>
                     <th>EmpName</th>
                     <th>Designation</th>
@@ -28,8 +28,7 @@
                 @for (int i = 0; i < employees.Count; i++)
                 {
                     <tr>
-                        <!-- Display the row number based on the page number and index -->
-                        <td>@((currentPage - 1) * 15 + i + 1)</td> <!-- Row number -->
+                        <td>@((currentPage - 1) * 15 + i + 1)</td>
                         <td>@employees[i]["EMP_CODE"]</td>
                         <td>@employees[i]["EMP_NAME"]</td>
                         <td>@employees[i]["DESIGNATION"]</td>
@@ -47,12 +46,19 @@
     }
 </div>
 
-
 <!-- Pagination Controls -->
 @if (totalPages > 1)
 {
     <div class="pagination">
-        <span>Showing @((currentPage - 1) * 15 + 1) to @(currentPage * 15) of @((totalPages * 15) - (15 - employees.Count)) entries</span>
+        <span>
+            Showing
+            @((currentPage - 1) * 15 + 1)
+            to
+            @((currentPage * 15 > ViewBag.TotalEmployees) ? ViewBag.TotalEmployees : currentPage * 15)
+            of
+            @ViewBag.TotalEmployees
+            entries
+        </span>
 
         <ul class="pagination-list">
             @if (currentPage > 1)
@@ -74,7 +80,6 @@
         </ul>
     </div>
 }
-
 
 <!-- Add custom styles for pagination -->
 <style>
@@ -105,8 +110,6 @@
     .table {
         border-collapse: separate;
     }
-
- 
 
     .table th {
         background: linear-gradient(225deg, #5DADE2, #8bc5b2);
@@ -172,7 +175,6 @@
         overflow: hidden;
         background-color: white;
         padding: 20px;
-        
     }
 
     .table-wrapper {

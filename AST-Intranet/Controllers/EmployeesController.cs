@@ -51,8 +51,9 @@ namespace AST_Intranet.Controllers
             // Pass data to the view
             ViewBag.DepartmentName = departmentName;
             ViewBag.CurrentPage = page;
-            ViewBag.TotalPages = totalPages;
-
+            ViewBag.TotalPages = totalPages; 
+            ViewBag.TotalEmployees = totalEmployees;
+            
             return View("_EmployeeList", employees);
         }
 

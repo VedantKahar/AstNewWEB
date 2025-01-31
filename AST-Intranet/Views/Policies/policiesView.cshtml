@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "policiesView";
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -13,105 +13,55 @@
     
 </head>
 <body>
-    <div class="sidebar" id="sidebar">
-        <h2>
-            <img src="~/Images/icons/menu.png" alt="Toggle Sidebar" id="toggleSidebar">
-            <span>Advanced Sys-Tek</span>
-        </h2>
-        <hr>
-        <a href="@Url.Action("dashboardView", "Dashboard")">
-            <img src="~/Images/icons/dashboard-icon.png" alt="Dashboard Icon"> <span>Dashboard</span>
-        </a>
-        <a href="@Url.Action("EmployeesView", "Employees")">
-            <img src="~/Images/icons/employees-icon.png" alt="Employees Icon"> <span>Employees</span>
-        </a>
-        <a href="@Url.Action("updatesView", "Updates")">
-            <img src="~/Images/icons/today-icon.png" alt="Updates Icon"> <span>Today's Updates</span>
-        </a>
-        <a href="@Url.Action("TownhallView", "Townhall")">
-            <img src="~/Images/icons/meeting-icon.png" alt="Meeting Icon"> <span>Town Hall</span>
-        </a>
-        <a href="@Url.Action("ResourcesView", "Resources")">
-            <img src="~/Images/icons/resources-icon.png" alt="Resources Icon"> <span>Resources</span>
-        </a>
-        <a href="@Url.Action("manualsView", "Manuals")">
-            <img src="~/Images/icons/manual-icon.png" alt="Manual Icon"> <span>Manuals</span>
-        </a>
-        <a href="@Url.Action("AchievementsView", "Achievements")">
-            <img src="~/Images/icons/achievements-icon.png" alt="Achievements Icon"> <span>Achievements</span>
-        </a>
-        <a href="@Url.Action("policiesView", "Policies")">
-            <img src="~/Images/icons/policies-icon.png" alt="Policies Icon"> <span>Policies</span>
-        </a>
-        <a href="@Url.Action("EventsView", "Events")">
-            <img src="~/Images/icons/events-icon.png" alt="Events Icon"> <span>Events</span>
-        </a>
-        <a href="@Url.Action("LoginView", "Accounts")">
-            <img src="~/Images/icons/logout-icon.png" alt="Log Out Icon"> <span>Log Out</span>
-        </a>
+    
+    <h2>List of Policies</h2>
+
+    <div class="policy">
+        <h3>Inter Department Transfer Policy</h3>
+        <p>This policy outlines the procedures and criteria for transferring employees between departments within the company.</p>
+        <a href="../documents/inter-department-transfer-policy.pdf" target="_blank">Read Document</a>
     </div>
 
-    <div class="main-content">
-        <div class="header">
-            <img src="~/Images/images/AST Logo.png" alt="AST logo">
-            <input type="text" placeholder="Search anything...">
-            <div class="profile-container">
-                <img src="~/Images/images/profile-pic.jfif" alt="Profile Picture" class="profile-img">
-                <span class="user-name">q</span>
-            </div>
-        </div>
-
-        <!-- Policies Section -->
-        <div class="policies-section">
-            <h2>List of Policies</h2>
-
-            <div class="policy">
-                <h3>Inter Department Transfer Policy</h3>
-                <p>This policy outlines the procedures and criteria for transferring employees between departments within the company.</p>
-                <a href="../documents/inter-department-transfer-policy.pdf" target="_blank">Read Document</a>
-            </div>
-
-            <div class="policy">
-                <h3>Employee Referral Policy</h3>
-                <p>This policy encourages employees to refer qualified candidates for open positions and offers rewards for successful referrals.</p>
-                <a href="../documents/employee-referral-policy.pdf" target="_blank">Read Document</a>
-            </div>
-
-            <div class="policy">
-                <h3>Overseas Travel Policy</h3>
-                <p>This policy defines the guidelines and approval process for overseas travel for work purposes.</p>
-                <a href="../documents/overseas-travel-policy.pdf" target="_blank">Read Document</a>
-            </div>
-
-            <div class="policy">
-                <h3>Outstation Travel Policy</h3>
-                <p>This policy sets the rules for employees traveling outstation for business purposes.</p>
-                <a href="../documents/outstation-travel-policy.pdf" target="_blank">Read Document</a>
-            </div>
-
-            <div class="policy">
-                <h3>IT Policy</h3>
-                <p>This policy governs the use of IT resources, including computers, software, and internet access within the organization.</p>
-                <a href="../documents/it-policy.pdf" target="_blank">Read Document</a>
-            </div>
-
-            <div class="policy">
-                <h3>Induct Policy</h3>
-                <p>This policy defines the process and guidelines for inducting new employees into the company.</p>
-                <a href="../documents/induct-policy.pdf" target="_blank">Read Document</a>
-            </div>
-
-            <div class="policy">
-                <h3>Exit Policy</h3>
-                <p>This policy provides the steps and criteria for an employee leaving the company, including resignation and retirement procedures.</p>
-                <a href="../documents/exit-policy.pdf" target="_blank">Read Document</a>
-            </div>
-        </div>
-        <footer class="footer">
-            &copy; 2024 Advanced Sys-Tek Limited | Contact Us | Feedback
-        </footer>
+    <div class="policy">
+        <h3>Employee Referral Policy</h3>
+        <p>This policy encourages employees to refer qualified candidates for open positions and offers rewards for successful referrals.</p>
+        <a href="../documents/employee-referral-policy.pdf" target="_blank">Read Document</a>
     </div>
 
-    <script src="@Url.Content("~/Scripts/script/PoliciesScript.js")"></script>
+    <div class="policy">
+        <h3>Overseas Travel Policy</h3>
+        <p>This policy defines the guidelines and approval process for overseas travel for work purposes.</p>
+        <a href="../documents/overseas-travel-policy.pdf" target="_blank">Read Document</a>
+    </div>
+
+    <div class="policy">
+        <h3>Outstation Travel Policy</h3>
+        <p>This policy sets the rules for employees traveling outstation for business purposes.</p>
+        <a href="../documents/outstation-travel-policy.pdf" target="_blank">Read Document</a>
+    </div>
+
+    <div class="policy">
+        <h3>IT Policy</h3>
+        <p>This policy governs the use of IT resources, including computers, software, and internet access within the organization.</p>
+        <a href="../documents/it-policy.pdf" target="_blank">Read Document</a>
+    </div>
+
+    <div class="policy">
+        <h3>Induct Policy</h3>
+        <p>This policy defines the process and guidelines for inducting new employees into the company.</p>
+        <a href="../documents/induct-policy.pdf" target="_blank">Read Document</a>
+    </div>
+
+    <div class="policy">
+        <h3>Exit Policy</h3>
+        <p>This policy provides the steps and criteria for an employee leaving the company, including resignation and retirement procedures.</p>
+        <a href="../documents/exit-policy.pdf" target="_blank">Read Document</a>
+    </div>
+
+    @*<script src="@Url.Content("~/Scripts/script/PoliciesScript.js")"></script>*@
+    <script>
+        // Get the current year
+        document.getElementById("current-year").textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
