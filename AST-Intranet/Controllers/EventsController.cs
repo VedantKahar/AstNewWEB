@@ -9,7 +9,7 @@ namespace AST_Intranet.Controllers
     public class EventsController : Controller
     {
         // GET: events
-        public ActionResult Index()
+        public ActionResult EventsView()
         {
             return View();
         }

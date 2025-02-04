@@ -12,7 +12,12 @@ body {
     color: #333;
     font-size: 16px;
     line-height: 1.6;
+   
 }
+.main-content {
+    padding: 20px;
+}
+
 /* Top Navigation Bar */
 
 /* Sticky Navbar */

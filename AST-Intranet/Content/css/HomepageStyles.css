@@ -6,12 +6,13 @@
         align-items: center;
         justify-content: space-between;
         background: linear-gradient(225deg, #5DADE2, #8bc5b2); /* Background gradient */
-        padding: 60px 40px;
+        padding: 80px 40px;
         border-radius: 20px;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         position: relative;
         overflow: hidden;
         z-index: 1;
+        margin-bottom:25px;
     }
 
     /* Hero Image Styling */
@@ -63,6 +64,8 @@
         background-color: #16a085;
         transform: translateY(-5px);
     }
+
+
     /* Cards Section */
     .cards-container {
         display: flex;
@@ -79,6 +82,7 @@
         transition: transform 0.3s, box-shadow 0.3s;
         display: flex;
         flex-direction: column;
+        margin-bottom:20px;
     }
 
     /* Card hover effect */
@@ -156,6 +160,7 @@
     .announcements {
         text-align: center; /* Center the text */
         margin-bottom: 20px;
+        margin-top:20px;
         background: linear-gradient(225deg, #5DADE2, #8bc5b2);
         padding: 30px; /* Add padding to create space inside the box */
         border-radius: 20px; /* Rounded corners for the box */
@@ -320,6 +325,7 @@
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         width: 48%;
         transition: transform 0.3s, box-shadow 0.3s;
+        margin-bottom:20px;
     }
 
     .manual-item:hover {

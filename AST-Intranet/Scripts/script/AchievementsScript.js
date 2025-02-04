@@ -1,73 +1,109 @@
-        const toggleSidebar = document.getElementById('toggleSidebar');
-        const sidebar = document.getElementById('sidebar');
+////let currentIndex = 0;  // To track the current achievement displayed
 
-        let isSidebarClicked = false; // Flag to track if sidebar is manually toggled
+////const achievements = document.querySelectorAll('.achievement-content');
+////const sliderContent = document.querySelector('.slider-content');
 
-        // Toggle sidebar open/close on click
-        toggleSidebar.addEventListener('click', function () {
-            isSidebarClicked = !isSidebarClicked; // Toggle state
+////// Show the first achievement initially
+////achievements[currentIndex].style.opacity = 1;
 
-            if (isSidebarClicked) {
-                sidebar.classList.add('open'); // Open the sidebar
-                sidebar.style.width = '250px'; // Explicitly set width when open
-            } else {
-                sidebar.classList.remove('open'); // Close the sidebar
-                sidebar.style.width = '70px'; // Explicitly set width when closed
-            }
+////// Function to move to the next achievement
+////function nextAchievement() {
+////    if (currentIndex < achievements.length - 1) {
+////        currentIndex++;
+////    } else {
+////        currentIndex = 0;  // Loop back to the first achievement
+////    }
+////    updateSlider();
+////}
 
-            // Remove hover event listeners when sidebar is manually toggled
-            sidebar.removeEventListener('mouseenter', hoverOpen);
-            sidebar.removeEventListener('mouseleave', hoverClose);
+////// Function to move to the previous achievement
+////function prevAchievement() {
+////    if (currentIndex > 0) {
+////        currentIndex--;
+////    } else {
+////        currentIndex = achievements.length - 1;  // Loop back to the last achievement
+////    }
+////    updateSlider();
+////}
 
-            // Re-enable hover effect only when sidebar is closed
-            if (!isSidebarClicked) {
-                // Only re-enable hover when sidebar is closed
-                sidebar.addEventListener('mouseenter', hoverOpen);
-                sidebar.addEventListener('mouseleave', hoverClose);
-            }
-        });
+////// Function to update the slider based on the current index
+////function updateSlider() {
+////    // Move the slider content based on the current index
+////    sliderContent.style.transform = `translateX(-${currentIndex * 100}%)`;
+////    // Update opacity for fade-in/out effect
+////    achievements.forEach((achievement, index) => {
+////        achievement.style.opacity = index === currentIndex ? 1 : 0;
+////    });
+////}
 
-        // Hover behavior for opening the sidebar
-        function hoverOpen() {
-            if (!isSidebarClicked) { // Only open on hover if not manually toggled
-                sidebar.classList.add('open');
-                sidebar.style.width = '250px'; // Ensure the sidebar is open on hover
-            }
-        }
+////// Set an interval to change the achievement automatically every 5 seconds
+////setInterval(nextAchievement, 3000);
 
-        // Hover behavior for closing the sidebar
-        function hoverClose() {
-            if (!isSidebarClicked) { // Only close on hover if not manually toggled
-                sidebar.classList.remove('open');
-                sidebar.style.width = '70px'; // Ensure the sidebar is closed on hover
-            }
-        }
+let currentIndex = 0;  // To track the current achievement displayed
 
-        // Initially enable hover effect only when sidebar is closed
-        sidebar.addEventListener('mouseenter', hoverOpen);
-        sidebar.addEventListener('mouseleave', hoverClose);
-        ASTSF- 2625
-        let currentIndex = 0;
-        const achievementContents = document.querySelectorAll('.achievement-content'); // Select all achievement contents
-        const totalAchievements = achievementContents.length;
+const achievements = document.querySelectorAll('.achievement-content');
+const sliderContent = document.querySelector('.slider-content');
 
-        function showAchievement(index) {
-            const slider = document.querySelector('.slider-content');
-            slider.style.transform = `translateX(-${index * 100}%)`; // Slide to the correct achievement
-        }
+// Show the first achievement initially
+achievements[currentIndex].style.opacity = 1;
 
-        function nextAchievement() {
-            currentIndex = (currentIndex + 1) % totalAchievements; // Loop back to the first achievement when at the end
-            showAchievement(currentIndex);
-        }
+// Function to move to the next achievement
+function nextAchievement() {
+    if (currentIndex < achievements.length - 1) {
+        currentIndex++;
+    } else {
+        currentIndex = 0;  // Loop back to the first achievement
+    }
+    updateSlider();
+}
 
-        function prevAchievement() {
-            currentIndex = (currentIndex - 1 + totalAchievements) % totalAchievements; // Loop back to the last achievement when at the beginning
-            showAchievement(currentIndex);
-        }
+// Function to move to the previous achievement
+function prevAchievement() {
+    if (currentIndex > 0) {
+        currentIndex--;
+    } else {
+        currentIndex = achievements.length - 1;  // Loop back to the last achievement
+    }
+    updateSlider();
+}
 
-        // Automatically slide every 5 seconds
-        setInterval(nextAchievement, 3000);
+// Function to update the slider based on the current index
+function updateSlider() {
+    // Move the slider content based on the current index
+    sliderContent.style.transform = `translateX(-${currentIndex * 100}%)`;
+    // Update opacity for fade-in/out effect
+    achievements.forEach((achievement, index) => {
+        achievement.style.opacity = index === currentIndex ? 1 : 0;
+    });
+}
 
-        // Initialize the first achievement
-        showAchievement(currentIndex);
+// Set an interval to change the achievement automatically every 5 seconds
+setInterval(nextAchievement, 5000); // 5000ms = 5 seconds
+
+/*-----------------------------------------------------------------------------*/
+let currentImageIndex = 0;
+
+function changeImages(achievementId) {
+    const images = document.querySelectorAll(`#${achievementId} .slider-image`);
+    images.forEach((img, index) => {
+        img.classList.remove('active');
+    });
+
+    currentImageIndex++;
+    if (currentImageIndex >= images.length) {
+        currentImageIndex = 0;
+    }
+    images[currentImageIndex].classList.add('active');
+}
+
+// Call this function on page load or when you navigate to an achievement
+function startImageSlider() {
+    setInterval(function () {
+        changeImages('achievement1');  // Change to your specific achievement id
+        // You can call the same function for other achievements, e.g. 'achievement2'
+    }, 2000);  // Change image every 2 seconds
+}
+
+window.onload = function () {
+    startImageSlider();
+};

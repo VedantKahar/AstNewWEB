@@ -1,0 +1,33 @@
+﻿<!-- Views/Shared/_Header.cshtml -->
+<div class="top-nav">
+    <div class="left-section">
+        <img style="height:30px; border-radius:5px" src="~/Images/images/ast_logo3.jpg" alt="AST logo" class="ast-logo">
+        <input type="text" placeholder="Search..." class="search-bar">
+    </div>
+    <ul class="nav-links">
+        <li><a href="@Url.Action("dashboardView", "Dashboard")">Dashboard</a></li>
+        <li><a href="@Url.Action("EmployeesView", "Employees")">Employees</a></li>
+        <li><a href="@Url.Action("ResourcesView", "Resources")">Resources</a></li>
+        <li><a href="@Url.Action("TownhallView", "Townhall")">Town Hall</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">
+                Other
+                <img src="~/Images/icons/down-arrow.png" alt="Other" style="width: 20px; height: 20px; margin-right: 8px;">
+            </a>
+            <div class="dropdown-content">
+                <a href="@Url.Action("updatesView", "Updates")">Today's Updates</a>
+                <a href="@Url.Action("manualsView", "Manuals")">Manuals</a>
+                <a href="@Url.Action("AchievementsView", "Achievements")">Achievements</a>
+                <a href="@Url.Action("policiesView", "Policies")">Policies</a>
+                <a href="@Url.Action("EventsView", "Events")">Events</a>
+            </div>
+        </li>
+    </ul>
+
+    <div class="profile-container">
+        <img src="~/Images/images/profile-pic.jfif" alt="Profile Picture" class="profile-img" id="profileIcon">
+        <div class="logout-dropdown" id="logoutDropdown">
+            <a href="@Url.Action("LoginView", "Accounts")">Log Out</a>
+        </div>
+    </div>
+</div>

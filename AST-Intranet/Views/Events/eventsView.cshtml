@@ -1,62 +1,24 @@
-﻿
-@{
-    ViewBag.Title = "eventsView";
+﻿@{
+    ViewBag.Title = "Events View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events</title>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/EventsStyles.css")">
 
-    <link rel="stylesheet" href="@Url.Content("~/Content/css/EventsStyles.css")">
+<!-- FullCalendar CSS -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet">
 
-    <!-- FullCalendar CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet">
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Moment.js -->
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
 
-    <!-- Moment.js -->
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+<!-- FullCalendar JS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.js"></script>
 
-    <!-- FullCalendar JS -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.js"></script>
-
-
-</head>
-<body>
-    <div class="sidebar" id="sidebar">
-        <h2>
-            <img src="../icons/menu.png" alt="Toggle Sidebar" id="toggleSidebar">
-            <span>Advanced Sys-Tek</span>
-        </h2>
-        <hr>
-        <a href="../Homepage/homepage.html"><img src="../icons/dashboard-icon.png" alt="Dashboard Icon"> <span>Dashboard</span></a>
-        <a href="../Employees/employees.html"><img src="../icons/employees-icon.png" alt="Employees Icon"> <span>Employees</span></a>
-        <a href="../Updates/updates.html"><img src="../icons/today-icon.png" alt="Updates Icon"> <span>Today's Updates</span></a>
-        <a href="../Townhall meeting/townhall.html"><img src="../icons/meeting-icon.png" alt="Meeting Icon"> <span> Town Hall</span></a>
-        <a href="../Resources/resources.html"><img src="../icons/resources-icon.png" alt="Resources Icon"> <span> Resources</span></a>
-        <a href="../Manuals/manuals.html"><img src="../icons/manual-icon.png" alt="Manual Icon"> <span> Manuals</span></a>
-        <a href="../Achievements/achievements.html"><img src="../icons/achievements-icon.png" alt="achievements Icon"> <span>Achievements</span></a>
-        <a href="../Policies/policies.html"><img src="../icons/policies-icon.png" alt="policies Icon"> <span>Policies</span></a>
-        <a href="#"><img src="../icons/events-icon.png" alt="Events Icon"> <span>Events</span></a>
-        <a href="../login.html"><img src="../icons/logout-icon.png" alt="Log Out Icon"> <span>Log Out</span></a>
-    </div>
-
-    <div class="main-content">
-        <div class="header">
-            <img src="../images/AST Logo.png" alt="AST logo">
-            <input type="text" placeholder="Search anything...">
-
-            <!-- Profile container -->
-            <div class="profile-container">
-                <img src="../images/profile-pic.jfif" alt="Profile Picture" class="profile-img">
-                <span class="user-name">q</span>
-            </div>
-        </div>
-
+<div class="main-content">
+    <div class="content">
         <div id="calendar"></div>
 
         <!-- Event form with added date, time, and description inputs -->
@@ -87,6 +49,7 @@
                 <button type="button" id="addEventBtn">Add Event</button>
             </form>
         </div>
+
         <!-- Modal to display event details -->
         <div class="event-details-modal" id="event-details-modal">
             <div class="modal-content">
@@ -95,19 +58,10 @@
                 <p><strong>Time:</strong> <span id="event-details-time"></span></p>
                 <p><strong>Description:</strong></p>
                 <p id="event-details-description"></p>
-                <!-- Delete button for event -->
                 <button id="deleteEventBtn" class="btn btn-danger">Delete Event</button>
             </div>
         </div>
     </div>
+</div>
 
-
-    <footer class="footer">
-        &copy; 2025 Advanced Sys-Tek Limited | Contact Us | Feedback
-    </footer>
-
-
-    <script src="@Url.Content("~/Scripts/script/EventsScript.js")"></script>
-    
-</body>
-</html>
+<script src="@Url.Content("~/Scripts/script/EventsScript.js")"></script>

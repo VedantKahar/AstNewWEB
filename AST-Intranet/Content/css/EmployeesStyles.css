@@ -121,20 +121,7 @@ h2 {
     text-transform: uppercase; /* Make the text uppercase for emphasis */
     text-align: center; /* Center-align the heading */
 }
-/*
-h2 {
-    font-size: 2em; /* Larger font size */
-    color: #2c3e50; /* Dark grey color */
-    margin-top: 30px; /* Space above the heading */
-    margin-bottom: 20px; /* Space below the heading */
-    text-align: center; /* Center-align the heading */
-    font-weight: bold; /* Make the font bold */
-    letter-spacing: 1px; /* Slight spacing between letters */
-    text-transform: uppercase; /* Make the text uppercase for emphasis */
-    border-bottom: 2px solid #16a085; /* Add a line under the heading */
-    padding-bottom: 10px; /* Add space below the heading and the line */
-}
-*/
+
 /* Optional: Styling to add a bit of animation */
 h2 {
     transition: all 0.3s ease;
@@ -146,17 +133,18 @@ h2 {
     margin-bottom: 10px; /* Reduced margin */
 }
 
-.employee-count-box div {
-    background-color: #FFF;
-    padding: 15px; /* Reduced padding */
-    border-radius: 8px; /* Slightly smaller border-radius */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Lighter shadow */
-    text-align: center;
-    width:35%; /* Reduced width */
-	height:120px;
-    margin-right: 15px;  Reduced right margin */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .employee-count-box div {
+        background: linear-gradient(135deg, #6C9EBF, #A4D7D1);
+        /*background-color: #FFF;*/
+        padding: 15px; /* Reduced padding */
+        border-radius: 8px; /* Slightly smaller border-radius */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+        text-align: center;
+        width: 35%; /* Reduced width */
+        height: 120px;
+        margin-right: 15px; /* Reduced right margin */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
 .employee-count-box div:last-child {
     margin-right: 0;
@@ -170,13 +158,13 @@ h2 {
 .employee-count-box div h3 {
     margin: 8px 0; /* Reduced margin */
     font-size: 1em; /* Smaller font size */
-    color: #2C3E50;
+    color: #fff; /*#2C3E50;*/
 }
 
 .employee-count-box div p {
     font-size: 1.5em; /* Smaller font size */
     font-weight: bold;
-    color: #16A085;
+    color: #2c3e50;/*#16A085*/
 }
 
 
@@ -188,7 +176,8 @@ h2 {
 }
 
 .department {
-    background-color: #FFF;
+    background: linear-gradient(135deg, #6C9EBF, #A4D7D1);
+    /*background-color: #FFF;*/
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -203,13 +192,13 @@ h2 {
 
 .department h3 {
     margin-bottom: 10px;
-    color: #16A085;
+    color: #fff;/*#16A085*/
     font-size: 1.5em;
 }
 
 .department p {
     font-size: 1em;
-    color: #34495E;
+    color: #fefefa;/*#34495E;*/
     margin-bottom: 15px;
 }
 
@@ -222,4 +211,3 @@ h2 {
 .department a:hover {
     color: #2C3E50;
 }
-

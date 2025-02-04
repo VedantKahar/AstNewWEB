@@ -33,10 +33,11 @@ namespace AST_Intranet
                url: "{controller}/{action}/{id}",
                defaults: new { controller = "accountsController", action = "forgotpasswordView", id = UrlParameter.Optional }
             );
+            /*------------------------------------Views---------------------------------------------------------------*/
             routes.MapRoute(
-                 name: "dashboardRoute",
-                 url: "{ controller}/{action}/{id}",
-                 defaults: new { controller = "Dashboard", action = "DashboardView", id = UrlParameter.Optional }
+                name: "dashboardRoute",
+                url: "{ controller}/{action}/{id}",
+                defaults: new { controller = "Dashboard", action = "DashboardView", id = UrlParameter.Optional }
             );
             routes.MapRoute(
                 name: "EmployeesRoute",
@@ -44,20 +45,32 @@ namespace AST_Intranet
                 defaults: new { controller = "Employees", action = "employeesView", id = UrlParameter.Optional }
             );
             routes.MapRoute(
-               name: "TodayUpdateRoute",
-               url: "{controller}/{action}/{id}",
-               defaults: new { controller = "Updates", action = "UpdatesView", id = UrlParameter.Optional }
+                name: "TodayUpdateRoute",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Updates", action = "UpdatesView", id = UrlParameter.Optional }
             );
             routes.MapRoute(
-              name: "PoliciesRoute",
-              url: "{controller}/{action}/{id}",
-              defaults: new { controller = "Policies", action = "PoliciesView", id = UrlParameter.Optional }
+                name: "PoliciesRoute",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Policies", action = "PoliciesView", id = UrlParameter.Optional }
             );
             routes.MapRoute(
-             name: "ManualsRoute",
-             url: "{controller}/{action}/{id}",
-             defaults: new { controller = "Manuals", action = "ManualsView", id = UrlParameter.Optional }
+                name: "ManualsRoute",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Manuals", action = "ManualsView", id = UrlParameter.Optional }
             );
+            
+            routes.MapRoute(
+                name: "AchievementsRoute",
+                url: "Achievements/{action}/{id}",
+                defaults: new { controller = "Achievements", action = "AchievementsView", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "EventsRoute",
+                url: "Events/{action}/{id}",
+                defaults: new { controller = "Events", action = "EventsView", id = UrlParameter.Optional }
+            );
+           
         }
     }
 }

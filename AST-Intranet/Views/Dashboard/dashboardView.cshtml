@@ -1,24 +1,12 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";  // Make sure the layout is set
 }
 
+<link rel="stylesheet" href="@Url.Content("~/Content/css/HomepageStyles.css")">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
-
-    <!-- Link to the CSS file -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/css/HomepageStyles.css")">
-
-</head>
-<body>
-
-  
-
-    <div class="main-content">
+<div class="main-content">
+    <div class="content">
+        <!-- Hero Section -->
         <div class="hero-section">
             <img src="~/Images/images/AST-building.png" alt="Advance-Systek" />
             <div class="hero-content">
@@ -38,7 +26,9 @@
             </div>
         </div>
 
+        <!-- Other Sections (Like Subsidiaries, Portals, etc.) -->
         <hr>
+
         <h2 class="centered-title">Our Subsidiaries</h2>
         <div class="cards-container">
             <div class="card">
@@ -69,7 +59,6 @@
         </div>
 
         <hr>
-        <!-- Important Announcements Section -->
         <section class="announcements">
             <h3>Important Announcements</h3>
             <ul>
@@ -84,6 +73,8 @@
         <section class="section portal-section">
             <h2>Our Portals</h2>
             <div class="stats">
+                <!-- Portal Links -->
+                @* Example for one portal, repeat for others... *@
                 <div>
                     <a href="your-link-here" target="_blank" class="clickable-box">
                         <span class="portal-name">Eresource</span>
@@ -94,7 +85,8 @@
                         <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
                     </a>
                 </div>
-                <!-- Repeat for other portals... -->
+
+                <!-- Repeat similar blocks for other portals -->
                 <div>
                     <a href="your-link-here" target="_blank" class="clickable-box">
                         <span class="portal-name">Spine HR</span>
@@ -130,11 +122,9 @@
                         <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
                     </a>
                 </div>
-
             </div>
         </section>
 
-        <!-- Orders Overview Section -->
         <hr>
         <section class="section order-section">
             <h2>Orders Overview</h2>
@@ -150,8 +140,8 @@
             </div>
         </section>
 
-        <!-- Manuals Section -->
         <hr>
+
         <section class="manuals">
             <h2>Manuals</h2>
             <div class="manual-list">
@@ -175,6 +165,7 @@
         <section class="section">
             <h2>Events</h2>
             <div class="event-gallery">
+                <!-- Example Event -->
                 <div class="event-item">
                     <a href="https://link-to-event1.com" target="_blank">
                         <img src="https://media.licdn.com/dms/image/v2/D4D22AQGobAIxlOHYKg/feedshare-shrink_800/feedshare-shrink_800/0/1729238416221?e=2147483647&v=beta&t=rlgNJodfrokBuBaLoj-Ghu56o9QtbA2H0zBIQI0fq4Y" alt="Garba">
@@ -184,6 +175,7 @@
                         </p>
                     </a>
                 </div>
+                <!-- Add more event items similarly... -->
                 <div class="event-item">
                     <a href="https://link-to-event2.com" target="_blank">
                         <img src="https://media.licdn.com/dms/image/v2/D4D22AQGeeOIbO_5Cnw/feedshare-shrink_800/feedshare-shrink_800/0/1727068347298?e=2147483647&v=beta&t=lMaagA73msBfbfGEvnKA1IUZbhCkrlUFzlshW1C_RHQ" alt="BVM Industrial Visit">
@@ -203,15 +195,10 @@
             </div>
         </section>
 
-       
-       
-
     </div>
+</div>
 
-        <script>
-            // Get the current year
-            document.getElementById("current-year").textContent = new Date().getFullYear();
-        </script>
-
-</body>
-</html>
+<!-- JavaScript to dynamically update the current year -->
+<script>
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+</script>
