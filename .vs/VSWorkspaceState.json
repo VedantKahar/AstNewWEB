@@ -1,16 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\AST-Intranet",
-    "\\AST-Intranet\\App_Start",
-    "\\AST-Intranet\\Content",
-    "\\AST-Intranet\\Content\\css",
-    "\\AST-Intranet\\Controllers",
-    "\\AST-Intranet\\Views",
-    "\\AST-Intranet\\Views\\Events",
-    "\\AST-Intranet\\Views\\Policies",
-    "\\AST-Intranet\\Views\\Shared"
+    ""
   ],
-  "SelectedNode": "\\AST-Intranet\\Views\\Events\\eventsView.cshtml",
   "PreviewInSolutionExplorer": false
 }

@@ -18,7 +18,7 @@
 
     /* Individual Manual Box */
     .manual-box {
-        background-color: #fff;
+        background:linear-gradient(135deg, #6faedb 10%, #b8e2d3 70%);
         border-radius: 10px;
         padding: 15px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -36,7 +36,7 @@
     .manual-item {
         background-color: #ecf0f1;
         border-radius: 8px;
-        padding: 10px;
+        padding: 05px;
         margin-bottom: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease; /* Added transition for color */
@@ -94,4 +94,3 @@
         text-align: center;
         font-weight: bold;
     }
-

@@ -1,15 +1,11 @@
 .content-container {
     padding: 30px;
-    background-color: #f9f9f9; /* Light background for the content section */
+    background: linear-gradient(135deg, #6faedb 10%, #b8e2d3 100%);
+    /*background-color: #f9f9f9;*/ /* Light background for the content section */
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
 }
 
-.main-container {
-    background-color: #fff; /* Adjusted to a light background */
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
-}
 
 h2 {
     text-align: center; /* Centers the title */

@@ -1,17 +1,45 @@
+    /* Digital Calendar Styling */
+    .digital-calendar {
+        font-size: 2em;
+        font-weight: bold;
+        color: #34495e;
+        padding: 10px 20px;
+       /* margin-top: 20px;*/
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: fit-content;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        transition: all 0.3s ease;
+    }
 
-    /* General Section Styling */
+    .digital-calendar:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Section Styling */
     .section {
-        margin-top: 20px;
-        background-color: #ecf0f1;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        animation: slideUp 0.5s ease-out;
+        margin-top: 30px;
+        background-color: #ffffff; /* White background for sections */
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        animation: slideUp 0.6s ease-out;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+        background: linear-gradient(135deg, #ecf0f1, #ffffff);
+    }
+
+    .section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     }
 
     @keyframes slideUp {
         from {
-            transform: translateY(20px);
+            transform: translateY(30px);
             opacity: 0;
         }
 
@@ -21,24 +49,23 @@
         }
     }
 
-    /* Birthday Section Styling with Gradient */
+    /* Birthday Section Styling */
     .section.birthday {
-        background: linear-gradient(135deg, #f39c12, #f1c40f, #e67e22); /* Gradient from yellow to orange */
+        background: linear-gradient(135deg, #f39c12, #f1c40f, #e67e22);
         color: #fff;
         animation: bounceIn 1s ease-out;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
     }
 
     @keyframes bounceIn {
         0% {
-            transform: scale(0);
+            transform: scale(0.6);
             opacity: 0;
         }
 
         50% {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         100% {
@@ -47,120 +74,166 @@
         }
     }
 
-    /* Birthday Section for comparison (Blue glow) */
     .section.birthday h3 {
-        animation: glow1 1.5s ease-in-out infinite; /* Blue glow effect for h3 */
-        font-size: 1.5em;
-        margin-bottom: 10px;
+        animation: glow1 1.5s ease-in-out infinite;
+        font-size: 2em;
+        font-weight: bold;
+        margin-bottom: 15px;
         color: #fff;
+        letter-spacing: 1px;
     }
 
-    /* Subtle glowing effect for the list items */
     @keyframes glow1 {
         0% {
-            text-shadow: 0 0 5px #16a085, 0 0 10px #16a085; /* Blue glow */
+            text-shadow: 0 0 5px #16a085, 0 0 10px #16a085;
         }
 
         50% {
-            text-shadow: 0 0 20px #16a085, 0 0 30px #16a085; /* Stronger blue glow */
+            text-shadow: 0 0 20px #16a085, 0 0 30px #16a085;
         }
 
         100% {
-            text-shadow: 0 0 5px #16a085, 0 0 10px #16a085; /* Faint blue glow */
+            text-shadow: 0 0 5px #16a085, 0 0 10px #16a085;
         }
     }
 
+    /* Anniversary Section Styling */
     .section.anniversary {
-        background: linear-gradient(135deg, #2980b9, #1abc9c); /* Elegant gradient background */
+        background: linear-gradient(135deg, #2980b9, #1abc9c);
         color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        transition: all 0.3s ease;
+        padding: 30px;
+        text-align: center;
     }
+
     .section.anniversary h3 {
         animation: glow2 1.5s ease-in-out infinite;
-        font-size: 1.5em;
-        margin-bottom: 10px;
-        color: #fff;
+        font-size: 2em;
+        margin-bottom: 15px;
         font-weight: bold;
+        color: #fff;
         letter-spacing: 1px;
-        
     }
-   
+
     @keyframes glow2 {
         0% {
-            text-shadow: 0 0 5px #f39c12, 0 0 10px #f39c12, 0 0 20px #f39c12; /* Golden glow */
+            text-shadow: 0 0 10px #f39c12, 0 0 15px #f39c12, 0 0 20px #f39c12;
         }
 
         50% {
-            text-shadow: 0 0 20px #f39c12, 0 0 30px #f39c12, 0 0 40px #f39c12; /* Stronger golden glow */
+            text-shadow: 0 0 30px #f39c12, 0 0 40px #f39c12, 0 0 50px #f39c12;
         }
 
         100% {
-            text-shadow: 0 0 5px #f39c12, 0 0 10px #f39c12, 0 0 20px #f39c12; /* Faint golden glow */
+            text-shadow: 0 0 10px #f39c12, 0 0 15px #f39c12, 0 0 20px #f39c12;
         }
     }
-    /* Unified Birthday & Work Anniversary List Items Styling */
-    /*.section.birthday ul li,
-    .section.anniversary ul li {
-        color: white;*/ /* Gradient effect on text */
-        /*font-weight: bold;
-        font-size: 1.1em;
-        padding: 12px 12px 12px 0;*/ /* Remove left padding to eliminate spacing */
-        /*transition: background-color 0.3s ease, transform 0.3s ease;*/ /* Smooth transition for background and transform */
-        /*position: relative;
-        background: linear-gradient(90deg, #f39c12, #e67e22, #f39c12);
-        background-size: 200% 100%;
-        -webkit-background-clip: text;*/ /* Gradient effect on the text */
-        /*background-clip: text;*/ /* Ensure the background is clipped to the text */
-        /*box-sizing: border-box;*/ /* Ensures padding is included in element width */
-        /*border-radius: 8px;*/ /* Rounded corners for a smoother look */
-        /*list-style-position: inside;*/ /* Ensures the bullet is inside the padding, closer to the text */
-        /*margin-left: -5px;*/ /* Adjust margin to bring the bullet closer */
-    /*}*/
 
-    /* Hover effect for both Birthday & Anniversary List Items */
-    /*.section.birthday ul li:hover,
-    .section.anniversary ul li:hover {
-        background-color: #e67e22;*/ /* Change to the hover color */
-        /*color: white;*/ /* Ensure text remains white on hover */
-        /*transform: scale(1.05);*/ /* Slight zoom effect on hover */
-    /*}*/
+    /* Style for List Items inside Sections */
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
 
-    /* Optional: Smooth transition for background on hover */
-    /*.section.birthday ul li,
-    .section.anniversary ul li {
-        transition: background-color 0.3s ease;*/ /* Transition for smooth background change */
-    /*}*/
-
-    /* Optional: Shimmer effect (keep it for the shimmering animation) */
-    /*@keyframes shimmer {
-        0% {
-            background-position: -500px 0;
+        ul li {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #fff;
+            padding-left: 20px;
         }
 
-        100% {
-            background-position: 500px 0;
-        }
-    }*/
+    /* Notifications Section Styling */
+    .section.notifications {
+        background: linear-gradient(135deg, #2980b9, #6dd5fa); /* Blue gradient */
+        color: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
 
-    /* Work Anniversary Section Styling */
-
-   
-
-    /* Digital Calendar Styling */
-    .digital-calendar {
-        font-size: 2em; /* Increase font size for a larger calendar */
+    .section.notifications h3 {
+        font-size: 1.8em;
         font-weight: bold;
-        color: #34495e;
-        padding: 15px 30px; /* Add more padding to make it visually bigger */
-        margin-top: 20px;
-        background-color: #fff;
+        margin-bottom: 20px;
+        color: #fff;
+        letter-spacing: 1px;
+    }
+
+    /* Style for notifications list */
+    .notifications-list {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .notification-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        width: fit-content;
-        text-align: center; /* Center text inside the element */
-        margin-left: auto;
-        margin-right: auto; /* Center the calendar horizontally */
+        margin-bottom: 15px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    .notification-item:hover {
+        background-color: #ecf0f1;
+    }
+
+    .notification-icon {
+        font-size: 1.5em;
+        margin-right: 15px;
+        color: #2980b9;
+    }
+
+    .notification-item span {
+        font-size: 1.2em;
+        color: #34495e;
+    }
+
+    /* Icons (Font Awesome) styling */
+    .fas {
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .section.notifications {
+            padding: 20px;
+        }
+
+        .notification-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .notification-icon {
+            margin-bottom: 10px;
+        }
+    }
+
+
+    /* Quote Section Styling */
+    #quote {
+        font-size: 1.4em;
+        color: #34495e;
+        font-style: italic;
+        text-align: center;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .section {
+            padding: 15px;
+        }
+
+        .section.birthday, .section.anniversary {
+            padding: 20px;
+        }
+
+        .digital-calendar {
+            font-size: 1.8em;
+            padding: 15px 25px;
+        }
     }

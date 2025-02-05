@@ -1,6 +1,6 @@
-
-        // Get the current year
+// Get the current year
 document.getElementById("current-year").textContent = new Date().getFullYear
+
 // Random color generator for chart lines
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
