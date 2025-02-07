@@ -254,7 +254,7 @@ namespace AST_Intranet.Models.Database
             return employeesByYear;
         }
         */
-        
+
         // Method to fetch employees per department per year with year range
         public static List<Dictionary<string, object>> GetEmployeesByDepartmentPerYear(int startYear, int endYear)
         {
@@ -267,14 +267,14 @@ namespace AST_Intranet.Models.Database
                 {
                     connection.Open();
                     string query = @"
-                    SELECT EXTRACT(YEAR FROM join_date) AS year, 
-                    department, 
-                    COUNT(*) AS employee_count
-                    FROM cim_emp_master_list
-                    WHERE STATUS = 'Active'
-                    AND EXTRACT(YEAR FROM join_date) BETWEEN :startYear AND :endYear
-                    GROUP BY EXTRACT(YEAR FROM join_date), department
-                    ORDER BY year, department";
+                         SELECT EXTRACT(YEAR FROM doj) AS year, 
+                         department, 
+                         COUNT(*) AS employee_count
+                         FROM cim_emp_master_list
+                         WHERE status = 'Active'
+                         AND EXTRACT(YEAR FROM doj) BETWEEN :startYear AND :endYear
+                         GROUP BY EXTRACT(YEAR FROM doj), department
+                         ORDER BY year, department";
 
                     using (OracleCommand command = new OracleCommand(query, connection))
                     {
@@ -305,9 +305,7 @@ namespace AST_Intranet.Models.Database
             {
                 Console.WriteLine($"Error fetching department employee data: {ex.Message}");
             }
-
             return employeesByDeptYear;
         }
-
     }
 }

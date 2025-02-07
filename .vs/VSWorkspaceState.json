@@ -1,6 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\AST-Intranet",
+    "\\AST-Intranet\\Content",
+    "\\AST-Intranet\\Controllers",
+    "\\AST-Intranet\\Models",
+    "\\AST-Intranet\\Models\\Database",
+    "\\AST-Intranet\\Scripts",
+    "\\AST-Intranet\\Scripts\\script",
+    "\\AST-Intranet\\Views",
+    "\\AST-Intranet\\Views\\accounts"
   ],
+  "SelectedNode": "\\AST-Intranet\\Models\\Database\\EmployeeDBConnector.cs",
   "PreviewInSolutionExplorer": false
 }

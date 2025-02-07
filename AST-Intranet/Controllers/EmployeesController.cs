@@ -57,20 +57,48 @@ namespace AST_Intranet.Controllers
             return View("_EmployeeList", employees);
         }
 
-        // Fetch data for male/female employees per year
+        public JsonResult GetYearRange()
+        {
+            List<int> years = new List<int>();
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["OracleDbConnection"].ConnectionString;
 
-        //public JsonResult GetMaleFemaleEmployeesByYear()
-        //{
-        //    var maleFemaleData = EmployeeDBConnector.GetMaleFemaleEmployeesByYear();
-        //    return Json(maleFemaleData, JsonRequestBehavior.AllowGet);
-        //}
+                using (OracleConnection connection = new OracleConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                SELECT DISTINCT EXTRACT(YEAR FROM doj) AS year
+                FROM cim_emp_master_list
+                WHERE status = 'Active'
+                ORDER BY year";
 
-        // Fetch data for employees per department per year with year range
+                    using (OracleCommand command = new OracleCommand(query, connection))
+                    {
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                years.Add(reader.GetInt32(reader.GetOrdinal("year")));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching year range: {ex.Message}");
+            }
+
+            // Return the earliest and latest year from the data
+            return Json(new { earliestYear = years.FirstOrDefault(), latestYear = years.LastOrDefault() }, JsonRequestBehavior.AllowGet);
+        }
+
+
         public JsonResult GetEmployeesByDepartmentPerYear(int startYear, int endYear)
         {
             var departmentData = EmployeeDBConnector.GetEmployeesByDepartmentPerYear(startYear, endYear);
             return Json(departmentData, JsonRequestBehavior.AllowGet);
         }
-        
     }
 }

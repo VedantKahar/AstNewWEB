@@ -1,16 +1,3 @@
-// Get the current year
-document.getElementById("current-year").textContent = new Date().getFullYear
-
-// Random color generator for chart lines
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
 // Create the chart with dynamic data
 let currentChart = null;
 const ctx = document.getElementById('employeeChart').getContext('2d'); // Assuming you have a canvas with id 'employeeChart'
@@ -38,41 +25,12 @@ function fetchDepartmentData(startYear, endYear) {
         });
 }
 
-// Fetch Male/Female Employee data from the server
-function fetchMaleFemaleData(startYear, endYear) {
-    return fetch(`/Employees/GetMaleFemaleEmployeesByYear?startYear=${startYear}&endYear=${endYear}`)
-        .then(response => response.json())
-        .then(data => {
-            return {
-                labels: data.map(item => item.year), // Extract years
-                datasets: [
-                    {
-                        label: 'Male Employees',
-                        data: data.map(item => item.male_count), // Extract male counts
-                        borderColor: '#4CAF50',
-                        backgroundColor: '#4CAF50',
-                        fill: false,
-                        tension: 0.1,
-                    },
-                    {
-                        label: 'Female Employees',
-                        data: data.map(item => item.female_count), // Extract female counts
-                        borderColor: '#FF4081',
-                        backgroundColor: '#FF4081',
-                        fill: false,
-                        tension: 0.1,
-                    },
-                ],
-            };
-        });
-}
-
 // Fetch year range dynamically from the backend
 function fetchYearRange() {
-    fetch('/YourController/GetYearRange')  // Adjust the URL to your actual endpoint
+    fetch('/Employees/GetYearRange')  // Adjust the URL to your actual endpoint
         .then(response => response.json())
         .then(data => {
-            const [earliestYear, latestYear] = data;
+            const { earliestYear, latestYear } = data;
 
             const startYearSelect = document.getElementById('startYear');
             const endYearSelect = document.getElementById('endYear');
@@ -104,9 +62,6 @@ function fetchYearRange() {
         .catch(error => console.error('Error fetching year range:', error));
 }
 
-// Initial chart load and year range fetch
-fetchYearRange();
-
 // Create the chart with dynamic data
 function createChart(data) {
     if (currentChart) {
@@ -114,7 +69,7 @@ function createChart(data) {
     }
 
     currentChart = new Chart(ctx, {
-        type: 'line', // Can change to 'bar' or other chart types if needed
+        type: 'line', // Line chart for employees per department
         data: data,
         options: {
             responsive: true,
@@ -158,4 +113,4 @@ document.getElementById('startYear').addEventListener('change', updateChart);
 document.getElementById('endYear').addEventListener('change', updateChart);
 
 // Initial chart load (on page load or when the page is ready)
-updateChart();
+fetchYearRange(); // Ensure to fetch year range on page load
