@@ -7,9 +7,10 @@ function fetchDepartmentData(startYear, endYear) {
     return fetch(`/Employees/GetEmployeesByDepartmentPerYear?startYear=${startYear}&endYear=${endYear}`)
         .then(response => response.json())
         .then(data => {
-            const departments = Array.from(new Set(data.map(item => item.department))); // Get unique departments
+            console.log(data); // Debug log to inspect the response
+            const departments = Array.from(new Set(data.map(item => item.department)));
             const departmentData = {
-                labels: data.map(item => item.year), // Extract years
+                labels: data.map(item => item.year),
                 datasets: departments.map(department => {
                     return {
                         label: department,
@@ -24,6 +25,7 @@ function fetchDepartmentData(startYear, endYear) {
             return departmentData;
         });
 }
+
 
 // Fetch year range dynamically from the backend
 function fetchYearRange() {
@@ -102,15 +104,18 @@ function updateChart() {
     const startYear = parseInt(document.getElementById('startYear').value);
     const endYear = parseInt(document.getElementById('endYear').value);
 
+    // Check the graph type, in case you want to add other types (e.g., Gender distribution).
     if (selectedGraphType === 'department') {
         fetchDepartmentData(startYear, endYear).then(data => createChart(data));
     }
 }
 
+
 // Listen for changes in the dropdown and update the chart accordingly
 document.getElementById('graphType').addEventListener('change', updateChart);
 document.getElementById('startYear').addEventListener('change', updateChart);
 document.getElementById('endYear').addEventListener('change', updateChart);
+
 
 // Initial chart load (on page load or when the page is ready)
 fetchYearRange(); // Ensure to fetch year range on page load

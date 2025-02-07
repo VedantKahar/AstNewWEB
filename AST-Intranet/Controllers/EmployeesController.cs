@@ -12,7 +12,7 @@ namespace AST_Intranet.Controllers
     public class EmployeesController : Controller
     {
         // GET: employeesView
-        public ActionResult employeesView()
+        public ActionResult EmployeesView()
         {
             // Fetch data from the database
             int totalEmployees = EmployeeDBConnector.GetTotalEmployees();

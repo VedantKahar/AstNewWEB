@@ -62,15 +62,21 @@ namespace AST_Intranet
             
             routes.MapRoute(
                 name: "AchievementsRoute",
-                url: "Achievements/{action}/{id}",
+                url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Achievements", action = "AchievementsView", id = UrlParameter.Optional }
             );
             routes.MapRoute(
                 name: "EventsRoute",
-                url: "Events/{action}/{id}",
+                url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Events", action = "EventsView", id = UrlParameter.Optional }
             );
-           
+
+            routes.MapRoute(
+                name: "ResourcesRoute",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Resources", action = "blue eyes", id = UrlParameter.Optional }
+            );
+
         }
     }
 }
