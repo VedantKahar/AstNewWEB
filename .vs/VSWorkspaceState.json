@@ -3,14 +3,13 @@
     "",
     "\\AST-Intranet",
     "\\AST-Intranet\\Content",
+    "\\AST-Intranet\\Content\\css",
     "\\AST-Intranet\\Controllers",
-    "\\AST-Intranet\\Models",
-    "\\AST-Intranet\\Models\\Database",
-    "\\AST-Intranet\\Scripts",
-    "\\AST-Intranet\\Scripts\\script",
     "\\AST-Intranet\\Views",
-    "\\AST-Intranet\\Views\\accounts"
+    "\\AST-Intranet\\Views\\Manuals",
+    "\\AST-Intranet\\Views\\Policies",
+    "\\AST-Intranet\\Views\\Resources"
   ],
-  "SelectedNode": "\\AST-Intranet\\Models\\Database\\EmployeeDBConnector.cs",
+  "SelectedNode": "\\AST-Intranet.sln",
   "PreviewInSolutionExplorer": false
 }

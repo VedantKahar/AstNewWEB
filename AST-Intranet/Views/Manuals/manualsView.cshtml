@@ -11,17 +11,11 @@
     var othersFiles = ViewBag.OthersManuals as List<string>;
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manuals</title>
+
 
     <link rel="stylesheet" href="@Url.Content("~/Content/css/ManualsStyles.css")">
 
-</head>
-<body>
+
     <div class="main-content">
         
         <div class="manual-category-container">
@@ -34,7 +28,7 @@
                         foreach (var file in cimFiles)
                         {
                             <div class="manual-item">
-                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "Vedant Intern", fileName = file })" target="_blank">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "CIM", fileName = file })" target="_blank">
                                     <span>@file</span>
                                 </a>
                             </div>
@@ -57,7 +51,7 @@
                         foreach (var file in crrFiles)
                         {
                             <div class="manual-item">
-                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "CRR", fileName = file })" target="_blank">
                                     <span>@file</span>
                                 </a>
                             </div>
@@ -80,7 +74,7 @@
                         foreach (var file in crrFiles)
                         {
                             <div class="manual-item">
-                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "EResources", fileName = file })" target="_blank">
                                     <span>@file</span>
                                 </a>
                             </div>
@@ -103,7 +97,7 @@
                         foreach (var file in spineHRExpenseFiles)
                         {
                             <div class="manual-item">
-                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "SpineHr/SpineHR-Expense", fileName = file })" target="_blank">
                                     <span>@file</span>
                                 </a>
                             </div>
@@ -126,7 +120,7 @@
                         foreach (var file in spineHRTimesheetFiles)
                         {
                             <div class="manual-item">
-                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "SpineHr/SpineHR-Timesheet", fileName = file })" target="_blank">
                                     <span>@file</span>
                                 </a>
                             </div>
@@ -148,7 +142,7 @@
                         foreach (var file in spineHRPayrollFiles)
                         {
                             <div class="manual-item">
-                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "SpineHr/SpineHR-payroll", fileName = file })" target="_blank">
                                     <span>@file</span>
                                 </a>
                             </div>
@@ -170,7 +164,7 @@
                         foreach (var file in productManualsFiles)
                         {
                             <div class="manual-item">
-                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "products", fileName = file })" target="_blank">
                                     <span>@file</span>
                                 </a>
                             </div>
@@ -192,7 +186,7 @@
                         foreach (var file in othersFiles)
                         {
                             <div class="manual-item">
-                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "3D PDF", fileName = file })" target="_blank">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "Others", fileName = file })" target="_blank">
                                     <span>@file</span>
                                 </a>
                             </div>
@@ -214,5 +208,3 @@
             // Get the current year
             document.getElementById("current-year").textContent = new Date().getFullYear();
         </script>
-</body>
-</html>

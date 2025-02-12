@@ -8,19 +8,20 @@ namespace AST_Intranet.Controllers
     public class ManualsController : Controller
     {
         // Path to the network shared folder
-        private string baseFolderPath = @"\\astns\General\";
+        private string baseFolderPath = @"\\astns\General\INTRANET\Manuals";
+       
 
         // GET: Manuals
         public ActionResult ManualsView()
         {
             // Fetch files from various network locations
-            var cimFiles = GetFilesFromFolder("Vedant Intern");
-            var crrFiles = GetFilesFromFolder("3D PDF");
-            var eResourceFiles = GetFilesFromFolder("E Resource");
-            var spineHRExpenseFiles = GetFilesFromFolder("Spine HR - Expense");
-            var spineHRTimesheetFiles = GetFilesFromFolder("Spine HR - Timesheet");
-            var spineHRPayrollFiles = GetFilesFromFolder("Spine HR - Payroll");
-            var productManualsFiles = GetFilesFromFolder("Product manuals");
+            var cimFiles = GetFilesFromFolder("CIM");
+            var crrFiles = GetFilesFromFolder("CRR");
+            var eResourceFiles = GetFilesFromFolder("EResources");
+            var spineHRExpenseFiles = GetFilesFromFolder("SpineHR/SpineHR-Expense");
+            var spineHRTimesheetFiles = GetFilesFromFolder("SpineHR/SpineHR-Timesheet");
+            var spineHRPayrollFiles = GetFilesFromFolder("SpineHR/SpineHR-Payroll");
+            var productManualsFiles = GetFilesFromFolder("Products");
             var othersFiles = GetFilesFromFolder("Others");
 
             // Use ViewBag to pass data to the view

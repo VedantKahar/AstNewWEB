@@ -1,0 +1,195 @@
+﻿    .resources-section {
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        margin-top: 40px;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .resources-section h2 {
+        font-size: 2.5rem;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    .resources-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: #3498db;
+    }
+
+    .resource-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #ecf0f1;
+        padding: 25px;
+        margin-bottom: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+
+    .resource-item:hover {
+        transform: translateY(-8px);
+        background-color: #e1e8ed;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .resource-header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .resource-item a {
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    /*i want to change hr which is below header*/
+    /*.resource-item hr{
+        color:aquamarine;
+        size:32px;
+    }*/
+
+    .resource-item p {
+        font-size: 1rem;
+        color: #7f8c8d;
+    }
+
+    .resource-content {
+        margin-top: 20px;
+        max-height: 0;
+        width:100%;
+        overflow: hidden;
+        padding-top: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-top: 2px solid #bdc3c7;
+        transition: max-height 0.3s ease-out;
+        background: white;
+        overflow-y: auto;
+    }
+
+    .resource-content h4 {
+        font-size: 1.2rem;
+        color: #34495e;
+        margin-bottom: 10px;
+    }
+
+    .resource-content hr {
+        margin: 10px 0;
+        border: 0;
+        height: 1px;
+        background-color: #bdc3c7;
+    }
+
+    .resource-content .preview {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .image-files, .video-files, .other-files {
+        margin-top: 20px;
+    }
+
+    .image-file img,
+    .video-file video {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .file-type {
+        font-size: 0.9em;
+        color: #2980b9;
+    }
+
+    .file-type a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .file-type a:hover {
+        text-decoration: underline;
+    }
+
+    .resource-item.open .resource-content {
+        max-height: 200px;
+    }
+
+.resource-item.open {
+    background-color: #e0e0e0;
+    max-height: 500px;
+}
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .media-grid {
+            grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .media-grid {
+            grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+        }
+
+        .resource-item img {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .media-grid {
+            grid-template-columns: 1fr; /* 1 item per row */
+        }
+
+        .resource-item {
+            padding: 15px;
+        }
+
+        .resource-section h4 {
+            font-size: 1.4rem;
+        }
+
+        .resource-item a {
+            font-size: 1.05rem;
+        }
+
+        .resource-item img {
+            width: 35px;
+            height: 35px;
+        }
+    }

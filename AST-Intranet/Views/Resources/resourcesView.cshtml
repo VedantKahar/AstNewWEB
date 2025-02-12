@@ -1,153 +1,168 @@
-﻿@{
-    ViewBag.Title = "ResourcesViewhove";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model List<AST_Intranet.Models.Resource>
+@using System.Text;
 
-<style>
-    .resource-item {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        background-color: #ecf0f1;
-        padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s ease;
-        cursor: pointer;
-    }
+<link rel="stylesheet" href="@Url.Content("~/Content/css/ResourcesStyle.css")">
 
-        .resource-item:hover {
-            background-color: #bdc3c7;
-        }
-
-        .resource-item img {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
-        }
-
-        .resource-item a {
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: bold;
-        }
-
-        .resource-item p {
-            font-size: 1em;
-            color: #7f8c8d;
-        }
-
-    .resource-content {
-        margin-top: 10px;
-        display: none;
-        padding-top: 10px;
-        border-top: 1px solid #bdc3c7;
-    }
-
-        /* File Type Icons */
-        .resource-content .file-type {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-            .resource-content .file-type img {
-                width: 30px;
-                height: 30px;
-                margin-right: 10px;
-            }
-
-        /* For previews (Images, PDFs, PPTs, etc.) */
-        .resource-content .preview {
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-            .resource-content .preview img {
-                max-width: 100%;
-                max-height: 200px;
-                margin-bottom: 10px;
-            }
-
-        /* PDF icon and link */
-        .resource-content .file-link {
-            display: inline-block;
-            text-decoration: none;
-            color: #2980b9;
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-
-        /* Download link style */
-        .resource-content .download-link {
-            text-decoration: none;
-            color: #27ae60;
-            font-weight: bold;
-        }
-
-    .resource-item.open .resource-content {
-        display: block;
-    }
-</style>
 
 <div class="main-content">
     <div class="content">
-
         <div class="resources-section">
             <h2>Company Resources</h2>
 
-            <!-- Resource 1: Logos -->
-            <div class="resource-item" id="resource-logos" onclick="toggleResource(this)">
-                <div>
-                    <a href="javascript:void(0);" class="resource-title">Company Logos</a>
-                    <p>Click to view all available logos.</p>
-                </div>
-                <div class="resource-content">
-                    <!-- Preview for image files -->
-                    <div class="preview">
-                        <img src="https://th.bing.com/th/id/R.6afc61b50aabe45a2e6c68eae2c217ba?rik=L2W0YWncfjZBVA&riu=http%3a%2f%2fwww.shutterstock.com%2fblog%2fwp-content%2fuploads%2fsites%2f5%2f2016%2f03%2ffall-trees-road-1.jpg&ehk=KA%2bzFrmYoWsdK4k7v%2fgfNkd1T2rdnNtpF5ICdLIxAeM%3d&risl=&pid=ImgRaw&r=0g" alt="Logo 1">
-                        <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="Logo 2">
-                        <img src="https://windows10spotlight.com/wp-content/uploads/2023/01/81a6e74c8adbf7f55406e8c4b80669d5.jpg" alt="Logo 3">
+            <!-- Loop through each resource -->
+            @foreach (var resource in Model)
+            {
+                <div class="resource-item" onclick="toggleResource(this)">
+                    <div class="resource-header">
+                        <a href="javascript:void(0);" class="resource-title">@resource.Name</a>
+                        <p class="resource-description">Click to view all available @resource.Name</p>
                     </div>
-                    <!-- You can add other file types as needed below -->
-                    <!-- File Type Icon Example (PDF) -->
-                    <div class="file-type">
-                        <img src="https://static.vecteezy.com/system/resources/previews/017/197/488/non_2x/pdf-icon-on-transparent-background-free-png.png" alt="PDF Icon">
-                        <a href="javascript:void(0);" class="file-link">Company PDF Resources</a>
-                    </div>
-                    <div class="file-link">
-                        <a href="/path/to/your/file.pdf" class="download-link" download>Download PDF</a>
-                    </div>
-
-                    <!-- PPT Example (File type with a preview thumbnail) -->
-                    <div class="file-type">
-                        @*<img src="https://icon-library.com/images/ppt-icon-png/ppt-icon-png-18.jpg" alt="PPT Icon">*@
-                        <a href="javascript:void(0);" class="file-link">PowerPoint Presentation</a>
-                    </div>
-                    <div class="preview">
-                        @*<img src="https://example.com/thumbnail-of-presentation.jpg" alt="PPT Preview">*@
-                    </div>
-                    <div class="file-link">
-                        <a href="/path/to/your/presentation.pptx" class="download-link" download>Download PPT</a>
+                    <div class="resource-content">
+                        @* Call the recursive function to render subfolders only if they contain files *@
+                        @RenderFoldersAndFiles(resource.SubCategories, resource.Name)
                     </div>
                 </div>
-            </div>
-
-            <!-- Other resources will follow the same structure -->
+            }
         </div>
     </div>
 </div>
 
+@functions {
+    // Recursive function to display folders and files if the folder contains any files
+    public IHtmlString RenderFoldersAndFiles(List<AST_Intranet.Models.Subcategory> subCategories, string parentFolder)
+    {
+        StringBuilder html = new StringBuilder();
+
+        foreach (var subcategory in subCategories)
+        {
+            // Check if the subcategory contains files
+            if (subcategory.Files != null && subcategory.Files.Any())
+            {
+                html.Append("<div class='resource-section'>");
+                html.Append("<h4>" + subcategory.Name + "</h4>");
+                html.Append("<hr>");
+
+                // Loop through the files and display them
+                html.Append("<div class='media-grid'>");
+
+                // Image Files
+                html.Append("<div class='image-files'>");
+                foreach (var file in subcategory.Files.Where(f => f.EndsWith(".jpg") || f.EndsWith(".jpeg") || f.EndsWith(".png") || f.EndsWith(".gif")))
+                {
+                    var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = parentFolder + "/" + subcategory.Name, fileName = file });
+                    html.Append("<div class='image-file'>");
+                    html.Append("<a href='" + fileUrl + "' target='_blank'>");
+                    html.Append("<img src='" + fileUrl + "' alt='" + file + "' />");
+                    html.Append("</a></div>");
+                }
+                html.Append("</div>");
+
+                // Video Files
+                html.Append("<div class='video-files'>");
+                foreach (var file in subcategory.Files.Where(f => f.EndsWith(".mp4") || f.EndsWith(".avi") || f.EndsWith(".mov")))
+                {
+                    var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = parentFolder + "/" + subcategory.Name, fileName = file });
+                    html.Append("<div class='video-file'>");
+                    html.Append("<video controls>");
+                    html.Append("<source src='" + fileUrl + "' type='video/mp4' />");
+                    html.Append("Your browser does not support the video tag.</video>");
+                    html.Append("</div>");
+                }
+                html.Append("</div>");
+
+                // Other Files
+                html.Append("<div class='other-files'>");
+                foreach (var file in subcategory.Files.Where(f => !f.EndsWith(".jpg") && !f.EndsWith(".jpeg") && !f.EndsWith(".png") && !f.EndsWith(".gif") && !f.EndsWith(".mp4") && !f.EndsWith(".avi") && !f.EndsWith(".mov")))
+                {
+                    var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = parentFolder + "/" + subcategory.Name, fileName = file });
+                    html.Append("<div class='file-type'>");
+                    html.Append("<a href='" + fileUrl + "' target='_blank'>");
+                    html.Append(file);
+                    html.Append("</a></div>");
+                }
+                html.Append("</div>");
+
+                html.Append("</div></div>");
+            }
+
+            // Check for subfolders (subcategories) and recursively render them
+            if (subcategory.SubCategories != null && subcategory.SubCategories.Any())
+            {
+                html.Append(RenderFoldersAndFiles(subcategory.SubCategories, parentFolder + "/" + subcategory.Name));
+            }
+        }
+
+        return new HtmlString(html.ToString());
+    }
+}
+
+
 <script>
     function toggleResource(item) {
-        // Toggle the 'open' class to show or hide the content
-        item.classList.toggle('open');
+        const allResources = document.querySelectorAll('.resource-item');
+
+        // Close all other resource items
+        allResources.forEach(resource => {
+            if (resource !== item) {
+                resource.classList.remove('open');
+                resource.querySelector('.resource-content').style.maxHeight = null;
+                resource.querySelector('.resource-description').style.display = 'block'; // Show description again
+            }
+        });
+
+        // Toggle the clicked resource item
         const content = item.querySelector('.resource-content');
-        if (content.style.display === "block") {
-            content.style.display = "none";
+        const description = item.querySelector('.resource-description');
+
+        if (item.classList.contains('open')) {
+            item.classList.remove('open');
+            content.style.maxHeight = null;
+            description.style.display = 'block'; // Show description again when closing
         } else {
-            content.style.display = "block";
+            item.classList.add('open');
+            content.style.maxHeight = content.scrollHeight + "px"; // Animate opening
+            description.style.display = 'none'; // Hide description when opening
         }
     }
+
+
+    //function toggleResource(item, event) {
+    //    // Prevent the event from propagating if the click is inside the resource-content or resource-description
+    //    if (event.target.closest('.resource-content') || event.target.closest('.resource-description')) {
+    //        return; // Don't do anything if the click is inside the content or description
+    //    }
+
+    //    const allResources = document.querySelectorAll('.resource-item');
+
+    //    // Close all other resource items
+    //    allResources.forEach(resource => {
+    //        if (resource !== item) {
+    //            resource.classList.remove('open');
+    //            resource.querySelector('.resource-content').style.maxHeight = null;
+    //            resource.querySelector('.resource-description').style.display = 'block'; // Show description again
+    //        }
+    //    });
+
+    //    // Toggle the clicked resource item
+    //    const content = item.querySelector('.resource-content');
+    //    const description = item.querySelector('.resource-description');
+
+    //    if (item.classList.contains('open')) {
+    //        item.classList.remove('open');
+    //        content.style.maxHeight = null;
+    //        description.style.display = 'block'; // Show description again when closing
+    //    } else {
+    //        item.classList.add('open');
+    //        content.style.maxHeight = content.scrollHeight + "px"; // Animate opening
+    //        description.style.display = 'none'; // Hide description when opening
+    //    }
+    //}
+
+    //// Attach event listener to each resource item
+    //document.querySelectorAll('.resource-item').forEach(item => {
+    //    item.addEventListener('click', function (event) {
+    //        toggleResource(item, event);
+    //    });
+    //});
+
 </script>
