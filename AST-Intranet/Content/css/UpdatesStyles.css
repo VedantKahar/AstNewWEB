@@ -106,7 +106,7 @@
     }
 
     .section.anniversary h3 {
-        animation: glow2 1.5s ease-in-out infinite;
+        /*animation: glow2 1.5s ease-in-out infinite;*/
         font-size: 2em;
         margin-bottom: 15px;
         font-weight: bold;

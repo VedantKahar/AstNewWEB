@@ -68,10 +68,10 @@ namespace AST_Intranet.Controllers
                 {
                     connection.Open();
                     string query = @"
-                SELECT DISTINCT EXTRACT(YEAR FROM doj) AS year
-                FROM cim_emp_master_list
-                WHERE status = 'Active'
-                ORDER BY year";
+                        SELECT DISTINCT EXTRACT(YEAR FROM doj) AS year
+                        FROM cim_emp_master_list
+                        WHERE status = 'Active'
+                        ORDER BY year";
 
                     using (OracleCommand command = new OracleCommand(query, connection))
                     {

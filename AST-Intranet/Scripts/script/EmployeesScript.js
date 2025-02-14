@@ -61,7 +61,7 @@ function fetchYearRange() {
             // Trigger the chart update after populating the dropdowns
             updateChart();
         })
-        .catch(error => console.error('Error fetching year range:', error));
+    .catch(error => console.error('Error fetching year range:', error));
 }
 
 // Create the chart with dynamic data

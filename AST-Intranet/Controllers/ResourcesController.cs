@@ -8,79 +8,79 @@ namespace AST_Intranet.Controllers
 {
     public class ResourcesController : Controller
     {
-        private string baseFolderPath = @"\\astns\General\INTRANET\Resources"; // Root folder path
+        private string baseFolderPath = @"\\astns\General\INTRANET\Resources";
+        //private string baseFolderPath = @"D:\INTRANET\Resources";
 
-        // The main method to load resources and display them
         public ActionResult ResourcesView()
         {
-            var resources = GetResourcesFromFolder(baseFolderPath); // Get all resources from the Resources directory
-            return View(resources); // Pass the list of resources to the view
+            var resources = GetResourcesFromFolder(baseFolderPath);
+
+            return View(resources);
         }
 
-        // Helper method to fetch resources and subcategories from a folder recursively
         private List<Resource> GetResourcesFromFolder(string parentFolderPath)
         {
             var resources = new List<Resource>();
 
-            // Get all directories in the given folder
-            var subFolders = Directory.GetDirectories(parentFolderPath);
-
-            foreach (var subFolderPath in subFolders)
+            if (Directory.Exists(parentFolderPath))
             {
-                string folderName = Path.GetFileName(subFolderPath); // Get the folder name (e.g., "Brochures and Templates")
+                var subFolders = Directory.GetDirectories(parentFolderPath);
 
-                var resource = new Resource
+                foreach (var subFolderPath in subFolders)
                 {
-                    Name = folderName, // Set the resource name to the folder name
-                    Files = GetFilesFromFolder(subFolderPath), // Get files in this folder
-                    SubCategories = GetSubcategories(subFolderPath) // Get subfolders and their files recursively
-                };
+                    string folderName = Path.GetFileName(subFolderPath);
 
-                resources.Add(resource); // Add the resource to the list
+                    var resource = new Resource
+                    {
+                        Name = folderName,
+                        Files = GetFilesFromFolder(subFolderPath),
+                        SubCategories = GetSubcategories(subFolderPath)
+                    };
+
+                    resources.Add(resource);
+                }
             }
-
             return resources;
         }
 
-        // Helper method to fetch subcategories recursively (subfolders and their files)
         private List<Subcategory> GetSubcategories(string parentFolderPath)
         {
             var subcategories = new List<Subcategory>();
 
-            // Get all directories in the given folder (subcategories)
-            var subFolders = Directory.GetDirectories(parentFolderPath);
-
-            foreach (var subFolderPath in subFolders)
+            if (Directory.Exists(parentFolderPath))
             {
-                string subFolderName = Path.GetFileName(subFolderPath); // Get the subfolder name
+                var subFolders = Directory.GetDirectories(parentFolderPath);
 
-                var subcategory = new Subcategory
+                foreach (var subFolderPath in subFolders)
                 {
-                    Name = subFolderName, // Set the subcategory name to the folder name
-                    Files = GetFilesFromFolder(subFolderPath), // Get files in this subfolder
-                    SubCategories = GetSubcategories(subFolderPath) // Recursively fetch sub-subcategories
-                };
+                    string subFolderName = Path.GetFileName(subFolderPath);
 
-                subcategories.Add(subcategory); // Add the subcategory to the list
+                    var subcategory = new Subcategory
+                    {
+                        Name = subFolderName,
+                        Files = GetFilesFromFolder(subFolderPath),
+                        SubCategories = GetSubcategories(subFolderPath)
+                    };
+
+                    subcategories.Add(subcategory);
+                }
             }
-
-            return subcategories; // Return the list of subcategories (recursively populated)
+            return subcategories;
         }
 
-        // Helper method to fetch files from a folder
         private List<string> GetFilesFromFolder(string folderPath)
         {
             var files = new List<string>();
 
             if (Directory.Exists(folderPath))
             {
-                // Get all files in the folder
                 var allFiles = Directory.GetFiles(folderPath);
                 var allowedExtensions = new List<string>
                 {
                     ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
                     ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".jfif",
-                    ".exe", ".msi", ".dmg", ".iso", ".apk"
+                    ".exe", ".msi", ".dmg", ".iso", ".apk", 
+                    ".mp4", ".avi", ".mov", ".mkv", ".wmv", ".flv", ".webm", ".mpeg", ".mpg", ".3gp"
                 };
 
                 foreach (var file in allFiles)
@@ -88,18 +88,15 @@ namespace AST_Intranet.Controllers
                     string fileName = Path.GetFileName(file);
                     string fileExtension = Path.GetExtension(fileName).ToLower();
 
-                    // Only add files with allowed extensions
                     if (allowedExtensions.Contains(fileExtension))
                     {
                         files.Add(fileName);
                     }
                 }
             }
-
             return files;
         }
 
-        // Method to serve files based on folder name and file name
         public ActionResult GetFiles(string folderName, string fileName)
         {
             try
@@ -110,28 +107,37 @@ namespace AST_Intranet.Controllers
                 if (System.IO.File.Exists(filePath))
                 {
                     string fileExtension = Path.GetExtension(fileName).ToLower();
-                    string contentType = "application/octet-stream"; // Default MIME type
+                    string contentType = "application/octet-stream";
 
-                    // Map the file extension to the proper MIME type
-                    if (fileExtension == ".pdf") contentType = "application/pdf";
-                    else if (fileExtension == ".doc") contentType = "application/msword";
-                    else if (fileExtension == ".docx") contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-                    else if (fileExtension == ".xls") contentType = "application/vnd.ms-excel";
-                    else if (fileExtension == ".xlsx") contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    else if (fileExtension == ".ppt") contentType = "application/vnd.ms-powerpoint";
-                    else if (fileExtension == ".pptx") contentType = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
-                    else if (fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".jfif") contentType = "image/jpeg";
-                    else if (fileExtension == ".png") contentType = "image/png";
-                    else if (fileExtension == ".gif") contentType = "image/gif";
-                    else if (fileExtension == ".bmp") contentType = "image/bmp";
-                    else if (fileExtension == ".exe") contentType = "application/octet-stream";  // Handle executables
-                    else if (fileExtension == ".msi") contentType = "application/x-msi";  // MSI installers
-                    else if (fileExtension == ".dmg") contentType = "application/octet-stream";  // macOS Disk Image
-                    else if (fileExtension == ".iso") contentType = "application/x-iso9660-image";  // ISO image
+                    var mimeTypes = new Dictionary<string, string>
+                    {
+                        { ".pdf", "application/pdf" },
+                        { ".doc", "application/msword" },
+                        { ".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
+                        { ".xls", "application/vnd.ms-excel" },
+                        { ".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+                        { ".ppt", "application/vnd.ms-powerpoint" },
+                        { ".pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
+                        { ".jpg", "image/jpeg" }, { ".jpeg", "image/jpeg" }, { ".jfif", "image/jpeg" },
+                        { ".png", "image/png" }, { ".gif", "image/gif" }, { ".bmp", "image/bmp" },
+                        //{ ".cr3", "image/x-canon-cr3" }, 
+                        { ".exe", "application/octet-stream" }, { ".msi", "application/x-msi" },
+                        { ".dmg", "application/octet-stream" }, { ".iso", "application/x-iso9660-image" },
+                        { ".mp4", "video/mp4" }, { ".avi", "video/x-msvideo" },
+                        { ".mov", "video/quicktime" }, { ".mkv", "video/x-matroska" },
+                        { ".wmv", "video/x-ms-wmv" }, { ".flv", "video/x-flv" },
+                        { ".webm", "video/webm" }, { ".mpeg", "video/mpeg" },
+                        { ".mpg", "video/mpeg" }, { ".3gp", "video/3gpp" }
+                    };
+
+                    if (mimeTypes.ContainsKey(fileExtension))
+                    {
+                        contentType = mimeTypes[fileExtension];
+                    }
 
                     var fileBytes = System.IO.File.ReadAllBytes(filePath);
 
-                    return File(fileBytes, contentType); // Return the file content to display it in the browser
+                    return File(fileBytes, contentType);
                 }
                 else
                 {

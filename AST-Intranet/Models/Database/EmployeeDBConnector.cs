@@ -266,14 +266,14 @@ namespace AST_Intranet.Models.Database
                 {
                     connection.Open();
                     string query = @"
-                SELECT EXTRACT(YEAR FROM doj) AS year, 
-                       department, 
-                       COUNT(*) AS employee_count
-                FROM cim_emp_master_list
-                WHERE status = 'Active'
-                  AND EXTRACT(YEAR FROM doj) BETWEEN :startYear AND :endYear
-                GROUP BY EXTRACT(YEAR FROM doj), department
-                ORDER BY year, department";
+                        SELECT EXTRACT(YEAR FROM doj) AS year, 
+                        department, 
+                        COUNT(*) AS employee_count
+                        FROM cim_emp_master_list
+                        WHERE status = 'Active'
+                        AND EXTRACT(YEAR FROM doj) BETWEEN :startYear AND :endYear
+                        GROUP BY EXTRACT(YEAR FROM doj), department
+                        ORDER BY year, department";
 
                     using (OracleCommand command = new OracleCommand(query, connection))
                     {
@@ -290,11 +290,11 @@ namespace AST_Intranet.Models.Database
                                 var employeeCount = reader.GetInt32(reader.GetOrdinal("employee_count"));
 
                                 employeesByDeptYear.Add(new Dictionary<string, object>
-                        {
-                            { "year", year },
-                            { "department", department },
-                            { "employee_count", employeeCount }
-                        });
+                                {
+                                    { "year", year },
+                                    { "department", department },
+                                    { "employee_count", employeeCount }
+                                });
                             }
                         }
                     }
@@ -306,6 +306,5 @@ namespace AST_Intranet.Models.Database
             }
             return employeesByDeptYear;
         }
-
     }
 }
