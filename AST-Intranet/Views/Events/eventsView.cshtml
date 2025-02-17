@@ -5,24 +5,23 @@
 
 <link rel="stylesheet" href="@Url.Content("~/Content/css/EventsStyles.css")">
 
-<!-- FullCalendar CSS -->
+ @*FullCalendar CSS*@ 
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet">
-
-<!-- jQuery -->
+ @*jQuery*@ 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Moment.js -->
+ @*Moment.js*@ 
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-
-<!-- FullCalendar JS -->
+ @*FullCalendar JS*@ 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.js"></script>
 
+<!--ghar jaake karunga event-->
 <div class="main-content">
-    <div class="content">
+    <div class="container">
+      
         <div id="calendar"></div>
 
         <!-- Event form with added date, time, and description inputs -->
-        <div class="event-form" id="event-form" style="display:none;">
+        <div class="event-form" id="event-form">
             <div class="event-form-header">
                 <span id="closeFormBtn" class="close-btn">&times;</span>
                 <h4>Add Event</h4>

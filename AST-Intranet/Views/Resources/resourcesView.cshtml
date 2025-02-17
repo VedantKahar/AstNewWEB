@@ -1,4 +1,4 @@
-﻿﻿@model List<AST_Intranet.Models.Resource>
+﻿@model List<AST_Intranet.Models.Resource>
 @using System.Text;
 
 <link rel="stylesheet" href="@Url.Content("~/Content/css/ResourcesStyle.css")">
@@ -42,80 +42,93 @@
                 html.Append("<hr>");
 
                 // Prepare flags to check if image, video, document, or other files are present
-                bool hasImages = subcategory.Files.Any(f => (f.EndsWith(".jpg") || f.EndsWith(".jpeg") || f.EndsWith(".png") || f.EndsWith(".gif")) && GetFileSize(f) <= 9 * 1024 * 1024); // 5MB limit for images
-                bool hasVideos = subcategory.Files.Any(f => f.EndsWith(".mp4") || f.EndsWith(".avi") || f.EndsWith(".mov"));
-                bool hasDocuments = subcategory.Files.Any(f => f.EndsWith(".pdf") || f.EndsWith(".doc") || f.EndsWith(".docx") || f.EndsWith(".xls") || f.EndsWith(".xlsx") || f.EndsWith(".ppt") || f.EndsWith(".pptx"));
-                bool hasOtherFiles = subcategory.Files.Any(f => !f.EndsWith(".jpg") && !f.EndsWith(".jpeg") && !f.EndsWith(".png") && !f.EndsWith(".gif") &&
-                                                               !f.EndsWith(".mp4") && !f.EndsWith(".avi") && !f.EndsWith(".mov") &&
-                                                               !f.EndsWith(".pdf") && !f.EndsWith(".doc") && !f.EndsWith(".docx") &&
-                                                               !f.EndsWith(".xls") && !f.EndsWith(".xlsx") && !f.EndsWith(".ppt") &&
-                                                               !f.EndsWith(".pptx"));
+                bool hasImages = subcategory.Files.Any(f => IsImageFile(f));/* && GetFileSize(f) <= 9 * 1024 * 1024); */// 9MB limit for images
+                bool hasVideos = subcategory.Files.Any(f => IsVideoFile(f));
+                bool hasDocuments = subcategory.Files.Any(f => IsDocumentFile(f));
+                bool hasOtherFiles = subcategory.Files.Any(f => IsOtherFile(f));
 
                 html.Append("<div class='media-grid'>");
 
-                // Image Files
+                // Image Files (with lazy loading)
                 if (hasImages)
                 {
                     html.Append("<div class='image-files'>");
-                    foreach (var file in subcategory.Files.Where(f => (f.EndsWith(".jpg") || f.EndsWith(".jpeg") || f.EndsWith(".png") || f.EndsWith(".gif")) && GetFileSize(f) <= 5 * 1024 * 1024))
+
+                    foreach (var file in subcategory.Files.Where(f => IsImageFile(f)))/* && GetFileSize(f) <= 9 * 1024 * 1024))*/
                     {
                         var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = parentFolder + "/" + subcategory.Name, fileName = file });
+
+                        // Preload the image (move this outside the loop to avoid multiple <link> tags for the same image)
+                        html.Append("<link rel='preload' href='" + fileUrl + "' as='image'>");
+
                         html.Append("<div class='image-file'>");
                         html.Append("<a href='" + fileUrl + "' target='_blank'>");
-                        html.Append("<img src='" + fileUrl + "' alt='" + file + "' />");
+                        html.Append("<img src='" + fileUrl + "' alt='" + file + "' loading='lazy' />");
                         html.Append("</a></div>");
                     }
+
                     html.Append("</div>");
                 }
 
-                // Video Files
+                // Video Files (with lazy loading)
                 if (hasVideos)
                 {
                     html.Append("<div class='video-files'>");
-                    foreach (var file in subcategory.Files.Where(f => f.EndsWith(".mp4") || f.EndsWith(".avi") || f.EndsWith(".mov")))
+
+                    foreach (var file in subcategory.Files.Where(f => IsVideoFile(f)))
                     {
                         var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = parentFolder + "/" + subcategory.Name, fileName = file });
+
+                        // Preload video file (move this outside the loop to avoid multiple <link> tags for the same video)
+                        html.Append("<link rel='preload' href='" + fileUrl + "' as='video' type='video/mp4'>");
+
                         html.Append("<div class='video-file'>");
-                        html.Append("<video controls>");
-                        html.Append("<source src='" + fileUrl + "' type='video/mp4' />");
+                        html.Append("<video preload='auto' controls>");
+                        html.Append("<source src='" + fileUrl + "' type='video/mp4' loading='lazy' />");
                         html.Append("Your browser does not support the video tag.");
                         html.Append("</video>");
                         html.Append("</div>");
                     }
+
                     html.Append("</div>");
                 }
 
-                // Document Files (PDF, DOC, PPT, XLS, etc.)
+                // Document Files (PDF, DOC, PPT, XLS, etc. - with lazy loading)
                 if (hasDocuments)
                 {
                     html.Append("<div class='document-files'>");
-                    foreach (var file in subcategory.Files.Where(f => f.EndsWith(".pdf") || f.EndsWith(".doc") || f.EndsWith(".docx") || f.EndsWith(".xls") || f.EndsWith(".xlsx") || f.EndsWith(".ppt") || f.EndsWith(".pptx")))
+
+                    foreach (var file in subcategory.Files.Where(f => IsDocumentFile(f)))
                     {
                         var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = parentFolder + "/" + subcategory.Name, fileName = file });
+
+                        // Preload document file (Optional, based on use case)
+                        html.Append("<link rel='preload' href='" + fileUrl + "' as='document'>");
+
                         html.Append("<div class='file-type'>");
-                        html.Append("<a href='" + fileUrl + "' target='_blank'>");
+                        html.Append("<a href='" + fileUrl + "' target='_blank' loading='lazy'>");
                         html.Append(file); // Displaying document names
                         html.Append("</a></div>");
                     }
+
                     html.Append("</div>");
                 }
 
-                // Other Files (APK and installers, etc.)
+                // Other Files (APK, installers, etc. - with lazy loading)
                 if (hasOtherFiles)
                 {
                     html.Append("<div class='other-files'>");
-                    foreach (var file in subcategory.Files.Where(f => !f.EndsWith(".jpg") && !f.EndsWith(".jpeg") && !f.EndsWith(".png") && !f.EndsWith(".gif") &&
-                                                                   !f.EndsWith(".mp4") && !f.EndsWith(".avi") && !f.EndsWith(".mov") &&
-                                                                   !f.EndsWith(".pdf") && !f.EndsWith(".doc") && !f.EndsWith(".docx") &&
-                                                                   !f.EndsWith(".xls") && !f.EndsWith(".xlsx") && !f.EndsWith(".ppt") &&
-                                                                   !f.EndsWith(".pptx")))
+
+                    foreach (var file in subcategory.Files.Where(f => IsOtherFile(f)))
                     {
                         var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = parentFolder + "/" + subcategory.Name, fileName = file });
+
                         html.Append("<div class='file-type'>");
-                        html.Append("<a href='" + fileUrl + "' target='_blank'>");
+                        html.Append("<a href='" + fileUrl + "' target='_blank' loading='lazy'>");
                         html.Append(file); // Displaying non-media files (APK, installers, etc.)
                         html.Append("</a></div>");
                     }
+
                     html.Append("</div>");
                 }
 
@@ -132,18 +145,42 @@
         return new HtmlString(html.ToString());
     }
 
-    // Helper function to get the file size (returns the size in bytes)
-    private long GetFileSize(string fileName)
+    //// Helper function to get the file size (returns the size in bytes)
+    //private long GetFileSize(string fileName)
+    //{
+    //    string filePath = Path.Combine(Server.MapPath("~/Resources"), fileName); // Adjust the path as necessary
+    //    FileInfo fileInfo = new FileInfo(filePath);
+    //    return fileInfo.Exists ? fileInfo.Length : 0;
+    //}
+
+    // Helper function to check if the file is an image
+    private bool IsImageFile(string fileName)
     {
-        string filePath = Path.Combine(Server.MapPath("~/Resources"), fileName); // Adjust the path as necessary
-        FileInfo fileInfo = new FileInfo(filePath);
-        return fileInfo.Exists ? fileInfo.Length : 0;
+        string[] imageExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".jfif" };
+        return imageExtensions.Any(ext => fileName.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
     }
 
+    // Helper function to check if the file is a video
+    private bool IsVideoFile(string fileName)
+    {
+        string[] videoExtensions = new[] { ".mp4", ".avi", ".mov", ".mkv", ".wmv", ".flv", ".webm", ".mpeg", ".mpg", ".3gp" };
+        return videoExtensions.Any(ext => fileName.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
+    }
+
+    // Helper function to check if the file is a document
+    private bool IsDocumentFile(string fileName)
+    {
+        string[] documentExtensions = new[] { ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx" };
+        return documentExtensions.Any(ext => fileName.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
+    }
+
+    // Helper function to check if the file is of any other type
+    private bool IsOtherFile(string fileName)
+    {
+        string[] otherExtensions = new[] { ".exe", ".msi", ".dmg", ".iso", ".apk" };
+        return otherExtensions.Any(ext => fileName.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
+    }
 }
-
-
-
 
 <script>
     function toggleResource(item) {
@@ -172,5 +209,4 @@
             description.style.display = 'none'; // Hide description when opening
         }
     }
-
 </script>
