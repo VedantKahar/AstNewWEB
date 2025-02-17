@@ -1,13 +1,14 @@
 $(document).ready(function () {
-    //const apiKey = 'PFXdUFwPMihLk1IzaFIng3tUuzhftAHd'; // API Key
-    //const countryCode = 'IN'; // Country code for India
-    //const year = 2025; // Year for fetching holidays
+    const apiKey = 'PFXdUFwPMihLk1IzaFIng3tUuzhftAHd'; // API Key
+    const countryCode = 'IN'; // Country code for India
+    const year = 2025; // Year for fetching holidays
 
     let currentEvent = null; // Track the event currently being edited or deleted
 
     function fetchIndianHolidays() {
         // Clear existing holidays from localStorage to avoid mixing old and new data
-        localStorage.removeItem('holidays');
+        localStorage.removeItem('holidays');  // Remove old holidays to prevent duplicates
+        localStorage.removeItem('events');    // Remove user-added events
 
         const url = `https://calendarific.com/api/v2/holidays?api_key=${apiKey}&country=${countryCode}&year=${year}`;
 
@@ -41,13 +42,19 @@ $(document).ready(function () {
             });
     }
 
-
-
     function addHolidaysToCalendar(holidays) {
         console.log("Adding holidays to calendar:", holidays);
 
         // Add events to FullCalendar only once
-        $('#calendar').fullCalendar('addEventSource', holidays);
+        const storedHolidays = getStoredEvents();
+        const newHolidays = holidays.filter(holiday => {
+            // Check if holiday is already in the calendar to avoid duplication
+            return !storedHolidays.some(stored => stored.start === holiday.start && stored.title === holiday.title);
+        });
+
+        if (newHolidays.length > 0) {
+            $('#calendar').fullCalendar('addEventSource', newHolidays);
+        }
     }
 
     function saveHolidaysToLocalStorage(holidays) {  //save holiday to browser's local storage
