@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    
     ViewBag.Title = "Department List";
     ViewBag.Title = "Employee Information";
 }
@@ -30,7 +30,17 @@
                     </select>
                 </div>
 
-                <!-- HTML for Year Selection -->
+                <!-- Dropdown for selecting chart type -->
+                <div class="chart-type-selector">
+                    <label for="chartTypeSelector">Select Chart Type:</label>
+                    <select id="chartTypeSelector">
+                        <option value="line">Line Graph</option>
+                        <option value="bar">Bar Graph</option>
+                        <option value="pie">Pie Chart</option>
+                    </select>
+                </div>
+
+                <!-- Year selection -->
                 <div class="year-selector">
                     <label for="startYear">Start Year:</label>
                     <select id="startYear"></select>
@@ -38,8 +48,8 @@
                     <label for="endYear">End Year:</label>
                     <select id="endYear"></select>
                 </div>
-
             </div>
+
         </div>
 
         <hr />

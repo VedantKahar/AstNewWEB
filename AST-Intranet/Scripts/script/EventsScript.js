@@ -5,8 +5,8 @@ $(document).ready(function () {
 
     let currentEvent = null; // Track the event currently being edited or deleted
 
+    // Fetch holidays from Calendarific API
     function fetchIndianHolidays() {
-        // Clear existing holidays from localStorage to avoid mixing old and new data
         localStorage.removeItem('holidays');  // Remove old holidays to prevent duplicates
         localStorage.removeItem('events');    // Remove user-added events
 
@@ -28,11 +28,8 @@ $(document).ready(function () {
                         };
                     });
 
-                    // Save holidays to localStorage (Now it will store holidays for India only)
-                    saveHolidaysToLocalStorage(events);
-
-                    // Add holidays to the calendar
-                    addHolidaysToCalendar(events);
+                    saveHolidaysToLocalStorage(events);  // Store holidays in localStorage
+                    addHolidaysToCalendar(events);  // Add holidays to calendar
                 } else {
                     console.error("Error fetching holidays:", data);
                 }
@@ -42,13 +39,13 @@ $(document).ready(function () {
             });
     }
 
+    // Function to add holidays to the calendar
     function addHolidaysToCalendar(holidays) {
         console.log("Adding holidays to calendar:", holidays);
 
-        // Add events to FullCalendar only once
-        const storedHolidays = getStoredEvents();
+        const storedHolidays = getStoredEvents();  // Get stored events
         const newHolidays = holidays.filter(holiday => {
-            // Check if holiday is already in the calendar to avoid duplication
+            // Prevent adding duplicate holidays
             return !storedHolidays.some(stored => stored.start === holiday.start && stored.title === holiday.title);
         });
 
@@ -57,21 +54,17 @@ $(document).ready(function () {
         }
     }
 
-    function saveHolidaysToLocalStorage(holidays) {  //save holiday to browser's local storage
-        // Get the current holidays from localStorage
+    // Save holidays in localStorage
+    function saveHolidaysToLocalStorage(holidays) {
         const storedHolidays = JSON.parse(localStorage.getItem('holidays')) || [];
-
-        // Combine the new holidays with the stored ones
         const allHolidays = storedHolidays.concat(holidays);
 
-        // Remove duplicates based on event 'start' date and 'title'
         const uniqueHolidays = allHolidays.filter((value, index, self) =>
             index === self.findIndex((t) => (
                 t.start === value.start && t.title === value.title
             ))
         );
 
-        // Save back the unique holidays to localStorage
         localStorage.setItem('holidays', JSON.stringify(uniqueHolidays));
     }
 
@@ -83,32 +76,26 @@ $(document).ready(function () {
             right: 'month,agendaWeek,agendaDay'
         },
         events: function (start, end, timezone, callback) {
-            const events = getStoredEvents();  // Get stored events from localStorage
-            callback(events);  // Pass them to the calendar without re-adding them elsewhere
+            const events = getStoredEvents();  // Get events from localStorage
+            callback(events);  // Display events on the calendar
         },
-
         dayClick: function (date, jsEvent, view) {
-            // Handle day click
+            $('#event-date').val(date.format('YYYY-MM-DD'));  // Set the date in the form
+            $('#event-form').show();  // Show the event form
         },
         eventClick: function (event, jsEvent, view) {
-            // Set currentEvent to the clicked event
             currentEvent = event;
-            showEventDetails(event); // Show event details modal
-        },
-        viewRender: function (view, element) {
-            // Re-add events from localStorage after view is rendered (only once, no duplicates)
-            //$('#calendar').fullCalendar('removeEvents');
-            //$('#calendar').fullCalendar('addEventSource', getStoredEvents());
+            showEventDetails(event);  // Show event details modal
         }
     });
 
-    // Function to get stored events from localStorage and retrieve
+    // Get events stored in localStorage
     function getStoredEvents() {
-        const storedHolidays = JSON.parse(localStorage.getItem('holidays')) || [];
-        return storedHolidays;
+        const storedEvents = JSON.parse(localStorage.getItem('events')) || [];
+        return storedEvents;
     }
 
-    // Function to show event details in a modal
+    // Show event details in a modal
     function showEventDetails(event) {
         $('#event-details-title').text(event.title);
         $('#event-details-time').text(event.start);
@@ -116,11 +103,7 @@ $(document).ready(function () {
         $('#event-details-modal').show();
     }
 
-    // Function to close the event form
-    function closeForm() {
-        $('#event-form').hide();
-    }
-
+    // Add a new event
     function addEvent() {
         const eventName = $('#event-name').val();
         const eventDate = $('#event-date').val();
@@ -128,16 +111,11 @@ $(document).ready(function () {
         const eventDescription = $('#event-description').val();
         const isFullDay = $('#event-full-day').prop('checked');
 
-        console.log('Event Name:', eventName);
-        console.log('Event Date:', eventDate);
-        console.log('Event Time:', eventTime);
-        console.log('Event Description:', eventDescription);
-        console.log('Is Full Day:', isFullDay);
-
         if (eventName && eventDate && eventDescription) {
             let eventStart = eventDate;
+
             if (!isFullDay && eventTime) {
-                eventStart += ' ' + eventTime;
+                eventStart = `${eventDate} ${eventTime}`;
             }
 
             const eventId = new Date().getTime(); // Unique event ID
@@ -150,43 +128,42 @@ $(document).ready(function () {
                 allDay: isFullDay
             };
 
-            // Add event to FullCalendar
-            $('#calendar').fullCalendar('renderEvent', event);
-            saveEventToLocalStorage(event);
-            closeForm(); // Close the event form
+            $('#calendar').fullCalendar('renderEvent', event);  // Add event to FullCalendar
+            saveEventToLocalStorage(event);  // Save event to localStorage
+            closeForm();  // Close the event form
         } else {
             alert('Please fill in all fields');
         }
     }
 
-    // Function to save event to localStorage
+    // Save event to localStorage
     function saveEventToLocalStorage(event) {
         let events = JSON.parse(localStorage.getItem('events')) || [];
-        events = events.filter(e => e.id !== event.id); // Prevent duplicate events
-        events.push(event); // Add the new event
+        events = events.filter(e => e.id !== event.id);  // Remove existing event if it exists
+        events.push(event);  // Add the new event
         localStorage.setItem('events', JSON.stringify(events));
 
-        // Re-render the events in all views (month, week, day)
-        $('#calendar').fullCalendar('removeEvents');
-        $('#calendar').fullCalendar('addEventSource', getStoredEvents());
+        $('#calendar').fullCalendar('removeEvents');  // Clear current events
+        $('#calendar').fullCalendar('addEventSource', getStoredEvents());  // Re-add events from localStorage
     }
 
-    // Function to delete an event
+    // Close event form
+    function closeForm() {
+        $('#event-form').hide();
+    }
+
+    // Delete event
     function deleteEvent() {
         if (currentEvent) {
-            // Remove the event from FullCalendar
-            $('#calendar').fullCalendar('removeEvents', currentEvent.id);
-
-            // Remove the event from localStorage
+            $('#calendar').fullCalendar('removeEvents', currentEvent.id);  // Remove from calendar
             let events = JSON.parse(localStorage.getItem('events')) || [];
-            events = events.filter(event => event.id !== currentEvent.id); // Remove the deleted event
+            events = events.filter(event => event.id !== currentEvent.id);  // Remove from localStorage
             localStorage.setItem('events', JSON.stringify(events));
 
-            // Re-render the events in all views (month, week, day)
-            $('#calendar').fullCalendar('removeEvents');
-            $('#calendar').fullCalendar('addEventSource', getStoredEvents());
+            $('#calendar').fullCalendar('removeEvents');  // Remove all events
+            $('#calendar').fullCalendar('addEventSource', getStoredEvents());  // Re-add from localStorage
 
-            closeDetailsModal(); // Close the event details modal
+            closeDetailsModal();  // Close event details modal
         }
     }
 
@@ -222,18 +199,20 @@ $(document).ready(function () {
         }
     }
 
-    // Function to close the event details modal
+    // Close event details modal
     function closeDetailsModal() {
         $('#event-details-modal').hide();
     }
 
     // Attach event handlers
     $('#addEventBtn').on('click', addEvent);
-    $('#editEventBtn').on('click', editEvent);
+    $('#deleteEventBtn').on('click', deleteEvent);
     $('#closeFormBtn').on('click', closeForm);
     $('#closeDetailsModal').on('click', closeDetailsModal);
-    $('#deleteEventBtn').on('click', deleteEvent);
 
-    // Fetch holidays and festivals and add them to the calendar
+    // Fetch holidays and add them to the calendar
     fetchIndianHolidays();
 });
+
+
+//it should work like:if click on any date on calendar, adding event box should appear, after adding ebent it should appear on calendar even after refresh or reload of site

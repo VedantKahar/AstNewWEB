@@ -20,6 +20,14 @@
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     }
 
+    /* Quote Section Styling */
+    #quote {
+        font-size: 1.4em;
+        color: #34495e;
+        font-style: italic;
+        text-align: center;
+    }
+
     /* Section Styling */
     .section {
         margin-top: 30px;
@@ -134,12 +142,12 @@
         padding-left: 0;
     }
 
-        ul li {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: #fff;
-            padding-left: 20px;
-        }
+    ul li {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        color: #fff;
+        padding-left: 20px;
+    }
 
     /* Notifications Section Styling */
     .section.notifications {
@@ -191,11 +199,7 @@
         color: #34495e;
     }
 
-    /* Icons (Font Awesome) styling */
-    .fas {
-        font-family: 'Font Awesome 5 Free';
-        font-weight: 900;
-    }
+
 
     /* Responsive Design */
     @media (max-width: 768px) {
@@ -213,14 +217,6 @@
         }
     }
 
-
-    /* Quote Section Styling */
-    #quote {
-        font-size: 1.4em;
-        color: #34495e;
-        font-style: italic;
-        text-align: center;
-    }
 
     /* Responsive Design */
     @media (max-width: 768px) {

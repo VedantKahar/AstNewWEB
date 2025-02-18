@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "updatesView";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
@@ -43,12 +42,12 @@
                 {
                     foreach (var anniversary in ViewBag.Anniversaries as List<string>)
                     {
-                <li><strong>@anniversary</strong></li>
+                        <li><strong>@anniversary</strong></li>
                     }
                 }
                 else
                 {
-                <li>No work anniversaries today.</li>
+                    <li>No work anniversaries today.</li>
                 }
             </ul>
         </div>
@@ -60,15 +59,7 @@
            
         </div>
 
-        <!-- Daily Notifications Section -->
-        <!--<div class="section">
-            <h3>Today's Notifications</h3>
-            <ul>
-                <li>Team Meeting at 10:00 AM in the Conference Room</li>
-                <li>Reminder: Submit your timesheets by 3:00 PM</li>
-                <li>Company-wide Email System Maintenance scheduled for 6:00 PM</li>
-            </ul>
-        </div>-->
+       
 
         <!-- Daily Notifications Section -->
         <div class="section notifications">
@@ -86,6 +77,7 @@
                     <i class="notification-icon fas fa-cogs"></i>
                     <span>Company-wide Email System Maintenance scheduled for 6:00 PM</span>
                 </div>
+                <!--event addded on eventsView, having today's date will appear here'-->
             </div>
         </div>
 

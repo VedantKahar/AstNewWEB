@@ -8,23 +8,28 @@
     }
 
     /* Graph Container */
-    .chart-container {
-        width: 100%;
-        height: 400px;
-        margin-top: 20px;
-        background-color: #fff; /* White background to contrast */
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+.chart-container {
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+    background-color: #ffffff; /* White background for the graph */
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for a polished look */
+}
+    .chart-container canvas {
+        width: 100% !important;
+        height: 100% !important;
     }
-
+    
     /* Flex container for Graph Type dropdown and Year Selector */
-    .graph-toggle-year {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 30px;
-        margin-top: 20px;
-    }
+.graph-toggle-year {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-top: 20px;
+}
+
 
     /* Graph Type Dropdown */
     .graph-toggle {
@@ -37,6 +42,21 @@
         font-size: 18px;
         font-weight: 600;
         color: #333;
+    }
+
+    /* Styling the dropdowns */
+    .select-dropdown {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+        transition: all 0.3s ease;
+    }
+
+    .select-dropdown:focus {
+        border-color: #4CAF50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
     }
 
     select {
@@ -58,14 +78,32 @@
     /* Year Selector Container */
     .year-selector {
         display: flex;
-        align-items: center;
         gap: 20px;
+        align-items: center;
+    }
+    /* Hover effect on chart type dropdown */
+    #chartTypeSelector:hover,
+    #graphType:hover {
+        background-color: #e9ecef;
+    }
+
+    /* Year Selector */
+    .year-selector label {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    /* Graph Type dropdown */
+    .graph-toggle label {
+        font-size: 16px;
+        font-weight: 600;
     }
 
     /* Tooltip styling for better UI experience */
     .tooltip {
         position: relative;
         cursor: pointer;
+        display: inline-block;
     }
 
     .tooltip:hover::after {
