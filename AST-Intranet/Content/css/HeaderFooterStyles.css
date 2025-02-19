@@ -58,7 +58,7 @@ body {
     border-color: #1ABC9C; /* Accent color on focus */
     outline: none;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25); /* Stronger shadow and depth on focus */
-    transform: translateY(-3px); /* Slight lifting effect when focused */
+    transform: translateY(-2x); /* Slight lifting effect when focused */
 }
 
 /* On hover, give a stronger lifting effect */
@@ -66,6 +66,31 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px); /* Slight upward movement on hover */
 }
+
+/* Add to your existing CSS file, e.g., HeaderFooterStyles.css */
+.suggestions-box {
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-top: 5px;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+    .suggestion-item:hover {
+        background-color: #f5f5f5;
+    }
+
 
 /* Navigation Links */
 .nav-links {

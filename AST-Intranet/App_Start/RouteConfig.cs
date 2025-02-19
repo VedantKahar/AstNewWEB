@@ -76,6 +76,11 @@ namespace AST_Intranet
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Resources", action = "blue eyes", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "TownHallRoute",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "TownHall", action = " eyes", id = UrlParameter.Optional }
+            );
 
         }
     }

@@ -2,11 +2,11 @@
     ViewBag.Title = "updatesView";
 
 }
-
 <link rel="stylesheet" href="@Url.Content("~/Content/css/UpdatesStyles.css")">
 
 <div class="main-content">
     <div class="content">
+
         <!-- Digital Calendar -->
         <div class="digital-calendar" id="digital-calendar"></div>
 
@@ -19,17 +19,17 @@
         <!-- Birthday Section -->
         <div class="section birthday">
             <h3>Employee Birthdays</h3>
-            <ul>
+            <ul class="birthday-list">
                 @if (ViewBag.Birthdays != null && ViewBag.Birthdays.Count > 0)
                 {
                     foreach (var birthday in ViewBag.Birthdays as List<string>)
                     {
-                        <li><strong>@birthday</strong></li>
+                <li class="birthday-item"><strong>@birthday</strong></li>
                     }
                 }
                 else
                 {
-                    <li>No birthdays today.</li>
+                <li class="birthday-item">No birthdays today.</li>
                 }
             </ul>
         </div>
@@ -37,30 +37,30 @@
         <!-- Anniversary Section -->
         <div class="section anniversary">
             <h3>Work Anniversaries</h3>
-            <ul>
+            <ul class="anniversary-list">
                 @if (ViewBag.Anniversaries != null && ViewBag.Anniversaries.Count > 0)
                 {
                     foreach (var anniversary in ViewBag.Anniversaries as List<string>)
                     {
-                        <li><strong>@anniversary</strong></li>
+                <li class="anniversary-item"><strong>@anniversary</strong></li>
                     }
                 }
                 else
                 {
-                    <li>No work anniversaries today.</li>
+                <li class="anniversary-item">No work anniversaries today.</li>
                 }
             </ul>
         </div>
 
+
         <!-- Cafeteria Menu Section -->
         <div class="section">
-            <h3>Today's Cafeteria Menu</h3>
-            <p><strong>brihjrveuig</strong></p>
-           
+            <div class="cafeteria">
+                <h3>Today's Cafeteria Menu</h3>
+                <p><strong>xyz,abc,efg</strong></p>
+
+            </div>
         </div>
-
-       
-
         <!-- Daily Notifications Section -->
         <div class="section notifications">
             <h3>Today's Notifications</h3>
@@ -80,12 +80,8 @@
                 <!--event addded on eventsView, having today's date will appear here'-->
             </div>
         </div>
-
     </div>
 </div>
-
-
-@*<script src="@Url.Content("~/Scripts/script/UpdatesScript.js")"></script>*@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

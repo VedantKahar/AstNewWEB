@@ -48,7 +48,7 @@ namespace AST_Intranet.Models.Database
                                 {
                                     var age = today.Year - dob.Value.Year;
                                     if (today < dob.Value.AddYears(age)) age--; // Adjust age if birthday hasn't occurred yet
-                                    birthdays.Add($"{empName} - {age} years old, {department}");
+                                    birthdays.Add($"{empName} - {age} years old, {department}, {location}");
                                 }
 
                                 // Handle work anniversaries
@@ -56,7 +56,7 @@ namespace AST_Intranet.Models.Database
                                 {
                                     var yearsOfService = today.Year - doj.Value.Year;
                                     if (today < doj.Value.AddYears(yearsOfService)) yearsOfService--; // Adjust if anniversary hasn't occurred yet
-                                    anniversaries.Add($"{empName} - {yearsOfService} years, {department}, {designation}");
+                                    anniversaries.Add($"{empName} - {yearsOfService} years, {department}, {designation}, {location}");
                                 }
                             }
                         }

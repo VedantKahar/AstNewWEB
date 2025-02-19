@@ -1,0 +1,94 @@
+<!-- Views/Shared/_Header.cshtml -->
+<div class="top-nav">
+    <div class="left-section">
+        <img style="height:30px; border-radius:5px" src="~/Images/images/ast_logo3.jpg" alt="AST logo" class="ast-logo">
+        <input type="text" placeholder="Search..." class="search-bar">
+    </div>
+    <ul class="nav-links">
+        <li><a href="@Url.Action("dashboardView", "Dashboard")">Dashboard</a></li>
+        <li><a href="@Url.Action("EmployeesView", "Employees")">Employees</a></li>
+        <li><a href="@Url.Action("ResourcesView", "Resources")">Resources</a></li>
+        <li><a href="@Url.Action("TownhallView", "Townhall")">Town Hall</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">
+                Others
+                <img src="~/Images/icons/down-arrow.png" alt="Others" style="width: 20px; height: 20px; margin-right: 8px; ">
+            </a>
+            <div class="dropdown-content">
+                <a href="@Url.Action("updatesView", "Updates")">Today's Updates</a>
+                <a href="@Url.Action("manualsView", "Manuals")">Manuals</a>
+                <a href="@Url.Action("AchievementsView", "Achievements")">Achievements</a>
+                <a href="@Url.Action("policiesView", "Policies")">Policies</a>
+                <a href="@Url.Action("EventsView", "Events")">Events</a>
+            </div>
+        </li>
+    </ul>
+
+    <div class="profile-container">
+        <img src="~/Images/images/profile-pic.jfif" alt="Profile Picture" class="profile-img" id="profileIcon">
+        <div class="logout-dropdown" id="logoutDropdown">
+            <a href="@Url.Action("LoginView", "Accounts")">Log Out</a>
+        </div>
+    </div>
+</div>
+
+now this search button, is not working
+i ahd written only html of it, now i want to add it's functioanloity
+i want this search button to search from whole website
+the above code is written in shared folder
+
+<!-- Views/Shared/_Layout.cshtml -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/Content/css/HeaderFooterStyles.css" />
+</head>
+<body>
+
+    <!-- Render Header -->
+    @Html.Partial("_Header")
+
+    <div class="main-content">
+        <!-- Content of the page will go here -->
+        <div class="content">
+            @RenderBody() <!-- This will render the content from the current view -->
+        </div>
+
+        <!-- Render Footer -->
+        @Html.Partial("_Footer")
+    </div>
+</body>
+</html>
+
+add functionality of searching from whole website
+
+if user type something in searchbox, it should get suggestion
+as there are multiple pages in website,
+it shoudl show something like this
+
+Eg:
+user searching-- Image present inside resources(astLogo.png)
+if user type ast
+it should get recommendation(just like gogle search,youtube search; according to the letter typed inside searchbox
+if type a,it should show all things started with a, in all webpages)
+
+ast->typed in searcbar
+
+this below written things should display inside reommendation box
+Resources(pageName)
+———————————— 
+AstImage.png
+AstLogo.png
+.....
+
+DashBoard(pageName)
+————————————
+AST Environment Solution
+
+like this in all pages
+
+i am using html,css,js and asp.net framework(mvc arcitecture),

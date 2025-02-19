@@ -1,14 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\AST-Intranet",
-    "\\AST-Intranet\\Content",
-    "\\AST-Intranet\\Content\\css",
-    "\\AST-Intranet\\Scripts",
-    "\\AST-Intranet\\Scripts\\script",
-    "\\AST-Intranet\\Views",
-    "\\AST-Intranet\\Views\\Employees",
-    "\\AST-Intranet\\Views\\Events"
+    ""
   ],
+  "SelectedNode": "\\AST-Intranet.sln",
   "PreviewInSolutionExplorer": false
 }

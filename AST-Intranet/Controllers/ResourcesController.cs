@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq; // Add this to enable LINQ functionality
 using System.Web.Mvc;
 using AST_Intranet.Models;
 
@@ -24,8 +25,25 @@ namespace AST_Intranet.Controllers
 
             if (Directory.Exists(parentFolderPath))
             {
-                var subFolders = Directory.GetDirectories(parentFolderPath);
+                // Process files directly in the parent folder (root folder)
+                var rootFiles = GetFilesFromFolder(parentFolderPath);
+                if (rootFiles.Any()) // This checks if there are any files directly in the parent folder
+                {
+                    resources.Add(new Resource
+                    {
+                        Name = Path.GetFileName(parentFolderPath), // Label for the root folder (like "Certificates", "Presentation")
+                        Files = rootFiles, // Files directly in the root folder
+                        SubCategories = new List<Subcategory>() // Initialize an empty list for subcategories (if needed later)
+                    });
+                    Console.WriteLine("FETCHING FILES FROM rOOT FOLDERS");
+                }
+                else
+                {
+                    Console.WriteLine("No files found in root folder: " + parentFolderPath);
+                }
 
+                // Process subfolders (recursive)
+                var subFolders = Directory.GetDirectories(parentFolderPath);
                 foreach (var subFolderPath in subFolders)
                 {
                     string folderName = Path.GetFileName(subFolderPath);
@@ -33,15 +51,21 @@ namespace AST_Intranet.Controllers
                     var resource = new Resource
                     {
                         Name = folderName,
-                        Files = GetFilesFromFolder(subFolderPath),
-                        SubCategories = GetSubcategories(subFolderPath)
+                        Files = GetFilesFromFolder(subFolderPath), // Get files from the subfolder
+                        SubCategories = GetSubcategories(subFolderPath) // Get subcategories from subfolder
                     };
 
                     resources.Add(resource);
                 }
             }
+            else
+            {
+                Console.WriteLine("Directory does not exist: " + parentFolderPath);
+            }
+
             return resources;
         }
+
 
         private List<Subcategory> GetSubcategories(string parentFolderPath)
         {
@@ -74,28 +98,35 @@ namespace AST_Intranet.Controllers
 
             if (Directory.Exists(folderPath))
             {
+                // Get all files in the folder
                 var allFiles = Directory.GetFiles(folderPath);
-                var allowedExtensions = new List<string>
-                {
-                    ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
-                    ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".jfif",
-                    ".exe", ".msi", ".dmg", ".iso", ".apk", 
-                    ".mp4", ".avi", ".mov", ".mkv", ".wmv", ".flv", ".webm", ".mpeg", ".mpg", ".3gp"
-                };
 
+                // Define allowed extensions
+                var allowedExtensions = new List<string>
+        {
+            ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
+            ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".jfif",
+            ".exe", ".msi", ".dmg", ".iso", ".apk",
+            ".mp4", ".avi", ".mov", ".mkv", ".wmv", ".flv", ".webm", ".mpeg", ".mpg", ".3gp"
+        };
+
+                // Iterate through each file in the folder
                 foreach (var file in allFiles)
                 {
                     string fileName = Path.GetFileName(file);
                     string fileExtension = Path.GetExtension(fileName).ToLower();
 
+                    // Add file if it has an allowed extension
                     if (allowedExtensions.Contains(fileExtension))
                     {
                         files.Add(fileName);
                     }
                 }
             }
+
             return files;
         }
+
 
         public ActionResult GetFiles(string folderName, string fileName)
         {

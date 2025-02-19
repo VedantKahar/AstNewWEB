@@ -2,8 +2,17 @@
 <div class="top-nav">
     <div class="left-section">
         <img style="height:30px; border-radius:5px" src="~/Images/images/ast_logo3.jpg" alt="AST logo" class="ast-logo">
-        <input type="text" placeholder="Search..." class="search-bar">
+
+        <!-- Search Bar -->
+        <input type="text" id="search-bar" placeholder="Search..." class="search-bar" oninput="fetchSuggestions(this.value)">
+
+        <!-- Suggestions Dropdown -->
+        <div id="suggestions-box" class="suggestions-box" style="display:none;">
+            <!-- Suggestions will be inserted here dynamically -->
+        </div>
     </div>
+
+    <!-- Other navigation items remain the same -->
     <ul class="nav-links">
         <li><a href="@Url.Action("dashboardView", "Dashboard")">Dashboard</a></li>
         <li><a href="@Url.Action("EmployeesView", "Employees")">Employees</a></li>
@@ -12,7 +21,7 @@
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">
                 Others
-                <img src="~/Images/icons/down-arrow.png" alt="Others" style="width: 20px; height: 20px; margin-right: 8px;">
+                <img src="~/Images/icons/down-arrow.png" alt="Others" style="width: 20px; height: 20px; margin-right: 8px; ">
             </a>
             <div class="dropdown-content">
                 <a href="@Url.Action("updatesView", "Updates")">Today's Updates</a>

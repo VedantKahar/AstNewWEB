@@ -1,4 +1,188 @@
-﻿@model List<AST_Intranet.Models.Resource>
+ResourcesController.cs
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Web.Mvc;
+using AST_Intranet.Models;
+
+namespace AST_Intranet.Controllers
+{
+    public class ResourcesController : Controller
+    {
+        private string baseFolderPath = @"\\astns\General\INTRANET\Resources";
+        //private string baseFolderPath = @"D:\INTRANET\Resources";
+
+        public ActionResult ResourcesView()
+        {
+            var resources = GetResourcesFromFolder(baseFolderPath);
+
+            return View(resources);
+        }
+
+        private List<Resource> GetResourcesFromFolder(string parentFolderPath)
+        {
+            var resources = new List<Resource>();
+
+            if (Directory.Exists(parentFolderPath))
+            {
+                var subFolders = Directory.GetDirectories(parentFolderPath);
+
+                foreach (var subFolderPath in subFolders)
+                {
+                    string folderName = Path.GetFileName(subFolderPath);
+
+                    var resource = new Resource
+                    {
+                        Name = folderName,
+                        Files = GetFilesFromFolder(subFolderPath),
+                        SubCategories = GetSubcategories(subFolderPath)
+                    };
+
+                    resources.Add(resource);
+                }
+            }
+            return resources;
+        }
+
+        private List<Subcategory> GetSubcategories(string parentFolderPath)
+        {
+            var subcategories = new List<Subcategory>();
+
+            if (Directory.Exists(parentFolderPath))
+            {
+                var subFolders = Directory.GetDirectories(parentFolderPath);
+
+                foreach (var subFolderPath in subFolders)
+                {
+                    string subFolderName = Path.GetFileName(subFolderPath);
+
+                    var subcategory = new Subcategory
+                    {
+                        Name = subFolderName,
+                        Files = GetFilesFromFolder(subFolderPath),
+                        SubCategories = GetSubcategories(subFolderPath)
+                    };
+
+                    subcategories.Add(subcategory);
+                }
+            }
+            return subcategories;
+        }
+
+        private List<string> GetFilesFromFolder(string folderPath)
+        {
+            var files = new List<string>();
+
+            if (Directory.Exists(folderPath))
+            {
+                var allFiles = Directory.GetFiles(folderPath);
+                var allowedExtensions = new List<string>
+                {
+                    ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
+                    ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".jfif",
+                    ".exe", ".msi", ".dmg", ".iso", ".apk", 
+                    ".mp4", ".avi", ".mov", ".mkv", ".wmv", ".flv", ".webm", ".mpeg", ".mpg", ".3gp"
+                };
+
+                foreach (var file in allFiles)
+                {
+                    string fileName = Path.GetFileName(file);
+                    string fileExtension = Path.GetExtension(fileName).ToLower();
+
+                    if (allowedExtensions.Contains(fileExtension))
+                    {
+                        files.Add(fileName);
+                    }
+                }
+            }
+            return files;
+        }
+
+        public ActionResult GetFiles(string folderName, string fileName)
+        {
+            try
+            {
+                string folderPath = Path.Combine(baseFolderPath, folderName);
+                string filePath = Path.Combine(folderPath, fileName);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    string fileExtension = Path.GetExtension(fileName).ToLower();
+                    string contentType = "application/octet-stream";
+
+                    var mimeTypes = new Dictionary<string, string>
+                    {
+                        { ".pdf", "application/pdf" },
+                        { ".doc", "application/msword" },
+                        { ".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
+                        { ".xls", "application/vnd.ms-excel" },
+                        { ".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+                        { ".ppt", "application/vnd.ms-powerpoint" },
+                        { ".pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
+                        { ".jpg", "image/jpeg" }, { ".jpeg", "image/jpeg" }, { ".jfif", "image/jpeg" },
+                        { ".png", "image/png" }, { ".gif", "image/gif" }, { ".bmp", "image/bmp" },
+                        //{ ".cr3", "image/x-canon-cr3" }, 
+                        { ".exe", "application/octet-stream" }, { ".msi", "application/x-msi" },
+                        { ".dmg", "application/octet-stream" }, { ".iso", "application/x-iso9660-image" },
+                        { ".mp4", "video/mp4" }, { ".avi", "video/x-msvideo" },
+                        { ".mov", "video/quicktime" }, { ".mkv", "video/x-matroska" },
+                        { ".wmv", "video/x-ms-wmv" }, { ".flv", "video/x-flv" },
+                        { ".webm", "video/webm" }, { ".mpeg", "video/mpeg" },
+                        { ".mpg", "video/mpeg" }, { ".3gp", "video/3gpp" }
+                    };
+
+                    if (mimeTypes.ContainsKey(fileExtension))
+                    {
+                        contentType = mimeTypes[fileExtension];
+                    }
+
+                    var fileBytes = System.IO.File.ReadAllBytes(filePath);
+
+                    return File(fileBytes, contentType);
+                }
+                else
+                {
+                    return HttpNotFound("File not found: " + filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error accessing file: " + ex.Message);
+                return new HttpStatusCodeResult(500, "Error accessing file: " + ex.Message);
+            }
+        }
+    }
+}
+
+---------------------
+Resource.cs(model)
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace AST_Intranet.Models
+{
+    public class Resource
+    {
+        public string Name { get; set; }
+        public List<string> Files { get; set; }  // Files directly under this resource
+        public List<Subcategory> SubCategories { get; set; }  // Subcategories (folders within this resource)
+    }
+
+    public class Subcategory
+    {
+        public string Name { get; set; }
+        public List<string> Files { get; set; }  // Files directly under this subcategory
+        public List<Subcategory> SubCategories { get; set; }  // Sub-subcategories
+    }
+
+}
+---------------------
+resourcesView.cshtml
+@model List<AST_Intranet.Models.Resource>
 @using System.Text;
 
 <link rel="stylesheet" href="@Url.Content("~/Content/css/ResourcesStyle.css")">
@@ -210,3 +394,15 @@
         }
     }
 </script>
+
+it is not fetching files directly from folder
+eg:
+Resources
+  |——>folder1
+	|——>folderA(it contain files)[it is displaying]
+	|——>folderB(it contain files)[it is displaying]
+  |——>folder2(it contain files)[it is not displaying]
+  |——>folder3(it contain files)[it is not displaying]
+
+the above code is working properly, but please update code where, it can directly fetches files from folder, 
+don't change working of above code, it should work like this

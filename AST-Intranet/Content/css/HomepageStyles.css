@@ -1,5 +1,3 @@
-
-
     /* Hero Section Styling */
     .hero-section {
         display: flex;
@@ -24,9 +22,9 @@
         transition: transform 0.3s ease;
     }
 
-    /*.hero-section img:hover {
-    transform: scale(1.05) rotateY(10deg) rotateX(10deg);
-    } */
+    .hero-section img:hover {
+    transform: scale(1.05) rotateY(180deg) rotateX(10deg);
+    } 
 
     /* Hero Content Section */
     .hero-content {
@@ -64,7 +62,6 @@
         background-color: #16a085;
         transform: translateY(-5px);
     }
-
 
     /* Cards Section */
     .cards-container {
@@ -200,6 +197,7 @@
     h2 {
         font-size: 32px;
         color: #34495e;
+        margin-bottom:10px;
     }
 
     /* Styling for the Orders Overview Section */
@@ -315,7 +313,7 @@
         display: flex;
         justify-content: space-between;
         gap: 30px;
-        margin-top: 30px;
+        margin-top: 10px;
     }
 
     .manual-item {
@@ -363,7 +361,7 @@
         justify-content: space-between;
         gap: 30px;
         flex-wrap: wrap;
-        margin-top: 40px;
+        margin-top: 10px;
     }
 
     .event-item {
@@ -421,19 +419,7 @@
         color: #EAF1F1; /* Slight color shift on hover for emphasis */
     }
 
-    @media (max-width: 1024px) {
-        .event-item {
-            width: 45%;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .event-item {
-            width: 100%;
-        }
-    }
-
-   
+  
 
     /* Responsive Design */
     @media (max-width: 1024px) {
@@ -457,6 +443,9 @@
 
         .hero-section p {
             font-size: 16px;
+        }
+        .event-item {
+            width: 45%;
         }
     }
 
@@ -486,5 +475,8 @@
         .event-gallery {
             flex-direction: column;
             gap: 15px;
+        }
+        .event-item {
+            width: 100%;
         }
     }
