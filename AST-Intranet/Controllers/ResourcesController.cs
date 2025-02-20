@@ -10,7 +10,7 @@ namespace AST_Intranet.Controllers
     public class ResourcesController : Controller
     {
         private string baseFolderPath = @"\\astns\General\INTRANET\Resources";
-        //private string baseFolderPath = @"D:\INTRANET\Resources";
+        //private string baseFolderPath = @"D:\INTRANET Dummy Folder\Resources";
 
         public ActionResult ResourcesView()
         {
@@ -31,11 +31,11 @@ namespace AST_Intranet.Controllers
                 {
                     resources.Add(new Resource
                     {
-                        Name = Path.GetFileName(parentFolderPath), // Label for the root folder (like "Certificates", "Presentation")
+                        Name = Path.GetFileName(parentFolderPath), // Label for the root folder (like "Resources")
                         Files = rootFiles, // Files directly in the root folder
                         SubCategories = new List<Subcategory>() // Initialize an empty list for subcategories (if needed later)
                     });
-                    Console.WriteLine("FETCHING FILES FROM rOOT FOLDERS");
+                    Console.WriteLine("FETCHING FILES FROM ROOT FOLDER");
                 }
                 else
                 {
@@ -48,6 +48,7 @@ namespace AST_Intranet.Controllers
                 {
                     string folderName = Path.GetFileName(subFolderPath);
 
+                    // Get files and subcategories from the subfolder
                     var resource = new Resource
                     {
                         Name = folderName,
@@ -65,7 +66,6 @@ namespace AST_Intranet.Controllers
 
             return resources;
         }
-
 
         private List<Subcategory> GetSubcategories(string parentFolderPath)
         {
@@ -103,12 +103,12 @@ namespace AST_Intranet.Controllers
 
                 // Define allowed extensions
                 var allowedExtensions = new List<string>
-        {
-            ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
-            ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".jfif",
-            ".exe", ".msi", ".dmg", ".iso", ".apk",
-            ".mp4", ".avi", ".mov", ".mkv", ".wmv", ".flv", ".webm", ".mpeg", ".mpg", ".3gp"
-        };
+                {
+                    ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",".txt",
+                    ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".jfif",
+                    ".exe", ".msi", ".dmg", ".iso", ".apk",
+                    ".mp4", ".avi", ".mov", ".mkv", ".wmv", ".flv", ".webm", ".mpeg", ".mpg", ".3gp"
+                };
 
                 // Iterate through each file in the folder
                 foreach (var file in allFiles)
@@ -127,7 +127,6 @@ namespace AST_Intranet.Controllers
             return files;
         }
 
-
         public ActionResult GetFiles(string folderName, string fileName)
         {
             try
@@ -142,6 +141,7 @@ namespace AST_Intranet.Controllers
 
                     var mimeTypes = new Dictionary<string, string>
                     {
+                        {".txt", "text/plain" },
                         { ".pdf", "application/pdf" },
                         { ".doc", "application/msword" },
                         { ".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
@@ -151,7 +151,7 @@ namespace AST_Intranet.Controllers
                         { ".pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
                         { ".jpg", "image/jpeg" }, { ".jpeg", "image/jpeg" }, { ".jfif", "image/jpeg" },
                         { ".png", "image/png" }, { ".gif", "image/gif" }, { ".bmp", "image/bmp" },
-                        //{ ".cr3", "image/x-canon-cr3" }, 
+                        //{ ".cr3", "image/x-canon-cr3" },
                         { ".exe", "application/octet-stream" }, { ".msi", "application/x-msi" },
                         { ".dmg", "application/octet-stream" }, { ".iso", "application/x-iso9660-image" },
                         { ".mp4", "video/mp4" }, { ".avi", "video/x-msvideo" },

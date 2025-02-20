@@ -24,21 +24,23 @@
     </div>
 
     <!-- Inline JavaScript -->
-    <!--<script>
-        // Function to fetch suggestions based on the input text
+    <script>
+        // Function to handle fetching search suggestions
         function fetchSuggestions(query) {
-            if (query.length < 1) {
+            if (query.length < 2) { // Only fetch if the query has 2 or more characters
                 document.getElementById('suggestions-box').style.display = 'none';
                 return;
             }
 
-            // Perform AJAX request to fetch search suggestions
-            fetch(`/Search/GetSuggestions?q=${encodeURIComponent(query)}`)
-                .then(response => response.json())
-                .then(data => {
-                    // Clear previous suggestions
-                    const suggestionsBox = document.getElementById('suggestions-box');
-                    suggestionsBox.innerHTML = '';
+            // Make AJAX call to the server to fetch search suggestions
+            $.ajax({
+                url: '/Search/GetSuggestions', // URL to the search controller action
+                method: 'GET',
+                data: { query: query },
+                success: function (data) {
+                    // Show the suggestions box
+                    let suggestionsBox = document.getElementById('suggestions-box');
+                    suggestionsBox.innerHTML = ''; // Clear existing suggestions
 
                     // If no results, hide the box
                     if (data.length === 0) {
@@ -46,20 +48,26 @@
                         return;
                     }
 
-                    // Show suggestions box
-                    suggestionsBox.style.display = 'block';
-
-                    // Populate the suggestions box
-                    data.forEach(suggestion => {
-                        const div = document.createElement('div');
-                        div.classList.add('suggestion-item');
-                        div.textContent = suggestion.title;
-                        div.onclick = () => window.location.href = suggestion.url; // Navigate to the selected item
-                        suggestionsBox.appendChild(div);
+                    // Display results
+                    data.forEach(function (item) {
+                        let suggestion = document.createElement('div');
+                        suggestion.classList.add('suggestion-item');
+                        suggestion.innerHTML = `
+                    <strong>${item.page}</strong><br>
+                    ${item.suggestions.join('<br>')}
+                `;
+                        suggestionsBox.appendChild(suggestion);
                     });
-                })
-                .catch(error => console.error('Error fetching suggestions:', error));
+
+                    suggestionsBox.style.display = 'block'; // Show suggestions box
+                },
+                error: function () {
+                    console.error('Error fetching search suggestions');
+                }
+            });
         }
-    </script>-->
+
+        
+    </script>
 </body>
 </html>

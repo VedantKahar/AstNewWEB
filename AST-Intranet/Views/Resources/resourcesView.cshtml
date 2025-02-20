@@ -1,4 +1,4 @@
-﻿@model List<AST_Intranet.Models.Resource>
+﻿﻿@model List<AST_Intranet.Models.Resource>
 @using System.Text;
 
 <link rel="stylesheet" href="@Url.Content("~/Content/css/ResourcesStyle.css")">
@@ -6,9 +6,10 @@
 <div class="main-content">
     <div class="content">
         <div class="resources-section">
-            <h2>Company Resources</h2>
+            <h2>Resources</h2>
 
-            <!-- Loop through each resource -->
+            @*give it same design as files from subfolders*@
+
             @foreach (var resource in Model)
             {
                 <div class="resource-item" onclick="toggleResource(this)">
@@ -17,12 +18,61 @@
                         <p class="resource-description">Click to view all available @resource.Name</p>
                     </div>
                     <div class="resource-content">
+                        @* Render files from the root folder *@
+                        @if (resource.Files.Any())
+                        {
+                            <div class="resource-section">
+                                <hr />
+                                <div class="media-grid">
+                                    @* Grid for document files (PDF, DOC, PPT, XLS) *@
+
+                                    <div class='document-files'>
+                                        @foreach (var file in resource.Files.Where(f => IsDocumentFile(f)))
+                                        {
+                                            var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = resource.Name, fileName = file });
+                                            //var isLongFileName = file.Length > 30 ? "long-file-name" : "";  // Example threshold for long names
+
+                                            <div class="file-item">
+                                                <a href="@fileUrl" target="_blank" @*class="@isLongFileName"*@ loading="lazy">@file</a>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class='image-files'>
+
+                                        @* Grid for image files *@
+                                        @foreach (var file in resource.Files.Where(f => IsImageFile(f)))
+                                        {
+                                            var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = resource.Name, fileName = file });
+                                            <div class="image-file">
+                                                <a href="@fileUrl" target="_blank">
+                                                    <img src="@fileUrl" alt="@file" loading="lazy" />
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class='other-files'>
+                                        @* Grid for other file types (APK, installers, etc.) *@
+                                        @foreach (var file in resource.Files.Where(f => IsOtherFile(f)))
+                                        {
+                                            var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = resource.Name, fileName = file });
+
+                                            <div class="file-item">
+                                                <a href="@fileUrl" target="_blank" loading="lazy">@file</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
                         @* Call the recursive function to render subfolders only if they contain files *@
                         @RenderFoldersAndFiles(resource.SubCategories, resource.Name)
                     </div>
                 </div>
             }
+
         </div>
+
     </div>
 </div>
 
@@ -42,7 +92,7 @@
                 html.Append("<hr>");
 
                 // Prepare flags to check if image, video, document, or other files are present
-                bool hasImages = subcategory.Files.Any(f => IsImageFile(f));/* && GetFileSize(f) <= 9 * 1024 * 1024); */// 9MB limit for images
+                bool hasImages = subcategory.Files.Any(f => IsImageFile(f)); /* && GetFileSize(f) <= 9 * 1024 * 1024); */
                 bool hasVideos = subcategory.Files.Any(f => IsVideoFile(f));
                 bool hasDocuments = subcategory.Files.Any(f => IsDocumentFile(f));
                 bool hasOtherFiles = subcategory.Files.Any(f => IsOtherFile(f));
@@ -54,7 +104,7 @@
                 {
                     html.Append("<div class='image-files'>");
 
-                    foreach (var file in subcategory.Files.Where(f => IsImageFile(f)))/* && GetFileSize(f) <= 9 * 1024 * 1024))*/
+                    foreach (var file in subcategory.Files.Where(f => IsImageFile(f)))
                     {
                         var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = parentFolder + "/" + subcategory.Name, fileName = file });
 
@@ -64,6 +114,7 @@
                         html.Append("<div class='image-file'>");
                         html.Append("<a href='" + fileUrl + "' target='_blank'>");
                         html.Append("<img src='" + fileUrl + "' alt='" + file + "' loading='lazy' />");
+                        //html.Append(file);  //->display photo name 
                         html.Append("</a></div>");
                     }
 
@@ -102,11 +153,11 @@
                     {
                         var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = parentFolder + "/" + subcategory.Name, fileName = file });
 
-                        // Preload document file (Optional, based on use case)
-                        html.Append("<link rel='preload' href='" + fileUrl + "' as='document'>");
+                        // Check if the file name is long (example threshold 30 characters)
+                        //var isLongFileName = file.Length > 30 ? "long-file-name" : "";  // Adjust the length threshold as needed
 
                         html.Append("<div class='file-type'>");
-                        html.Append("<a href='" + fileUrl + "' target='_blank' loading='lazy'>");
+                        html.Append("<a href='" + fileUrl + "' target='_blank'  loading='lazy'>");/*class='" + isLongFileName + "'*/
                         html.Append(file); // Displaying document names
                         html.Append("</a></div>");
                     }
@@ -122,9 +173,10 @@
                     foreach (var file in subcategory.Files.Where(f => IsOtherFile(f)))
                     {
                         var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = parentFolder + "/" + subcategory.Name, fileName = file });
+                        var isLongFileName = file.Length > 10 ? "long-file-name" : "";  // Adjust the length threshold as needed
 
                         html.Append("<div class='file-type'>");
-                        html.Append("<a href='" + fileUrl + "' target='_blank' loading='lazy'>");
+                        html.Append("<a href='" + fileUrl + "' target='_blank' class='" + isLongFileName + "' loading='lazy'>");
                         html.Append(file); // Displaying non-media files (APK, installers, etc.)
                         html.Append("</a></div>");
                     }
@@ -134,7 +186,7 @@
 
                 html.Append("</div></div>");
             }
-             
+
             // Check for subfolders (subcategories) and recursively render them
             if (subcategory.SubCategories != null && subcategory.SubCategories.Any())
             {
@@ -144,14 +196,6 @@
 
         return new HtmlString(html.ToString());
     }
-
-    //// Helper function to get the file size (returns the size in bytes)
-    //private long GetFileSize(string fileName)
-    //{
-    //    string filePath = Path.Combine(Server.MapPath("~/Resources"), fileName); // Adjust the path as necessary
-    //    FileInfo fileInfo = new FileInfo(filePath);
-    //    return fileInfo.Exists ? fileInfo.Length : 0;
-    //}
 
     // Helper function to check if the file is an image
     private bool IsImageFile(string fileName)
@@ -170,7 +214,7 @@
     // Helper function to check if the file is a document
     private bool IsDocumentFile(string fileName)
     {
-        string[] documentExtensions = new[] { ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx" };
+        string[] documentExtensions = new[] { ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".txt" };
         return documentExtensions.Any(ext => fileName.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
     }
 

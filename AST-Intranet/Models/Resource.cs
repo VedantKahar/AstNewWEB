@@ -10,6 +10,8 @@ namespace AST_Intranet.Models
         public string Name { get; set; }
         public List<string> Files { get; set; }  // Files directly under this resource
         public List<Subcategory> SubCategories { get; set; }  // Subcategories (folders within this resource)
+
+
     }
 
     public class Subcategory

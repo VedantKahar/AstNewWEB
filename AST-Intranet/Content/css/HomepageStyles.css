@@ -23,7 +23,7 @@
     }
 
     .hero-section img:hover {
-    transform: scale(1.05) rotateY(180deg) rotateX(10deg);
+    transform: scale(1.05) rotateY(180deg) rotateX(0deg);
     } 
 
     /* Hero Content Section */
@@ -366,7 +366,7 @@
 
     .event-item {
         width: 30%;
-        background: linear-gradient(135deg, #6C9EBF, #A4D7D1); /* Slightly more refined gradient */
+        background: linear-gradient(135deg, #6C9EBF, #A4D7D1); /* red gradient */
         border-radius: 15px;
         overflow: hidden;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); /* Softer, cleaner shadow */
@@ -415,11 +415,10 @@
         color: inherit;
     }
 
-    .event-item a:hover .event-description {
-        color: #EAF1F1; /* Slight color shift on hover for emphasis */
-    }
-
-  
+        .event-item a:hover .event-description {
+            color: #ffffff; /* Slight color shift on hover for emphasis */
+        }
+      
 
     /* Responsive Design */
     @media (max-width: 1024px) {

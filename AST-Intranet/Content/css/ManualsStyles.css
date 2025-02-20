@@ -16,16 +16,16 @@
    
     }
 
-/* Update for .manual-box to ensure padding is maintained */
-.manual-box {
-    background: linear-gradient(135deg, #6faedb 10%, #b8e2d3 70%);
-    border-radius: 10px;
-    padding: 15px; /* Keeps the padding around the box */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 250px; /* Fixed height */
-    overflow-y: auto; /* Makes box scrollable if content overflows */
-    box-sizing: border-box; /* Ensures padding is inside the box */
-}
+    /* Update for .manual-box to ensure padding is maintained */
+    .manual-box {
+        background: linear-gradient(135deg, #6faedb 10%, #b8e2d3 70%);
+        border-radius: 10px;
+        padding: 15px; /* Keeps the padding around the box */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: 250px; /* Fixed height */
+        overflow-y: auto; /* Makes box scrollable if content overflows */
+        box-sizing: border-box; /* Ensures padding is inside the box */
+    }
 
     /* Inner container for scrollable content */
     .manual-box .manual-box-content {
@@ -34,17 +34,17 @@
         overflow-y: auto;
     }
 
-/* Optional: additional spacing for individual items */
-.manual-item {
-    background-color: #ecf0f1;
-    border-radius: 8px;
-    padding: 5px; /* Adjust padding as per your need */
-    margin-bottom: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
+    /* Optional: additional spacing for individual items */
+    .manual-item {
+        background-color: #ecf0f1;
+        border-radius: 8px;
+        padding: 5px; /* Adjust padding as per your need */
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
 
 
     .manual-box:hover {

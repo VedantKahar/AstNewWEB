@@ -173,9 +173,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\Dashboard.cs" />
     <Compile Include="Models\Database\DatabaseConnector.cs" />
     <Compile Include="Models\Database\EmployeeDBConnector.cs" />
     <Compile Include="Models\Database\UpdateDBConnector.cs" />
+    <Compile Include="Models\Employee .cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

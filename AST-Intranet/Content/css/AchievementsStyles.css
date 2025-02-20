@@ -110,23 +110,23 @@
     }
 
     /* Styling for Each Achievement Card */
-.achievement-card {
-    background: linear-gradient(135deg, #6faedb 10%, #b8e2d3 70%);
-    backdrop-filter: blur(8px); /* Apply the blur effect */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    width: 100%;
-    max-width: 100%;
-    height: 400px; /* Fixed height for consistency */
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centering the content */
-    align-items: center; /* Align the content in the center */
-}
+    .achievement-card {
+        background: linear-gradient(135deg, #6faedb 10%, #b8e2d3 70%);
+        backdrop-filter: blur(8px); /* Apply the blur effect */
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+        max-width: 100%;
+        height: 400px; /* Fixed height for consistency */
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centering the content */
+        align-items: center; /* Align the content in the center */
+    }
 
 
     /* Image Styling */
@@ -139,73 +139,73 @@
     }
 
     /*-------------------------------------------------------------------------------*/
-/* Container for Employee Achievement Cards */
-.employee-achievement-cards-container {
-    padding: 10px;
-    display: flex;
-    justify-content: initial; /* Align items to their default position */
-    gap: 20px;
-    flex-wrap: wrap; /* Allow cards to wrap if they exceed the container width */
-}
+    /* Container for Employee Achievement Cards */
+    .employee-achievement-cards-container {
+        padding: 10px;
+        display: flex;
+        justify-content: initial; /* Align items to their default position */
+        gap: 20px;
+        flex-wrap: wrap; /* Allow cards to wrap if they exceed the container width */
+    }
 
-.employee-achievement-card {
-    background: linear-gradient(135deg, #4ab6f5 10%, #a0e4d6 70%);
-    backdrop-filter: blur(8px); /* Apply the blur effect */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    width: 100%;
-    max-width: 49%; /* Set a max width for better layout */
-    height: 450px; /* Fixed height for consistency */
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Align content at the top of the card */
-    align-items: center; /* Center the content horizontally */
-}
+    .employee-achievement-card {
+        background: linear-gradient(135deg, #4ab6f5 10%, #a0e4d6 70%);
+        backdrop-filter: blur(8px); /* Apply the blur effect */
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+        max-width: 49%; /* Set a max width for better layout */
+        height: 450px; /* Fixed height for consistency */
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Align content at the top of the card */
+        align-items: center; /* Center the content horizontally */
+    }
 
-/* Title Styling */
-.employee-achievements-section h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
+    /* Title Styling */
+    .employee-achievements-section h2 {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
 
-/* Image Styling */
-.employee-achievement-card img {
-    width: 100%; /* Ensure the image takes full width of the container */
-    height: 200px; /* Fixed height for the image */
-    object-fit: cover; /* Ensure the image covers the area without distorting */
-    border-radius: 8px; /* Optional: round the corners of the images */
-}
+    /* Image Styling */
+    .employee-achievement-card img {
+        width: 100%; /* Ensure the image takes full width of the container */
+        height: 200px; /* Fixed height for the image */
+        object-fit: cover; /* Ensure the image covers the area without distorting */
+        border-radius: 8px; /* Optional: round the corners of the images */
+    }
 
-/* Heading and Description Styling */
-.employee-achievements-section h3 {
-    font-size: 1.6em;
-    color: #34495e;
-    margin-top: 15px;
-}
+    /* Heading and Description Styling */
+    .employee-achievements-section h3 {
+        font-size: 1.6em;
+        color: #34495e;
+        margin-top: 15px;
+    }
 
-.employee-achievements-section p {
-    font-size: 1.4em;
-    color: #fff;
-    margin-top: 0px;
-}
+    .employee-achievements-section p {
+        font-size: 1.4em;
+        color: #fff;
+        margin-top: 0px;
+    }
 
-.employee-achievement-card .desc {
-    font-size: 1.1em;
-    margin-top: 15px;
-    overflow-y: auto; /* Enable vertical scrolling */
-    max-height: 150px; /* Set a max height for the description */
-    padding-right: 10px; /* Add padding to avoid text being flush with the scroll */
-}
+    .employee-achievement-card .desc {
+        font-size: 1.1em;
+        margin-top: 15px;
+        overflow-y: auto; /* Enable vertical scrolling */
+        max-height: 150px; /* Set a max height for the description */
+        padding-right: 10px; /* Add padding to avoid text being flush with the scroll */
+    }
 
-/* Section for Employee Achievements */
-.employee-achievements-section {
-    padding: 20px;
-}
+    /* Section for Employee Achievements */
+    .employee-achievements-section {
+        padding: 20px;
+    }
 
     /* Styling for descriptions that may overflow */
     .employee-achievements-section .desc::-webkit-scrollbar {
@@ -245,16 +245,16 @@
     }
 
     /* Competition card container */
-.competition-section .competition-card {
-    background: linear-gradient(135deg, #6faedb 10%, #b8e2d3 70%);
-    /*background-color: #fff;*/
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    width: calc(50% - 10px); /* Make cards take 50% width, with space between */
-    box-sizing: border-box; /* Ensure padding and margin are included in width */
-}
+    .competition-section .competition-card {
+        background: linear-gradient(135deg, #6faedb 10%, #b8e2d3 70%);
+        /*background-color: #fff;*/
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        width: calc(50% - 10px); /* Make cards take 50% width, with space between */
+        box-sizing: border-box; /* Ensure padding and margin are included in width */
+    }
 
     /* Hover effect for competition cards */
     .competition-section .competition-card:hover {
