@@ -206,7 +206,7 @@ namespace AST_Intranet.Models.Database
         /*-------------------------------------Graph Queries-------------------------------------------------------*/
 
         // Method to fetch male and female employee count per year
-        /*public static List<Dictionary<string, object>> GetMaleFemaleEmployeesByYear()
+        public static List<Dictionary<string, object>> GetMaleFemaleEmployeesByYear()
         {
             List<Dictionary<string, object>> employeesByYear = new List<Dictionary<string, object>>();
             try
@@ -253,7 +253,7 @@ namespace AST_Intranet.Models.Database
 
             return employeesByYear;
         }
-        */
+        
 
         // Method to fetch employees per department per year with year range
         public static List<Dictionary<string, object>> GetEmployeesByDepartmentPerYear(int startYear, int endYear)

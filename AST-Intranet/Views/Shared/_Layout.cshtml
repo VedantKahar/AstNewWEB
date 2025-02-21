@@ -18,7 +18,7 @@
         <div class="content">
             @RenderBody() <!-- This will render the content from the current view -->
         </div>
-
+       
         <!-- Render Footer -->
         @Html.Partial("_Footer")
     </div>
@@ -27,7 +27,7 @@
     <script>
         // Function to handle fetching search suggestions
         function fetchSuggestions(query) {
-            if (query.length < 2) { // Only fetch if the query has 2 or more characters
+            if (query.length < 1) { // Only fetch if the query has 2 or more characters
                 document.getElementById('suggestions-box').style.display = 'none';
                 return;
             }
@@ -53,9 +53,9 @@
                         let suggestion = document.createElement('div');
                         suggestion.classList.add('suggestion-item');
                         suggestion.innerHTML = `
-                    <strong>${item.page}</strong><br>
-                    ${item.suggestions.join('<br>')}
-                `;
+                        <strong>${item.page}</strong><br>
+                        ${item.suggestions.join('<br>')}
+                    `;
                         suggestionsBox.appendChild(suggestion);
                     });
 
@@ -67,7 +67,6 @@
             });
         }
 
-        
     </script>
 </body>
 </html>

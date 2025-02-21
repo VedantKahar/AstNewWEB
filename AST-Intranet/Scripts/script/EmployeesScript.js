@@ -1,3 +1,5 @@
+
+
 let currentChart = null;
 const ctx = document.getElementById('employeeChart').getContext('2d');
 

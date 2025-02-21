@@ -23,10 +23,10 @@
     .document-files {
         grid-template-columns: repeat(5, 1fr); /* 4 items per row for documents */
     }
-/* For document files section (4 items per row) */
-.other-files {
-    grid-template-columns: repeat(1, 1fr); /* 4 items per row for documents */
-}
+    /* For document files section (4 items per row) */
+    .other-files {
+        grid-template-columns: repeat(1, 1fr); /* 4 items per row for documents */
+    }
 
     /* Individual items in the grid */
     .image-files > div, .video-files > div, .other-files > div, .document-files > div {
@@ -78,26 +78,26 @@
         margin-bottom: 20px;
     }
 
-/* Style for each file item, for all file types (including document files) */
-.file-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f9f9f9;
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: center; /* Center the text */
-    position: relative;
-    border: 1px solid #ddd; /* Add border between items */
-    width: 100%; /* Full width of the grid cell */
-    height: 150px; /* Fixed height */
-    overflow: hidden; /* Prevents content from resizing the box */
-    word-wrap: break-word; /* Allow long file names to break and wrap within the container */
-    word-break: break-word; /* Ensure that the file names are properly wrapped if necessary */
-    overflow-wrap: break-word; /* Another option to ensure wrapping behavior */
-    max-width: 100%; /* Ensure the container takes the full available width */
-    box-sizing: border-box; /* Ensures padding does not affect width calculation */
-}
+    /* Style for each file item, for all file types (including document files) */
+    .file-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f9f9f9;
+        padding: 10px;
+        box-sizing: border-box;
+        text-align: center; /* Center the text */
+        position: relative;
+        border: 1px solid #ddd; /* Add border between items */
+        width: 100%; /* Full width of the grid cell */
+        height: 150px; /* Fixed height */
+        overflow: hidden; /* Prevents content from resizing the box */
+        word-wrap: break-word; /* Allow long file names to break and wrap within the container */
+        word-break: break-word; /* Ensure that the file names are properly wrapped if necessary */
+        overflow-wrap: break-word; /* Another option to ensure wrapping behavior */
+        max-width: 100%; /* Ensure the container takes the full available width */
+        box-sizing: border-box; /* Ensures padding does not affect width calculation */
+    }
 
     /* Link style for file items */
     .file-item a {
@@ -112,16 +112,16 @@
         word-break: break-word; /* Breaks long words */
     }
 
-        /* Adjust font size dynamically for long file names */
-        .file-item a.long-file-name {
-            font-size: 12px; /* Smaller font size for long names */
-            line-height: 1.4; /* Adjust line height for readability */
-        }
+    /* Adjust font size dynamically for long file names */
+    .file-item a.long-file-name {
+        font-size: 12px; /* Smaller font size for long names */
+        line-height: 1.4; /* Adjust line height for readability */
+    }
 
-        /* Hover effect for file links */
-        .file-item a:hover {
-            text-decoration: underline;
-        }
+    /* Hover effect for file links */
+    .file-item a:hover {
+        text-decoration: underline;
+    }
 
 
     /* Resources Section Styles */

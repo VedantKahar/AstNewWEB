@@ -1,4 +1,71 @@
-    /* General container style for centering */
+    /* Container for the department type selector */
+    /*.department-type-selector {
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        display: flex;
+        flex-direction: column;
+    }*/
+
+    /* Label styling */
+    /*.department-type-selector label {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+        display: block;
+    }*/
+
+    /* Styling the select dropdown */
+    /*#departmentTypeSelector {
+        width: 100%;*/ /* Full width of the parent container */
+        /*padding: 10px 15px;*/ /* Add padding inside the dropdown */
+        /*border: 1px solid #ddd;*/ /* Light gray border */
+        /*border-radius: 8px;*/ /* Rounded corners */
+        /*background-color: #f9f9f9;*/ /* Light background color */
+        /*color: #333;*/ /* Text color for the options */
+        /*font-size: 16px;*/ /* Font size for better readability */
+        /*font-family: Arial, sans-serif;*/ /* Consistent font */
+        /*box-sizing: border-box;*/ /* Prevent padding from affecting the width */
+        /*outline: none;*/ /* Remove default outline on focus */
+        /*transition: all 0.3s ease;*/ /* Smooth transition for focus effect */
+        /*height: 200px;*/ /* Fixed height to show multiple options and enable scroll */
+        /*overflow-y: auto;*/ /* Allow scrolling when there are too many options */
+    /*}*/
+
+    /* Style when the select element is focused */
+    /*#departmentTypeSelector:focus {
+        border-color: #6C9EBF;*/ /* Focus border color */
+        /*background-color: #fff;*/ /* White background when focused */
+    /*}*/
+
+    /* Styling the individual options */
+    /*#departmentTypeSelector option {
+        padding: 10px;*/ /* Add padding for better clickability */
+        /*background-color: #fff;*/ /* White background for each option */
+        /*color: #333;*/ /* Dark text color */
+        /*border-bottom: 1px solid #ddd;*/ /* Subtle border between options */
+        /*cursor: pointer;*/ /* Pointer cursor for better interactivity */
+    /*}*/
+
+    /* Option hover effect */
+    /*#departmentTypeSelector option:hover {
+        background-color: #e3f0f8;*/ /* Light blue background on hover */
+    /*}*/
+
+    /* Styling selected options */
+    /*#departmentTypeSelector option:checked {
+        background-color: #6C9EBF;*/ /* Highlight selected options with blue */
+        /*color: white;*/ /* Change text color to white for selected items */
+    /*}*/
+
+    /* Responsive design for smaller screens */
+    /*@media (max-width: 768px) {
+        #departmentTypeSelector {
+            width: 100%;
+        }
+    }*/
+
+/* General container style for centering */
     .container {
         margin: 0 auto;
         padding: 20px;
@@ -10,7 +77,7 @@
     /* Graph Container */
     .chart-container {
         width: 100%;
-        height: 700px;
+        height: 600px;
         margin-top: 20px;
         background-color: #ffffff; /* White background for the graph */
         border-radius: 10px;

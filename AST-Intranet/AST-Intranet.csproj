@@ -160,6 +160,7 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AchievementsController.cs" />
     <Compile Include="Controllers\AllowCrossSiteJsonAttribute.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
@@ -246,6 +247,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
     <Folder Include="Scripts\script\" />
+    <Folder Include="Views\Calendar\" />
     <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>

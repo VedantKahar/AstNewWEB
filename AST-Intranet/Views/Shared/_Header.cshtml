@@ -40,3 +40,44 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#searchBox').on('input', function () {
+            var query = $(this).val().trim();
+            if (query.length > 0) {
+                $.ajax({
+                    url: '/Search/Search',
+                    data: { query: query },
+                    dataType: 'json',
+                    success: function (data) {
+                        var suggestions = data.suggestions;
+                        var suggestionsHtml = '';
+                        if (suggestions.length > 0) {
+                            suggestions.forEach(function (item) {
+                                suggestionsHtml += '<div class="suggestion-item">';
+                                suggestionsHtml += '<strong>' + item.Page + '</strong><br>';
+                                suggestionsHtml += item.Item + '<br>';
+                                suggestionsHtml += '<a href="' + item.Url + '">Go to page</a>';
+                                suggestionsHtml += '</div>';
+                            });
+                            $('#searchSuggestions').html(suggestionsHtml).show();
+                        } else {
+                            $('#searchSuggestions').hide();
+                        }
+                    }
+                });
+            } else {
+                $('#searchSuggestions').hide();
+            }
+        });
+
+        // Close the suggestions when clicking outside the search box
+        $(document).click(function (e) {
+            if (!$(e.target).closest('#searchBox').length && !$(e.target).closest('#searchSuggestions').length) {
+                $('#searchSuggestions').hide();
+            }
+        });
+    });
+</script>

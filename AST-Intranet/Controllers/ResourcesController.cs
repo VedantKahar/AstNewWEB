@@ -137,8 +137,9 @@ namespace AST_Intranet.Controllers
                 if (System.IO.File.Exists(filePath))
                 {
                     string fileExtension = Path.GetExtension(fileName).ToLower();
-                    string contentType = "application/octet-stream";
+                    string contentType = "application/octet-stream"; // Default MIME type
 
+                    // Dictionary to map file extensions to MIME types
                     var mimeTypes = new Dictionary<string, string>
                     {
                         {".txt", "text/plain" },
@@ -151,7 +152,6 @@ namespace AST_Intranet.Controllers
                         { ".pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
                         { ".jpg", "image/jpeg" }, { ".jpeg", "image/jpeg" }, { ".jfif", "image/jpeg" },
                         { ".png", "image/png" }, { ".gif", "image/gif" }, { ".bmp", "image/bmp" },
-                        //{ ".cr3", "image/x-canon-cr3" },
                         { ".exe", "application/octet-stream" }, { ".msi", "application/x-msi" },
                         { ".dmg", "application/octet-stream" }, { ".iso", "application/x-iso9660-image" },
                         { ".mp4", "video/mp4" }, { ".avi", "video/x-msvideo" },
@@ -161,10 +161,14 @@ namespace AST_Intranet.Controllers
                         { ".mpg", "video/mpeg" }, { ".3gp", "video/3gpp" }
                     };
 
+                    // If MIME type exists for this extension, use it
                     if (mimeTypes.ContainsKey(fileExtension))
                     {
                         contentType = mimeTypes[fileExtension];
                     }
+
+                    // Set the file to be downloaded by attaching Content-Disposition header
+                    Response.AppendHeader("Content-Disposition", $"attachment; filename={fileName}");
 
                     var fileBytes = System.IO.File.ReadAllBytes(filePath);
 
@@ -181,5 +185,6 @@ namespace AST_Intranet.Controllers
                 return new HttpStatusCodeResult(500, "Error accessing file: " + ex.Message);
             }
         }
+
     }
 }
