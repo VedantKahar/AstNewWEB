@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\AST-Intranet",
-    "\\AST-Intranet\\Controllers",
-    "\\AST-Intranet\\Models",
+    "\\AST-Intranet\\Content",
+    "\\AST-Intranet\\Content\\css",
     "\\AST-Intranet\\Views",
     "\\AST-Intranet\\Views\\Dashboard",
     "\\AST-Intranet\\Views\\Employees",
@@ -11,6 +11,6 @@
     "\\AST-Intranet\\Views\\Shared",
     "\\AST-Intranet\\Views\\Updates"
   ],
-  "SelectedNode": "\\AST-Intranet.sln",
+  "SelectedNode": "\\AST-Intranet\\Views\\Dashboard\\dashboardView.cshtml",
   "PreviewInSolutionExplorer": false
 }

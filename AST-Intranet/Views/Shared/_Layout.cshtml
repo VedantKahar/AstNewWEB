@@ -1,4 +1,4 @@
-﻿<!-- Views/Shared/_Layout.cshtml -->
+﻿﻿<!-- Views/Shared/_Layout.cshtml -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +7,7 @@
     <title>@ViewData["Title"]</title>
 
     <link rel="stylesheet" href="~/Content/css/HeaderFooterStyles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -18,55 +19,82 @@
         <div class="content">
             @RenderBody() <!-- This will render the content from the current view -->
         </div>
-       
+
         <!-- Render Footer -->
         @Html.Partial("_Footer")
     </div>
 
     <!-- Inline JavaScript -->
+
     <script>
-        // Function to handle fetching search suggestions
-        function fetchSuggestions(query) {
-            if (query.length < 1) { // Only fetch if the query has 2 or more characters
-                document.getElementById('suggestions-box').style.display = 'none';
-                return;
-            }
+        $(document).ready(function () {
+            $("#searchInput").on("input", function () {
+                let query = $(this).val().trim();
 
-            // Make AJAX call to the server to fetch search suggestions
-            $.ajax({
-                url: '/Search/GetSuggestions', // URL to the search controller action
-                method: 'GET',
-                data: { query: query },
-                success: function (data) {
-                    // Show the suggestions box
-                    let suggestionsBox = document.getElementById('suggestions-box');
-                    suggestionsBox.innerHTML = ''; // Clear existing suggestions
+                if (query.length < 2) { // Avoid searching for very short queries
+                    $("#searchSuggestions").hide();
+                    return;
+                }
 
-                    // If no results, hide the box
-                    if (data.length === 0) {
-                        suggestionsBox.style.display = 'none';
-                        return;
+                $.ajax({
+                    url: "/Search/GetSearchSuggestions",
+                    type: "GET",
+                    data: { query: query },
+                    success: function (response) {
+                        let suggestionsBox = $("#searchSuggestions");
+                        suggestionsBox.empty().show();
+
+                        if (response.length === 0) {
+                            suggestionsBox.append("<p>No results found</p>");
+                            return;
+                        }
+
+                        response.forEach(item => {
+                            suggestionsBox.append(`
+                        <div class='suggestion-item' data-url='${item.Url}'>
+                            <strong>${item.PageName}</strong><br>
+                            <results>${item.Content}</results>
+                        </div>
+                    `);
+                        });
+                    },
+                    error: function () {
+                        $("#searchSuggestions").html("<p>Error fetching results</p>").show();
                     }
+                });
+            });
 
-                    // Display results
-                    data.forEach(function (item) {
-                        let suggestion = document.createElement('div');
-                        suggestion.classList.add('suggestion-item');
-                        suggestion.innerHTML = `
-                        <strong>${item.page}</strong><br>
-                        ${item.suggestions.join('<br>')}
-                    `;
-                        suggestionsBox.appendChild(suggestion);
-                    });
-
-                    suggestionsBox.style.display = 'block'; // Show suggestions box
-                },
-                error: function () {
-                    console.error('Error fetching search suggestions');
+            $(document).on("click", ".suggestion-item", function () {
+                let pageUrl = $(this).data("url");
+                if (pageUrl && pageUrl !== "#") {
+                    window.location.href = pageUrl;
                 }
             });
+
+            $(document).click(function (e) {
+                if (!$(e.target).closest("#searchInput, #searchSuggestions").length) {
+                    $("#searchSuggestions").hide();
+                }
+            });
+
+            // If there's a 'highlight' query parameter, highlight the text
+            const urlParams = new URLSearchParams(window.location.search);
+            const highlightText = urlParams.get('highlight');
+            if (highlightText) {
+                highlightSearchText(highlightText);
+            }
+        });
+
+        // Function to highlight search text on the page
+        function highlightSearchText(query) {
+            let bodyText = document.body.innerHTML;
+            let regex = new RegExp(`(${query})`, 'gi');
+            bodyText = bodyText.replace(regex, '<mark>$1</mark>');
+            document.body.innerHTML = bodyText;
         }
 
+
     </script>
+
 </body>
 </html>

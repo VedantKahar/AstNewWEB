@@ -53,51 +53,60 @@
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15); /* Deeper shadow for stronger 3D effect */
     }
 
-/* On focus, enhance the 3D effect */
-    .search-bar:focus {
-        border-color: #1ABC9C; /* Accent color on focus */
-        outline: none;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25); /* Stronger shadow and depth on focus */
-        transform: translateY(-2x); /* Slight lifting effect when focused */
+    .search-container {
+        position: relative;
+        display: inline-block;
     }
 
-    /* On hover, give a stronger lifting effect */
-    .search-bar:hover {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.2);
-        transform: translateY(-2px); /* Slight upward movement on hover */
-    }
-
+    /* Suggestions Box */
     .suggestions-box {
         position: absolute;
-        top: 50px;
+        top: 100%;
         left: 0;
-        width: 100%;
-        max-height: 200px;
+        width: 50%;
+        margin-left:150px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        max-height: 250px;
         overflow-y: auto;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        z-index: 999;
         display: none;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        z-index: 20;
+        font-size: 14px;
     }
 
+    /* Suggestion group header */
+    .suggestion-group {
+        background: #f1f1f1;
+        padding: 8px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Each suggestion item */
     .suggestion-item {
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
+        padding: 10px 12px;
+        cursor: pointer;
+        transition: background 0.3s ease, color 0.3s ease;
+        font-size: 14px;
+        border-bottom: 1px solid #eee;
     }
 
     .suggestion-item:last-child {
         border-bottom: none;
     }
 
+    .suggestion-item:hover {
+        background: #007BFF;
+        color: white;
+    }
+
     .suggestion-item a {
         text-decoration: none;
-        color: #007BFF;
+        color: inherit;
+        display: block;
     }
-
-    .suggestion-item:hover {
-        background-color: #f0f0f0;
-    }
-
 
     /* Navigation Links */
     .nav-links {

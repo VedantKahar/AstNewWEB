@@ -167,8 +167,8 @@ namespace AST_Intranet.Controllers
                         contentType = mimeTypes[fileExtension];
                     }
 
-                    // Set the file to be downloaded by attaching Content-Disposition header
-                    Response.AppendHeader("Content-Disposition", $"attachment; filename={fileName}");
+                    // Set the file to be opened in the browser by attaching Content-Disposition header as 'inline'
+                    Response.AppendHeader("Content-Disposition", $"inline; filename={fileName}");
 
                     var fileBytes = System.IO.File.ReadAllBytes(filePath);
 
@@ -185,6 +185,7 @@ namespace AST_Intranet.Controllers
                 return new HttpStatusCodeResult(500, "Error accessing file: " + ex.Message);
             }
         }
+
 
     }
 }

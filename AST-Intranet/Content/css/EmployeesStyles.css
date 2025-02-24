@@ -7,7 +7,7 @@
         flex-direction: column;
     }*/
 
-    /* Label styling */
+     /*Label styling */
     /*.department-type-selector label {
         font-weight: bold;
         color: #333;
@@ -15,57 +15,57 @@
         display: block;
     }*/
 
-    /* Styling the select dropdown */
+   /*  Styling the select dropdown */
     /*#departmentTypeSelector {
-        width: 100%;*/ /* Full width of the parent container */
-        /*padding: 10px 15px;*/ /* Add padding inside the dropdown */
-        /*border: 1px solid #ddd;*/ /* Light gray border */
-        /*border-radius: 8px;*/ /* Rounded corners */
-        /*background-color: #f9f9f9;*/ /* Light background color */
-        /*color: #333;*/ /* Text color for the options */
-        /*font-size: 16px;*/ /* Font size for better readability */
-        /*font-family: Arial, sans-serif;*/ /* Consistent font */
-        /*box-sizing: border-box;*/ /* Prevent padding from affecting the width */
-        /*outline: none;*/ /* Remove default outline on focus */
-        /*transition: all 0.3s ease;*/ /* Smooth transition for focus effect */
-        /*height: 200px;*/ /* Fixed height to show multiple options and enable scroll */
-        /*overflow-y: auto;*/ /* Allow scrolling when there are too many options */
-    /*}*/
+        width: 100%;  Full width of the parent container 
+        padding: 10px 15px;  Add padding inside the dropdown 
+        border: 1px solid #ddd;  Light gray border 
+        border-radius: 8px;  Rounded corners 
+        background-color: #f9f9f9;  Light background color 
+        color: #333;  Text color for the options 
+        font-size: 16px;  Font size for better readability 
+        font-family: Arial, sans-serif;  Consistent font 
+        box-sizing: border-box;  Prevent padding from affecting the width 
+        outline: none;  Remove default outline on focus 
+        transition: all 0.3s ease;  Smooth transition for focus effect 
+        height: 200px;  Fixed height to show multiple options and enable scroll 
+        overflow-y: auto;  Allow scrolling when there are too many options 
+    }*/
 
     /* Style when the select element is focused */
     /*#departmentTypeSelector:focus {
-        border-color: #6C9EBF;*/ /* Focus border color */
-        /*background-color: #fff;*/ /* White background when focused */
-    /*}*/
+        border-color: #6C9EBF;  Focus border color 
+        background-color: #fff;  White background when focused 
+    }*/
 
-    /* Styling the individual options */
+     /*Styling the individual options */
     /*#departmentTypeSelector option {
-        padding: 10px;*/ /* Add padding for better clickability */
-        /*background-color: #fff;*/ /* White background for each option */
-        /*color: #333;*/ /* Dark text color */
-        /*border-bottom: 1px solid #ddd;*/ /* Subtle border between options */
-        /*cursor: pointer;*/ /* Pointer cursor for better interactivity */
-    /*}*/
+        padding: 10px;  Add padding for better clickability 
+        background-color: #fff;  White background for each option 
+        color: #333;  Dark text color 
+        border-bottom: 1px solid #ddd;  Subtle border between options 
+        cursor: pointer;  Pointer cursor for better interactivity 
+    }*/
 
-    /* Option hover effect */
+     /*Option hover effect*/ 
     /*#departmentTypeSelector option:hover {
-        background-color: #e3f0f8;*/ /* Light blue background on hover */
-    /*}*/
+        background-color: #e3f0f8;  Light blue background on hover 
+    }*/
 
-    /* Styling selected options */
+     /*Styling selected options */
     /*#departmentTypeSelector option:checked {
-        background-color: #6C9EBF;*/ /* Highlight selected options with blue */
-        /*color: white;*/ /* Change text color to white for selected items */
-    /*}*/
+        background-color: #6C9EBF;  Highlight selected options with blue 
+        color: white;  Change text color to white for selected items 
+    }*/
 
-    /* Responsive design for smaller screens */
+   /*  Responsive design for smaller screens */
     /*@media (max-width: 768px) {
         #departmentTypeSelector {
             width: 100%;
         }
     }*/
 
-/* General container style for centering */
+    /* General container style for centering */
     .container {
         margin: 0 auto;
         padding: 20px;
@@ -105,8 +105,9 @@
         gap: 15px;
     }
 
+    /*chart-type and department*/
     label {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
         color: #333;
     }

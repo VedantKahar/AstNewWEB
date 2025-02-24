@@ -1,112 +1,97 @@
-﻿using AST_Intranet.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 
 namespace AST_Intranet.Controllers
 {
     public class SearchController : Controller
     {
-        //private ApplicationDbContext db = new ApplicationDbContext(); // Assuming you have a DbContext
-
-        // GET: Search/GetSuggestions
-        public JsonResult GetSuggestions(string query)
+        public JsonResult GetSearchSuggestions(string query)
         {
-            if (string.IsNullOrEmpty(query) || query.Length < 2)
+            List<SearchResult> results = new List<SearchResult>();
+
+            // Prevent unnecessary searches for very short queries
+            if (string.IsNullOrWhiteSpace(query) || query.Length < 2)
             {
-                return Json(new List<SearchResult>(), JsonRequestBehavior.AllowGet);
+                return Json(results, JsonRequestBehavior.AllowGet);
             }
 
-            // Create a list to store the results
-            var results = new List<SearchResult>();
+            string viewsPath = HostingEnvironment.MapPath("~/Views");
 
-            // Example: Search within the Resources
-            //var resourcesResults = db.Resources
-            //    .Where(r => r.Name.Contains(query) ||
-            //                r.Files.Any(f => f.Contains(query)) ||
-            //                r.SubCategories.Any(sc => sc.Name.Contains(query) ||
-            //                                          sc.Files.Any(f => f.Contains(query))))
-            //    .ToList();
+            if (viewsPath != null)
+            {
+                try
+                {
+                    // Iterate over all the pages
+                    string[] cshtmlFiles = Directory.GetFiles(viewsPath, "*.cshtml", SearchOption.AllDirectories)
+                                                    .Where(file => !file.Contains(@"\Shared\") && !Path.GetFileName(file).StartsWith("_"))
+                                                    .ToArray();
 
-            //if (resourcesResults.Any())
-            //{
-            //    var resourceSuggestions = new List<string>();
+                    foreach (string file in cshtmlFiles)
+                    {
+                        // Read the content of the .cshtml file
+                        string content = System.IO.File.ReadAllText(file);
 
-            //    foreach (var resource in resourcesResults)
-            //    {
-            //        // Add the resource name
-            //        if (resource.Name.Contains(query))
-            //            resourceSuggestions.Add("Resource: " + resource.Name);
+                        // Extract text content from the view (visible content only)
+                        string pageTextContent = ExtractTextFromHtml(content);
 
-            //        // Add files under the resource
-            //        foreach (var file in resource.Files.Where(f => f.Contains(query)))
-            //        {
-            //            resourceSuggestions.Add("File: " + file);
-            //        }
+                        // Check if the query is in the page content
+                        if (pageTextContent.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            string controllerName = GetControllerName(file, viewsPath);
+                            string viewName = Path.GetFileNameWithoutExtension(file);
 
-            //        // Add subcategory names and files under subcategories
-            //        foreach (var subcategory in resource.SubCategories)
-            //        {
-            //            if (subcategory.Name.Contains(query))
-            //                resourceSuggestions.Add("Subcategory: " + subcategory.Name);
+                            // Get the matching lines of the text content
+                            var matchingLines = pageTextContent.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+                                                               .Where(line => line.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                                                               .Take(3) // Limit to 3 matches per file
+                                                               .ToList();
 
-            //            foreach (var file in subcategory.Files.Where(f => f.Contains(query)))
-            //            {
-            //                resourceSuggestions.Add("File (Subcategory): " + file);
-            //            }
-            //        }
-            //    }
-
-            //    if (resourceSuggestions.Any())
-            //    {
-            //        results.Add(new SearchResult
-            //        {
-            //            Page = "Resources",
-            //            Suggestions = resourceSuggestions
-            //        });
-            //    }
-            //}
-
-            //// Example: Search within the Dashboard content
-            //var dashboardResults = db.Dashboards
-            //    .Where(d => d.Title.Contains(query) || d.Description.Contains(query))
-            //    .Select(d => d.Title)
-            //    .ToList();
-
-            //if (dashboardResults.Any())
-            //{
-            //    results.Add(new SearchResult
-            //    {
-            //        Page = "Dashboard",
-            //        Suggestions = dashboardResults
-            //    });
-            //}
-
-            //// Example: Search within the Employees table
-            //var employeeResults = db.Employees
-            //    .Where(e => e.Name.Contains(query) || e.Position.Contains(query))
-            //    .Select(e => e.Name)
-            //    .ToList();
-
-            //if (employeeResults.Any())
-            //{
-            //    results.Add(new SearchResult
-            //    {
-            //        Page = "Employees",
-            //        Suggestions = employeeResults
-            //    });
-            //}
+                            results.Add(new SearchResult
+                            {
+                                PageName = viewName,
+                                Content = string.Join(" | ", matchingLines),
+                                Url = Url.Action(viewName, controllerName) + "?highlight=" + Uri.EscapeDataString(query) // Pass query as a parameter
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle directory access issues
+                    Console.WriteLine(ex.Message); // For debugging
+                }
+            }
 
             return Json(results, JsonRequestBehavior.AllowGet);
         }
+
+        // Extracts visible text from HTML (ignores tags)
+        private string ExtractTextFromHtml(string htmlContent)
+        {
+            // Strip out HTML tags to leave only visible text
+            var strippedText = System.Text.RegularExpressions.Regex.Replace(htmlContent, "<[^>]*?>", string.Empty);
+            return strippedText;
+        }
+
+        // Get the controller name based on the file path
+        private string GetControllerName(string filePath, string viewsPath)
+        {
+            string relativePath = filePath.Replace(viewsPath, "").TrimStart('\\', '/');
+            string[] pathParts = relativePath.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+            return pathParts.Length > 1 ? pathParts[0] : "Home"; // Default to Home if not found
+        }
     }
 
-    // Model for Search results
+    // Search result model
     public class SearchResult
     {
-        public string Page { get; set; }
-        public List<string> Suggestions { get; set; }
+        public string PageName { get; set; }
+        public string Content { get; set; }
+        public string Url { get; set; }
     }
 }

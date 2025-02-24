@@ -1,4 +1,5 @@
-﻿﻿@model List<AST_Intranet.Models.Resource>
+﻿@{ ViewBag.Title = "Resources";}
+﻿@model List<AST_Intranet.Models.Resource>
 @using System.Text;
 
 <link rel="stylesheet" href="@Url.Content("~/Content/css/ResourcesStyle.css")">
@@ -63,16 +64,13 @@
                                     </div>
                                 </div>
                             </div>
-                        }
-
+                        } 
                         @* Call the recursive function to render subfolders only if they contain files *@
                         @RenderFoldersAndFiles(resource.SubCategories, resource.Name)
                     </div>
                 </div>
-            }
-
-        </div>
-
+             } 
+        </div> 
     </div>
 </div>
 
@@ -114,7 +112,7 @@
                         html.Append("<div class='image-file'>");
                         html.Append("<a href='" + fileUrl + "' target='_blank'>");
                         html.Append("<img src='" + fileUrl + "' alt='" + file + "' loading='lazy' />");
-                        //html.Append(file);  //->display photo name 
+                        //html.Append(file);  //->display photo name
                         html.Append("</a></div>");
                     }
 

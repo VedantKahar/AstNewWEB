@@ -192,13 +192,7 @@
                         <p class="event-description">A celebration of freedom and patriotism.</p>
                     </a>
                 </div>
-                @*<div class="event-item">
-                    <a href="https://link-to-event3.com" target="_blank">
-                        <img src="~/Images/images/AST bg.jfif" alt="Independence Day">
-                        <h3 class="event-title">Independence Day</h3>
-                        <p class="event-description">A celebration of freedom and patriotism.</p>
-                    </a>
-                </div>*@
+                
             </div>
         </section>
 
@@ -208,4 +202,13 @@
 <!-- JavaScript to dynamically update the current year -->
 <script>
     document.getElementById("current-year").textContent = new Date().getFullYear();
+    document.addEventListener("DOMContentLoaded", function () {
+        const highlightText = new URLSearchParams(window.location.search).get('highlight');
+
+        if (highlightText) {
+            let regex = new RegExp(`(${highlightText})`, 'gi');
+            document.body.innerHTML = document.body.innerHTML.replace(regex, `<mark>$1</mark>`);
+        }
+    });
+
 </script>

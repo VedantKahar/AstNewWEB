@@ -39,6 +39,16 @@
 ////// Set an interval to change the achievement automatically every 5 seconds
 ////setInterval(nextAchievement, 3000);
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const highlightText = new URLSearchParams(window.location.search).get('highlight');
+
+    if (highlightText) {
+        let regex = new RegExp(`(${highlightText})`, 'gi');
+    document.body.innerHTML = document.body.innerHTML.replace(regex, `<mark>$1</mark>`);
+        }
+    });
+
+
 let currentIndex = 0;  // To track the current achievement displayed
 
 const achievements = document.querySelectorAll('.achievement-content');

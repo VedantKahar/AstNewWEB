@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const highlightText = new URLSearchParams(window.location.search).get('highlight');
+
+    if (highlightText) {
+        let regex = new RegExp(`(${highlightText})`, 'gi');
+        document.body.innerHTML = document.body.innerHTML.replace(regex, `<mark>$1</mark>`);
+    }
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
     // Update Digital Calendar function
     function updateDigitalCalendar() {
         const calendarElement = document.getElementById('digital-calendar');

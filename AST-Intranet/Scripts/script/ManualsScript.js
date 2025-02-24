@@ -1,4 +1,12 @@
-document.getElementById("current-year").textContent = new Date().getFullYear();
+document.addEventListener("DOMContentLoaded", function () {
+    const highlightText = new URLSearchParams(window.location.search).get('highlight');
+
+    if (highlightText) {
+        let regex = new RegExp(`(${highlightText})`, 'gi');
+        document.body.innerHTML = document.body.innerHTML.replace(regex, `<mark>$1</mark>`);
+    }
+});
+
 
 /* const toggleSidebar = document.getElementById('toggleSidebar');
     const sidebar = document.getElementById('sidebar');
