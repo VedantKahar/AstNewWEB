@@ -1,50 +1,19 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";  // Make sure the layout is set
-
-    string corporateVideoUrl = ViewBag.CorporateVideoUrl;
-    string bgVideoUrl = ViewBag.BgVideoUrl;
 }
 
 <link rel="stylesheet" href="@Url.Content("~/Content/css/HomepageStyles.css")">
 
 <div class="main-content">
     <div class="content">
-        <!--<div class="hero-section2">
-
-        @if (!string.IsNullOrEmpty(corporateVideoUrl))
-        {
-            <video id="corporate-video" class="hero-video" preload="auto" autoplay loop muted>
-                <source src="@corporateVideoUrl" type="video/mp4" loading="lazy" />
-                Your browser does not support the video tag.
-            </video>
-        }-->
-        <!-- Controls for Play/Pause and Fullscreen -->
-        <!--<div class="video-controls">
-                @if (!string.IsNullOrEmpty(corporateVideoUrl))
-                {
-                    <button onclick="playPauseVideos()">Play/Pause</button>
-                    <button onclick="toggleFullScreen()">Fullscreen</button>
-                }
-            </div>
-        </div>-->
+ 
         <!-- Hero Section -->
         <div class="hero-section">
-            <!-- Video as background -->
-            @if (!string.IsNullOrEmpty(bgVideoUrl))
-            {
-            <video id="bg-video" class="hero-video" preload="auto" autoplay loop muted playsinline>
-                <source src="@bgVideoUrl" type="video/mp4" loading="lazy" />
+            <video id="background-video" autoplay loop muted playsinline>
+                <source src="~/Images/images/mp4.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            }
-
-            <!-- Translucent Overlay for the Video -->
-            <div class="video-overlay"></div>
-
-            <!-- Hero Image Section (Optional) -->
             <img src="~/Images/images/AST-building.png" alt="Advance-Systek" />
-
-            <!-- Hero Content Section -->
             <div class="hero-content">
                 <h1 class="text-gradient">Advanced Sys-Tek Limited</h1>
                 <p>
@@ -59,18 +28,26 @@
                 <a href="https://www.advancedsystek.com/" target="_blank" class="hero-link">
                     Discover More
                 </a>
+                <button class="fullscreen-btn" onclick="toggleFullscreen()">Go Fullscreen</button>
             </div>
+            <script>
+                function toggleFullscreen() {
+                    var video = document.getElementById("background-video");
 
-            <!-- Controls for Play/Pause and Fullscreen -->
-            <div class="video-controls">
-                @if (!string.IsNullOrEmpty(corporateVideoUrl))
-                {
-                    <button onclick="toggleFullScreen()" class="fullscreen-btn">
-                        <img src="~/Images/icons/fullscreen-square-icon-white.jpg" alt="Fullscreen" />
-                    </button>
+                    // Check if the video is already in fullscreen mode
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.mozRequestFullScreen) { // Firefox
+                        video.mozRequestFullScreen();
+                    } else if (video.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+                        video.webkitRequestFullscreen();
+                    } else if (video.msRequestFullscreen) { // IE/Edge
+                        video.msRequestFullscreen();
+                    }
                 }
-            </div>
+            </script>
         </div>
+
 
         <!-- Other Sections (Like Subsidiaries, Portals, etc.) -->
         <hr>
@@ -259,49 +236,8 @@
 </div>
 
 
-<!-- JavaScript to dynamically update the current year -->
 <script>
-    document.getElementById("current-year").textContent = new Date().getFullYear();
-    document.addEventListener("DOMContentLoaded", function () {
-        const highlightText = new URLSearchParams(window.location.search).get('highlight');
-
-        if (highlightText) {
-            let regex = new RegExp(`(${highlightText})`, 'gi');
-            document.body.innerHTML = document.body.innerHTML.replace(regex, `<mark>$1</mark>`);
-        }
-    });
-
-    // Get the video elements
-    var corporateVideoElement = document.getElementById("corporate-video");
-    var bgVideoElement = document.getElementById("bg-video");
-
-    // Function to toggle play/pause on both videos
-    function playPauseVideos() {
-        if (corporateVideoElement.paused && bgVideoElement.paused) {
-            corporateVideoElement.play();
-            bgVideoElement.play();
-        } else {
-            corporateVideoElement.pause();
-            bgVideoElement.pause();
-        }
-    }
-
-    // Function to toggle fullscreen for the background video only
-    function toggleFullScreen() {
-        var videoElement = document.getElementById("bg-video"); // Targeting the background video
-
-        if (videoElement.requestFullscreen) {
-            videoElement.requestFullscreen();
-        } else if (videoElement.mozRequestFullScreen) { // Firefox
-            videoElement.mozRequestFullScreen();
-        } else if (videoElement.webkitRequestFullscreen) { // Chrome, Safari, Opera
-            videoElement.webkitRequestFullscreen();
-        } else if (videoElement.msRequestFullscreen) { // IE/Edge
-            videoElement.msRequestFullscreen();
-        }
-    }
-
-     // Auto slide every 5 seconds (optional, can be removed if you don't want auto sliding)
+    // Auto slide every 5 seconds (optional, can be removed if you don't want auto sliding)
     let currentIndex = 0;
     const sliderWrapper = document.querySelector('.slider-wrapper');
     const totalItems = document.querySelectorAll('.slider-item').length;
@@ -314,5 +250,11 @@
     // Auto slide every 5 seconds
     setInterval(() => {
         moveSlide(1);
-    }, 3000);
+    }, 5000);
+
 </script>
+<!-- JavaScript to dynamically update the current year -->
+<script>
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+</script>
+

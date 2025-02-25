@@ -51,11 +51,11 @@
 
                         response.forEach(item => {
                             suggestionsBox.append(`
-                        <div class='suggestion-item' data-url='${item.Url}'>
-                            <strong>${item.PageName}</strong><br>
-                            <results>${item.Content}</results>
-                        </div>
-                    `);
+                                <div class='suggestion-item' data-url='${item.Url}'>
+                                    <strong>${item.PageName}</strong><br>
+                                    <results>${item.Content}</results>
+                                </div>
+                            `);
                         });
                     },
                     error: function () {
@@ -92,7 +92,6 @@
             bodyText = bodyText.replace(regex, '<mark>$1</mark>');
             document.body.innerHTML = bodyText;
         }
-
 
     </script>
 

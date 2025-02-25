@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\AST-Intranet",
-    "\\AST-Intranet\\Content",
-    "\\AST-Intranet\\Content\\css",
+    "\\AST-Intranet\\App_Start",
+    "\\AST-Intranet\\Controllers",
+    "\\AST-Intranet\\Scripts",
+    "\\AST-Intranet\\Scripts\\script",
     "\\AST-Intranet\\Views",
-    "\\AST-Intranet\\Views\\Dashboard",
-    "\\AST-Intranet\\Views\\Employees",
-    "\\AST-Intranet\\Views\\Resources",
-    "\\AST-Intranet\\Views\\Shared",
+    "\\AST-Intranet\\Views\\Manuals",
+    "\\AST-Intranet\\Views\\Policies",
     "\\AST-Intranet\\Views\\Updates"
   ],
-  "SelectedNode": "\\AST-Intranet\\Views\\Dashboard\\dashboardView.cshtml",
+  "SelectedNode": "\\AST-Intranet.sln",
   "PreviewInSolutionExplorer": false
 }
