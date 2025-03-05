@@ -3,7 +3,8 @@
         margin: 20px auto;
         width: 100%;
         max-width: auto;
-        height:50%;
+        height:auto;
+        align-content:start;
     }
 
     .event-form {

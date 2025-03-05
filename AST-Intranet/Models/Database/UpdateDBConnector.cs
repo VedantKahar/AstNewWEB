@@ -69,5 +69,129 @@ namespace AST_Intranet.Models.Database
                 Console.WriteLine($"Error fetching birthdays and anniversaries: {ex.Message}");
             }
         }
+
+
+
+        public static void GetEmployeeBirthday(out List<BirthdayViewModel> birthdays)
+        {
+            birthdays = new List<BirthdayViewModel>();
+
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["OracleDbConnection"].ConnectionString;
+
+                using (OracleConnection connection = new OracleConnection(connectionString))
+                {
+                    connection.Open();
+                    var today = DateTime.Today;
+
+                    string query = @"
+                SELECT EMP_CODE, EMP_NAME, DOB, DEPARTMENT, DESIGNATION, LOCATION 
+                FROM cim_emp_master_list
+                WHERE TO_CHAR(DOB, 'MM-DD') = TO_CHAR(SYSDATE, 'MM-DD')
+                AND STATUS = '1'
+            ";
+
+                    using (OracleCommand command = new OracleCommand(query, connection))
+                    {
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var empName = reader["EMP_NAME"].ToString();
+                                var dob = reader["DOB"] != DBNull.Value ? Convert.ToDateTime(reader["DOB"]) : (DateTime?)null;
+                                var department = reader["DEPARTMENT"] != DBNull.Value ? reader["DEPARTMENT"].ToString() : "N/A";
+                                var designation = reader["DESIGNATION"] != DBNull.Value ? reader["DESIGNATION"].ToString() : "N/A";
+                                var location = reader["LOCATION"] != DBNull.Value ? reader["LOCATION"].ToString() : "N/A";
+
+                                // Handle birthdays
+                                if (dob.HasValue && dob.Value.Month == today.Month && dob.Value.Day == today.Day)
+                                {
+                                    var age = today.Year - dob.Value.Year;
+                                    if (today < dob.Value.AddYears(age)) age--; // Adjust age if birthday hasn't occurred yet
+
+                                    // Add employee birthday details to the list
+                                    birthdays.Add(new BirthdayViewModel
+                                    {
+                                        EmployeeName = empName,
+                                        Age = age,
+                                        Department = department,
+                                        Designation = designation,
+                                        Location = location
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error message (could be logged to a file or a logging system)
+                Console.WriteLine($"Error fetching birthdays: {ex.Message}");
+            }
+        }
+
+        public static void GetEmployeeWorkAnniversary(out List<WorkAnniversaryViewModel> employeeAnniversary)
+        {
+            employeeAnniversary = new List<WorkAnniversaryViewModel>();
+
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["OracleDbConnection"].ConnectionString;
+
+                using (OracleConnection connection = new OracleConnection(connectionString))
+                {
+                    connection.Open();
+                    var today = DateTime.Today;
+
+                    string query = @"
+                        SELECT EMP_CODE,EMP_NAME, DOJ, DEPARTMENT, DESIGNATION, LOCATION 
+                        FROM cim_emp_master_list
+                        WHERE  TO_CHAR(DOJ, 'MM-DD') = TO_CHAR(SYSDATE, 'MM-DD')
+                        AND STATUS = 'Active'
+            ";
+
+                    using (OracleCommand command = new OracleCommand(query, connection))
+                    {
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var empName = reader["EMP_NAME"].ToString();
+                                var doj = reader["DOJ"] != DBNull.Value ? Convert.ToDateTime(reader["DOJ"]) : (DateTime?)null;
+                                var department = reader["DEPARTMENT"] != DBNull.Value ? reader["DEPARTMENT"].ToString() : "N/A";
+                                var designation = reader["DESIGNATION"] != DBNull.Value ? reader["DESIGNATION"].ToString() : "N/A";
+                                var location = reader["LOCATION"] != DBNull.Value ? reader["LOCATION"].ToString() : "N/A";
+
+                                
+                                // Handle work anniversaries
+                                if (doj.HasValue && doj.Value.Month == today.Month && doj.Value.Day == today.Day)
+                                {
+                                    var yearsOfService = today.Year - doj.Value.Year;
+                                    if (today < doj.Value.AddYears(yearsOfService)) yearsOfService--; // Adjust age if birthday hasn't occurred yet
+
+                                    // Add employee birthday details to the list
+                                    employeeAnniversary.Add(new WorkAnniversaryViewModel
+                                    {
+                                        EmployeeName = empName,
+                                        Year = yearsOfService,
+                                        Department = department,
+                                        Designation = designation,
+                                        Location = location
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error message (could be logged to a file or a logging system)
+                Console.WriteLine($"Error fetching anniversaries: {ex.Message}");
+            }
+        }
+
     }
 }

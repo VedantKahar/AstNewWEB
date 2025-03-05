@@ -1,3 +1,137 @@
+/* Popup Container */
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Popup Content */
+.popup-content {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    width: 450px;
+    height: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show Popup */
+.popup.show .popup-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Popup Header */
+.popup-header h2 {
+    font-size: 2em;
+    color: #FF6347; /* Tomato color */
+    margin-bottom: 10px;
+}
+
+/* Birthday Image */
+.birthday-image {
+    margin: 20px 0;
+}
+
+#birthday-person-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    animation: image-pop 1s ease-out;
+}
+
+/* Birthday Text */
+.birthday-text p {
+    font-size: 1.2em;
+    color: #333;
+}
+
+#birthday-person-name {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #FF6347;
+}
+
+/* Footer & Close Button */
+.popup-footer {
+    margin-top: 20px;
+}
+
+#close-popup {
+    background-color: #FF6347;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+}
+
+    #close-popup:hover {
+        background-color: #e5533e;
+    }
+
+/* Confetti animation styles (will be handled by JavaScript) */
+#confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* Transition for Birthday Person Slider */
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+    .popup-content .birthday-text {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease, transform 1s ease;
+    }
+
+    /* When a new birthday is shown, the text slides in */
+    .popup-content.show .birthday-text {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+/* Image pop-in animation */
+@keyframes image-pop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 /* Hero Section Styling */
 .hero-section {
     display: flex;
@@ -12,8 +146,9 @@
     z-index: 1;
     margin-bottom: 25px;
 }
+
 .hero-section2 {
-    height:500px;
+    height: 500px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -72,7 +207,7 @@
     z-index: 2; /* Ensure image is above the video */
 }
 
-   /* .hero-section img:hover {
+/* .hero-section img:hover {
         transform: scale(1.05) rotateY(180deg) rotateX(0deg);
     }
 */
@@ -118,7 +253,7 @@
 .fullscreen-btn {
     position: absolute; /* Make it fixed to the container */
     bottom: 10px; /* Adjust distance from the bottom */
-    right: 50px; /* Adjust distance from the right */
+    right: 0px; /* Adjust distance from the right */
     background: transparent; /* No background */
     border: none; /* No border */
     padding: 5px; /* Increased padding for better click area */
@@ -323,7 +458,14 @@ h2 {
         font-size: 32px;
         margin-bottom: 10px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        color: black;
+        /* Apply a gradient background */
+        /*background: linear-gradient(90deg, #000000 0%, #ff1200 100%);*/
+        /* Clip the background to the text */
+        /*-webkit-background-clip: text;*/ /* For WebKit-based browsers */
+        /*color: transparent;*/ /* Make text color transparent to show gradient */
     }
+
 
     .stats p {
         font-size: 20px;
@@ -344,6 +486,109 @@ h2 {
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     }
 
+/* Styling for the Order Section */
+.order-section {
+    padding: 20px;
+}
+
+    .order-section h2 {
+        font-size: 2rem;
+        color: black;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+/* Slider Container */
+.orders-slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* Hide the overflow to only show one slide */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Slider Content (this is now the parent .orders-slider) */
+.orders-slider {
+    display: flex;
+    transition: transform 1s ease-in-out; /* Ensure smooth sliding transition */
+}
+
+/* Each Slide Styling */
+.order-slide {
+    width: 100%; /* Ensure each slide takes up the entire width of the container */
+    text-align: center;
+    padding: 20px;
+    background: #d4d7da;
+    flex-shrink: 0; /* Prevent slides from shrinking */
+}
+
+    /* Text styling inside the slides */
+    .order-slide h4 {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .order-slide p {
+        font-size: 1.1rem;
+        color: black;
+    }
+
+/* Prev/Next Buttons */
+.prev-order-btn, .next-order-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 5px;
+}
+
+.prev-order-btn {
+    left: 10px;
+}
+
+.next-order-btn {
+    right: 10px;
+}
+
+    /* Hover effects for buttons */
+    .prev-order-btn:hover, .next-order-btn:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Optional: Styling for disabled buttons */
+    .prev-order-btn:disabled, .next-order-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+/* Optional: Improve layout on smaller screens */
+@media screen and (max-width: 768px) {
+    .order-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .order-slide h4 {
+        font-size: 1.5rem;
+    }
+
+    .order-slide p {
+        font-size: 1rem;
+    }
+
+    .prev-order-btn, .next-order-btn {
+        font-size: 25px;
+    }
+}
+
+
+
 .clickable-box {
     background-color: #f4f6f8;
     padding: 15px;
@@ -360,7 +605,7 @@ h2 {
     /* Hover Effect */
     .clickable-box:hover {
         background-color: #ecf0f1; /* Slightly darker on hover */
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+        /*box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);  Stronger shadow on hover */
         transform: translateY(-3px); /* Lift the box slightly on hover */
     }
 
@@ -405,7 +650,7 @@ h2 {
     background-color: #d4d7da;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    /*box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);*/
     width: 48%;
     transition: transform 0.3s, box-shadow 0.3s;
     margin-bottom: 20px;
@@ -422,9 +667,13 @@ h2 {
 
     .manual-link h3 {
         font-size: 32px;
-        margin-bottom: 15px;
-        color: black;
+        margin-bottom: 10px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        /* Apply a gradient background */
+        background: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+        /* Clip the background to the text */
+        -webkit-background-clip: text; /*For WebKit-based browsers*/
+        color: transparent; /*  Make text color transparent to show gradient*/
     }
 
 .manual-description {
@@ -433,24 +682,112 @@ h2 {
 }
 
 
+/* Container for the 4 boxes */
+.information-section {
+    padding: 20px;
+}
+
+.box-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Styling for each individual box */
+.box {
+    background-color: #d4d7da;
+    width: 23%; /* Make each box take up 1/4th of the row */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* For positioning the floating circle */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .box h3 {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+
+    .box p {
+        font-size: 1rem;
+        color: black;
+        margin-bottom: 30px;
+    }
+
+/*.box-link {
+    font-size: 1rem;
+    color: #3498db;
+    text-decoration: none;
+}
+
+    .box-link:hover {
+        text-decoration: underline;
+    }*/
+
+/* Floating Circle Styling */
+.floating-circle {
+    position: absolute;
+    bottom: 10px;
+    right: -15px;
+    background: linear-gradient(90deg, #000000 0%, #ff1200 100%);
+    /*background-color: #3498db;*/
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.arrow-link {
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.floating-circle:hover {
+    background-color: #2980b9;
+}
+
+    .floating-circle:hover .arrow-link {
+        color: white;
+    }
+
 /* Basic Layout */
 .section {
-    padding: 50px 0;
+    padding: 30px 0;
     text-align: center;
-    background-color: #f7f7f7; /* Background color for the section */
-    border-top: 3px solid #ddd; /* Adds a subtle border to separate from other sections */
 }
 
 h2 {
     font-size: 2.5rem;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    color: black;
+    /* Apply a gradient background */
+    /*background: linear-gradient(90deg, #000000 0%, #ff1200 70%);*/
+    /* Clip the background to the text */
+    /*-webkit-background-clip: text;*/ /* For WebKit-based browsers */
+    /*color: transparent;*/ /* Make text color transparent to show gradient */
 }
 
 /* Slider Container */
-.event-gallery {
+.events-gallery {
     position: relative;
     width: 80%;
     margin: 0 auto;
@@ -526,7 +863,7 @@ h2 {
 }
 
 /* 3D Text Effect */
-.event-title {
+.events-title {
     font-size: 2.5rem;
     text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
     margin: 0;
@@ -536,7 +873,7 @@ h2 {
     transition: transform 0.3s ease;
 }
 
-.event-description {
+.events-description {
     font-size: 1.2rem;
     margin-top: 15px;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
@@ -545,28 +882,652 @@ h2 {
 }
 
 /* 3D Hover Effect for Titles */
-.slider-item:hover .event-title {
+.slider-item:hover .events-title {
     transform: rotateY(15deg); /* Slight 3D rotation */
 }
 
-.slider-item:hover .event-description {
+.slider-item:hover .events-description {
     transform: rotateY(-15deg); /* Slight 3D rotation */
 }
 
-/* Responsiveness */
-@media (max-width: 768px) {
-    .slider-item {
-        height: 350px;
+
+/* Container for Employee Achievement Cards */
+.employee-achievement-cards-container {
+    display: flex;
+    justify-content: space-between; /* Space out the cards */
+    gap: 20px;
+    flex-wrap: wrap; /* Allow cards to wrap if they exceed container width */
+}
+
+/* Individual Employee Achievement Cards */
+.employee-achievement-card {
+    background: #D4D7DA;
+    backdrop-filter: blur(8px); /* Apply blur effect */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    flex: 1 1 22%; /* Flex-grow, flex-shrink, and flex-basis */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute content evenly */
+    align-items: center; /* Center the content horizontally */
+    overflow: hidden;
+    height: auto; /* Allow the height to be dynamic */
+    max-width: 100%;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .employee-achievement-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     }
 
-    .event-title {
-        font-size: 2rem;
+
+/* Title Styling */
+.employee-achievements-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    color: black;
+}
+
+/* Image Styling */
+.employee-achievement-card img {
+    width: 100%; /* Ensure the image takes full width of the container */
+    height: 200px; /* Fixed height for the image */
+    object-fit: cover; /* Ensure the image covers the area without distorting */
+    border-radius: 8px; /* Optional: round the corners of the images */
+    margin-bottom: 15px; /* Space between image and text */
+}
+
+/* Heading and Description Styling */
+.employee-achievements-section h3 {
+    font-size: 1.3em;
+    color: #34495e;
+    margin-top: 15px;
+    /* Apply a gradient background */
+    background: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+    /* Clip the background to the text */
+    -webkit-background-clip: text; /* For WebKit-based browsers */
+    color: transparent; /* Make text color transparent to show gradient */
+}
+
+.employee-achievements-section p {
+    font-size: 1.4em;
+    color: #fff;
+    margin-top: 0px;
+}
+
+.employee-achievement-card .desc {
+    font-size: 1.1em;
+    margin-top: 15px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 150px; /* Set a max height for the description */
+    padding-right: 10px; /* Add padding to avoid text being flush with the scroll */
+    flex-grow: 1; /* Allow description to grow and fill available space */
+}
+
+/* Section for Employee Achievements */
+.employee-achievements-section {
+    padding: 20px;
+}
+
+    /* Styling for descriptions that may overflow */
+    .employee-achievements-section .desc::-webkit-scrollbar {
+        width: 8px;
     }
 
-    .event-description {
-        font-size: 1rem;
+    .employee-achievements-section .desc::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+    }
+
+/* Media query for responsiveness */
+@media (max-width: 1200px) {
+    .employee-achievement-card {
+        flex: 1 1 48%; /* 2 cards per row on medium screens */
     }
 }
+
+
+/*New joinee*/
+/* New Joinee Section Styling */
+.new-joinee-section h2 {
+    font-size: 2rem;
+    color: black;
+    margin-bottom: 0px;
+    text-align: center;
+    position: relative;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* General Styling */
+section {
+    margin-bottom: 20px;
+}
+
+/* New Joinee Cards Container */
+.new-joinee-cards-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+/* Slider Container */
+.slider-container {
+    width: 50%; /* 50% width for the image slider */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Image Slider Styling */
+.image-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.slider-content {
+    display: flex;
+    transition: transform 1s ease-in-out;
+}
+
+.new-joinee-content {
+    min-width: 100%; /* Maintain full width of container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Styling for Each Joinee Card */
+.joinee-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #d4d7da;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    width: 90%;
+    height: 250px;
+    transition: transform 0.3s ease-in-out;
+    margin: 0 auto;
+}
+
+    .joinee-card img {
+        max-width: 130px;
+        max-height: 130px;
+    }
+
+/* Container for the image slider (you should apply this to the parent element) */
+.slider-container {
+    position: relative;
+}
+
+/* Prev/Next Buttons */
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+    opacity: 0; /* Hide by default */
+    visibility: hidden; /* Ensure they are not interactable */
+    transition: opacity 0.3s, visibility 0.3s; /* Smooth transition */
+}
+
+/* Show buttons when the slider container is hovered */
+.slider-container:hover .prev-btn,
+.slider-container:hover .next-btn {
+    opacity: 1; /* Make buttons visible */
+    visibility: visible; /* Make buttons interactable */
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+    .prev-btn:hover, .next-btn:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+/* Employee Image Styling */
+.employee-image {
+    flex: 0 0 auto;
+    margin-right: 15px;
+}
+
+    .employee-image img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid;
+    }
+
+/* Employee Details Styling */
+.employee-details {
+    flex: 1;
+    text-align: left;
+}
+
+    .employee-details h3 {
+        font-size: 1.3em;
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .employee-details p {
+        font-size: 1em;
+        color: #34495e;
+        margin-top: 8px;
+    }
+
+/* Right-side Container */
+.right-side-container {
+    width: 50%; /* Takes up the remaining 50% width */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Career Section Styling */
+.openings-info-box {
+    background-color: #d4d7da;
+    color: black;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .openings-info-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+
+    /* Header Styling inside Info Box */
+    .openings-info-box h3 {
+        font-size: 1.8em;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    /* Paragraph Styling inside Info Box */
+    .openings-info-box p {
+        font-size: 1.1em;
+        text-align: center;
+    }
+
+/* Link Styling for Career Button */
+.redirect-link {
+    background: linear-gradient(90deg, #000000 0%, #ff1200 100%);
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    display: inline-block;
+}
+
+    .redirect-link:hover {
+        background-color: #27ae60;
+    }
+
+
+/*agla waala h*/
+/* General styles for all boxes */
+.info-box {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+    width: 250px;
+    height: 200px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+    /* Hover effect for each box */
+    .info-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Styling for headers inside boxes */
+    .info-box h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    /* Styling for paragraphs inside boxes */
+    .info-box p {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+        padding: 0;
+    }
+
+/*calendar*/
+/* Add these styles to make the event form visually appealing and centered */
+/*#calendar {
+        margin: 20px auto;
+        width: 100%;
+        max-width: auto;
+        height:auto;
+        align-content:start;
+    }
+
+    .event-form {
+        display: none;
+        position: fixed;*/ /* Fixed positioning so it stays in place */
+/*top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);*/ /* Center the form */
+/*background: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        width: 350px;
+        z-index: 9999;*/ /* Ensure it stays above other content */
+/*animation: fadeIn 0.3s ease-in-out;
+    }*/
+
+/* Fade-in animation */
+/*@keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .event-form-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .event-form-header h4 {
+        margin: 0;
+        font-size: 1.2em;
+        color: #34495e;
+    }
+
+    .close-btn {
+        font-size: 1.5em;
+        cursor: pointer;
+        color: #e74c3c;
+        transition: color 0.3s ease;
+    }
+
+    .close-btn:hover {
+        color: #c0392b;
+    }
+
+    #event-form-body label {
+        display: block;
+        margin: 10px 0 5px;
+        color: #34495e;
+        font-size: 0.9em;
+    }
+
+    #event-form-body input, #event-form-body textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 0.9em;
+        box-sizing: border-box;
+    }
+
+    #event-form-body textarea {
+        resize: none;
+    }*/
+/* Toggle switch styles */
+/*.switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+    }
+
+    input:checked + .slider {
+        background-color: #16a085;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(26px);
+    }*/
+
+/* Hover effect on toggle */
+/*.slider:hover {
+        background-color: #1abc9c;
+    }
+
+    #event-form-body button {
+        width: 100%;
+        padding: 10px;
+        background-color: #16a085;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+
+    #event-form-body button:hover {
+        background-color: #1abc9c;
+    }*/
+
+/* Styling for the modal to display event details */
+/*.event-details-modal {
+        display: none;*/ /* Hidden by default */
+/*position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.5);*/ /* Semi-transparent background */
+/*z-index: 9999;
+        width: 80%;
+        max-width: 400px;
+        padding: 20px;
+        border-radius: 12px;*/ /* Smoother border radius */
+/*}*/
+
+/* Modal content box */
+/*.modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 12px;*/ /* Smoother border radius */
+/*box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);*/ /* Softer shadow */
+/*border: 1px solid #ddd;*/ /* Soft gray border */
+/*}*/
+
+/* Close button for the modal */
+/*.close-btn {
+        font-size: 1.6em;
+        cursor: pointer;
+        color: #e74c3c;
+        transition: color 0.3s ease;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }*/
+
+/* Close button hover effect */
+/*.close-btn:hover {
+        color: #c0392b
+    }*/
+
+/* Event title in the modal */
+/*#event-details-title {
+        color: #34495e;
+        font-size: 1.3em;*/ /* Slightly larger for emphasis */
+/*font-weight: bold;
+    }*/
+
+/* Event time */
+/*#event-details-time {
+        color: #16a085;*/ /* Greenish for the time */
+/*font-weight: 600;*/ /* Slightly bold */
+/*}*/
+
+/* Event description */
+/*#event-details-description {
+        color: #7f8c8d;
+        margin-top: 12px;*/ /* Adds space above description */
+/*line-height: 1.5;*/ /* Better line spacing */
+/*}*/
+
+/* Container for the 4 boxes */
+.information-section {
+    padding: 20px;
+}
+
+.box-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Styling for each individual box (box2) */
+.box2 {
+    background-color: #d4d7da;
+    width: 35%; /* Make each box take up 1/4th of the row */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* For positioning the floating circle */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .box2:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .box2 h3 {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+
+    .box2 p {
+        font-size: 1rem;
+        color: black;
+        margin-bottom: 40px;
+    }
+
+/* Floating Circle Styling (floating-circle2) */
+.floating-circle2 {
+    position: absolute;
+    bottom: 10px;
+    right: -15px;
+    background: linear-gradient(90deg, #000000 0%, #ff1200 100%);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+    /* Ensure the icon fits inside the floating circle */
+    .floating-circle2 img {
+        max-width: 20px; /* Make sure icon doesn't overflow */
+        max-height: 20px;
+        object-fit: contain; /* Maintain aspect ratio */
+        margin: 0;
+    }
+
+.arrow-link {
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.floating-circle2:hover {
+    background-color: #2980b9;
+}
+
+    .floating-circle2:hover .arrow-link {
+        color: white;
+    }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
@@ -594,6 +1555,10 @@ h2 {
 
     .event-item {
         width: 45%;
+    }
+
+    .employee-achievement-card {
+        flex: 1 1 48%; /* 2 cards per row on medium screens */
     }
 }
 
@@ -627,5 +1592,31 @@ h2 {
 
     .event-item {
         width: 100%;
+    }
+
+    .new-joinee-content {
+        padding: 8px;
+    }
+
+    .joinee-card {
+        width: 100%; /* Ensure cards take full width in smaller screens */
+        height: auto; /* Allow height to adjust dynamically */
+    }
+
+    .employee-image img {
+        width: 110px; /* Resize image on smaller screens */
+        height: 110px;
+    }
+
+    .employee-details h3 {
+        font-size: 1.2em; /* Adjust font size for small screens */
+    }
+
+    .employee-details p {
+        font-size: 0.9em; /* Adjust font size for small screens */
+    }
+
+    .employee-achievement-card {
+        flex: 1 1 100%; /* 1 card per row on small screens */
     }
 }
