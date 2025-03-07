@@ -143,11 +143,11 @@ namespace AST_Intranet.Models.Database
                 using (OracleConnection connection = new OracleConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT EMP_CODE, EMP_NAME, DEPARTMENT, DESIGNATION, DOJ FROM cim_emp_master_list WHERE DOJ >= :joinDate";
+                    string query = "SELECT EMP_CODE, EMP_NAME, DEPARTMENT, DESIGNATION, DOJ FROM cim_emp_master_list WHERE DOJ >= :joinDate ORDER BY DOJ ASC";
 
                     using (OracleCommand command = new OracleCommand(query, connection))
                     {
-                        command.Parameters.Add(new OracleParameter(":joinDate", OracleDbType.Date)).Value = DateTime.Now.AddMonths(-12);
+                        command.Parameters.Add(new OracleParameter(":joinDate", OracleDbType.Date)).Value = DateTime.Now.AddMonths(-3);
 
                         using (OracleDataReader reader = command.ExecuteReader())
                         {
@@ -197,7 +197,7 @@ namespace AST_Intranet.Models.Database
                     var today = DateTime.Today;
 
                     string query = @"
-                SELECT EMP_CODE, EMP_NAME, DOB, DOJ, DEPARTMENT, DESIGNATION, LOCATION, IMAGE_URL
+                SELECT EMP_CODE, EMP_NAME, DOB, DOJ, DEPARTMENT, DESIGNATION, LOCATION
                 FROM cim_emp_master_list
                 WHERE (TO_CHAR(DOB, 'MM-DD') = TO_CHAR(SYSDATE, 'MM-DD') OR TO_CHAR(DOJ, 'MM-DD') = TO_CHAR(SYSDATE, 'MM-DD'))
                 AND STATUS = '1'
@@ -215,7 +215,9 @@ namespace AST_Intranet.Models.Database
                                 var department = reader["DEPARTMENT"] != DBNull.Value ? reader["DEPARTMENT"].ToString() : "N/A";
                                 var designation = reader["DESIGNATION"] != DBNull.Value ? reader["DESIGNATION"].ToString() : "N/A";
                                 var location = reader["LOCATION"] != DBNull.Value ? reader["LOCATION"].ToString() : "N/A";
-                                var imageUrl = reader["IMAGE_URL"] != DBNull.Value ? reader["IMAGE_URL"].ToString() : "~/Images/default-avatar.png";
+
+                                // Set default image as there is no image URL in the database
+                                var imageUrl = "~/Images/images/profile-pic.jfif";
 
                                 if (dob.HasValue && dob.Value.Month == today.Month && dob.Value.Day == today.Day)
                                 {

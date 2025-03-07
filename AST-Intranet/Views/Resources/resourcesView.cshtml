@@ -33,9 +33,9 @@
                                             var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = resource.Name, fileName = file });
                                             //var isLongFileName = file.Length > 30 ? "long-file-name" : "";  // Example threshold for long names
 
-                                            <div class="file-item">
-                                                <a href="@fileUrl" target="_blank" @*class="@isLongFileName"*@ loading="lazy">@file</a>
-                                            </div>
+                                        <div class="file-item">
+                                            <a href="@fileUrl" target="_blank" loading="lazy">@Path.GetFileNameWithoutExtension(file)</a> <!-- Display file name without extension -->
+                                        </div>
                                         }
                                     </div>
                                     <div class='image-files'>
@@ -57,9 +57,9 @@
                                         {
                                             var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = resource.Name, fileName = file });
 
-                                            <div class="file-item">
-                                                <a href="@fileUrl" target="_blank" loading="lazy">@file</a>
-                                            </div>
+                                        <div class="file-item">
+                                            <a href="@fileUrl" target="_blank" loading="lazy">@resource.Name</a> <!-- Display file name without extension@Path.GetFileNameWithoutExtension(file) -->
+                                        </div>
                                         }
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
 
                         html.Append("<div class='file-type'>");
                         html.Append("<a href='" + fileUrl + "' target='_blank'  loading='lazy'>");/*class='" + isLongFileName + "'*/
-                        html.Append(file); // Displaying document names
+                        html.Append(Path.GetFileNameWithoutExtension(file)); // Displaying file name without extension
                         html.Append("</a></div>");
                     }
 
@@ -175,7 +175,7 @@
 
                         html.Append("<div class='file-type'>");
                         html.Append("<a href='" + fileUrl + "' target='_blank' class='" + isLongFileName + "' loading='lazy'>");
-                        html.Append(file); // Displaying non-media files (APK, installers, etc.)
+                        html.Append(subcategory.Name); // Displaying non-media files (APK, installers, etc.)html.Append(Path.GetFileNameWithoutExtension(file))
                         html.Append("</a></div>");
                     }
 

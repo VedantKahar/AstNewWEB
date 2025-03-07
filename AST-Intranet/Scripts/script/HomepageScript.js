@@ -68,7 +68,7 @@ function updateSliderPosition() {
         // Auto slide every 5 seconds
         setInterval(() => {
         moveSlide(1);
-        }, 5000);
+        }, 4000);
     });
 
 

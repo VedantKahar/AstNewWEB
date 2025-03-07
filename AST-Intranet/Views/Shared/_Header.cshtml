@@ -1,7 +1,10 @@
 ﻿<!-- Views/Shared/_Header.cshtml -->
 <div class="top-nav">
- <div class="left-section">
-        <img style="height:30px; border-radius:5px" src="~/Images/images/ast_logo3.jpg" alt="AST logo" class="ast-logo">
+    <div class="left-section">
+        <a href="@Url.Action("DashboardView", "Dashboard")">
+            <img style="height:30px; border-radius:5px" src="~/Images/images/ast_logo3.jpg" alt="AST logo" class="ast-logo">
+        </a>
+
         <input type="text" id="searchInput" placeholder="Search..." class="search-bar">
         <div id="searchSuggestions" class="suggestions-box"></div>
     </div>

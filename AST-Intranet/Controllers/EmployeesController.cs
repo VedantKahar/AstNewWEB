@@ -95,10 +95,25 @@ namespace AST_Intranet.Controllers
         }
 
 
-        public JsonResult GetEmployeesByDepartmentPerYear(int startYear, int endYear)
+        public JsonResult GetEmployeesByDepartmentTotal()
         {
-            var departmentData = EmployeeDBConnector.GetEmployeesByDepartmentPerYear(startYear, endYear);
+            var departmentData = EmployeeDBConnector.GetEmployeesByDepartmentTotal();
+            if (departmentData == null || departmentData.Count == 0)
+            {
+                return Json(new { message = "No data available." }, JsonRequestBehavior.AllowGet);
+            }
             return Json(departmentData, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetMaleFemaleEmployeesTotal()
+        {
+            var maleFemaleData = EmployeeDBConnector.GetMaleFemaleEmployeesTotal();
+            if (maleFemaleData == null || maleFemaleData.Count == 0)
+            {
+                return Json(new { message = "No data available." }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(maleFemaleData, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

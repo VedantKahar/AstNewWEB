@@ -1,56 +1,118 @@
 document.addEventListener("DOMContentLoaded", function () {
     const highlightText = new URLSearchParams(window.location.search).get('highlight');
 
+    // Highlight text if present in the URL
     if (highlightText) {
-        let regex = new RegExp(`(${highlightText})`, 'gi');
-        document.body.innerHTML = document.body.innerHTML.replace(regex, `<mark>$1</mark>`);
+        highlightTextInPage(highlightText);
     }
+
+    // Initially fetch Total Department Employee Data
+    fetchDepartmentData().then(data => {
+        if (data && data.labels && data.datasets) {
+            createChart(data);
+        } else {
+            showError("No valid data received for department data.");
+        }
+    });
+
+    // Fetch Total Male/Female Employee Data (if needed later)
+    fetchMaleFemaleData().then(data => {
+        if (data && data.labels && data.datasets) {
+            window.genderData = data;
+        } else {
+            showError("No valid data received for gender data.");
+        }
+    });
 });
 
+// Function to highlight text in the page based on URL
+function highlightTextInPage(text) {
+    let regex = new RegExp(`(${text})`, 'gi');
+    document.body.innerHTML = document.body.innerHTML.replace(regex, `<mark>$1</mark>`);
+}
 
-let currentChart = null;
-const ctx = document.getElementById('employeeChart').getContext('2d');
+// Function to show error messages
+function showError(message) {
+    console.error(message);
+    alert(message);
+}
 
-// Fetch Department Employee data from the server
-function fetchDepartmentData(startYear, endYear) {
-    console.log(`Fetching data for years ${startYear} - ${endYear}`);
-    return fetch(`/Employees/GetEmployeesByDepartmentPerYear?startYear=${startYear}&endYear=${endYear}`)
+// Function to fetch Department Data
+function fetchDepartmentData() {
+    return fetch('/Employees/GetEmployeesByDepartmentTotal')
         .then(response => response.json())
         .then(data => {
-            console.log('Fetched Data:', data); // Debug log to inspect the response
-            const years = Array.from(new Set(data.map(item => item.year))); // Get unique years
-            const departments = Array.from(new Set(data.map(item => item.department))); // Get unique departments
-
-            const departmentData = {
-                labels: years, // Array of unique years
-                datasets: departments.map(department => {
-                    const employeeCounts = years.map(year => {
-                        // Find the employee count for this department and year, or set it to 0 if not available
-                        const item = data.find(d => d.department === department && d.year === year);
-                        return item ? item.employee_count : 0;
-                    });
-
-                    return {
-                        label: department,
-                        data: employeeCounts,
-                        borderColor: getRandomColor(),
-                        backgroundColor: getRandomColor(),
-                        fill: false,
-                        tension: 0.1,
-                    };
-                }),
-            };
-
-            console.log('Department Data:', departmentData); // Log the final data structure
-            return departmentData;
+            if (data.message) {
+                showError(data.message);
+                return;
+            }
+            return processDepartmentData(data);
         })
-        .catch(error => {
-            console.error('Error fetching department data:', error);
-            alert("Error fetching department data.");
+        .catch(() => {
+            showError("Error fetching department data.");
         });
 }
 
-// Function to generate random color
+// Function to process department data
+function processDepartmentData(data) {
+    const departments = Array.from(new Set(data.map(item => item.department))); // Get unique departments
+    const currentYear = new Date().getFullYear(); // Current year as label
+
+    return {
+        labels: [currentYear.toString()],
+        datasets: departments.map(department => {
+            const employeeCount = data.find(d => d.department === department)?.employee_count || 0;
+            return {
+                label: department,
+                data: [employeeCount],
+                borderColor: getRandomColor(),
+                backgroundColor: getRandomColor(),
+                fill: false,
+                tension: 0.1,
+            };
+        }),
+    };
+}
+
+// Function to fetch Male/Female Data
+function fetchMaleFemaleData() {
+    return fetch('/Employees/GetMaleFemaleEmployeesTotal')
+        .then(response => response.json())
+        .then(data => {
+            const maleCount = data[0]?.male_count || 0;
+            const femaleCount = data[0]?.female_count || 0;
+            return createGenderData(maleCount, femaleCount);
+        })
+        .catch(() => {
+            showError("Error fetching male/female department data.");
+        });
+}
+
+// Function to generate gender data structure
+function createGenderData(maleCount, femaleCount) {
+    const currentYear = new Date().getFullYear();
+    return {
+        labels: [currentYear.toString()],
+        datasets: [
+            createDataset('Male', maleCount),
+            createDataset('Female', femaleCount),
+        ],
+    };
+}
+
+// Function to create dataset for gender
+function createDataset(label, count) {
+    return {
+        label: label,
+        data: [count],
+        borderColor: getRandomColor(),
+        backgroundColor: getRandomColor(),
+        fill: false,
+        tension: 0.1,
+    };
+}
+
+// Function to generate a random color
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -60,73 +122,22 @@ function getRandomColor() {
     return color;
 }
 
-// Fetch year range dynamically from the backend
-function fetchYearRange() {
-    fetch('/Employees/GetYearRange')  // Adjust the URL to your actual endpoint
-        .then(response => response.json())
-        .then(data => {
-            const { earliestYear, latestYear } = data;
-
-            const startYearSelect = document.getElementById('startYear');
-            const endYearSelect = document.getElementById('endYear');
-
-            // Clear existing options
-            startYearSelect.innerHTML = '';
-            endYearSelect.innerHTML = '';
-
-            // Add options dynamically for years
-            for (let year = earliestYear; year <= latestYear; year++) {
-                const option = document.createElement('option');
-                option.value = year;
-                option.textContent = year;
-                startYearSelect.appendChild(option);
-
-                const optionEnd = document.createElement('option');
-                optionEnd.value = year;
-                optionEnd.textContent = year;
-                endYearSelect.appendChild(optionEnd);
-            }
-
-            // Set default values for start and end years
-            startYearSelect.value = earliestYear;
-            endYearSelect.value = latestYear;
-
-            // Trigger the chart update after populating the dropdowns
-            updateChart();
-        })
-        .catch(error => console.error('Error fetching year range:', error));
-}
-
-// Check if start year is greater than end year and show a warning
-function validateYears() {
-    const startYear = parseInt(document.getElementById('startYear').value);
-    const endYear = parseInt(document.getElementById('endYear').value);
-
-    // If start year is greater than end year
-    if (startYear > endYear) {
-        alert('Start year cannot be greater than end year. Please select valid years.');
-        // Optionally, reset to default values or handle it as needed
-        document.getElementById('startYear').value = endYear;  // Set start year to end year
-    }
-}
-
-// Listen for changes in the year dropdowns and validate
-document.getElementById('startYear').addEventListener('change', validateYears);
-document.getElementById('endYear').addEventListener('change', validateYears);
-
-// Create the chart with dynamic data
+// Function to create the chart
 function createChart(data) {
-    if (currentChart) {
-        currentChart.destroy(); // Destroy previous chart instance to prevent duplication
+    const ctx = document.getElementById('employeeChart').getContext('2d');
+
+    if (window.currentChart) {
+        window.currentChart.destroy();
     }
 
-    // Get the selected chart type from the dropdown (line, bar, pie)
-    const selectedGraphType = document.getElementById('chartTypeSelector').value;
+    //const selectedGraphType = document.getElementById('chartTypeSelector').value;
+    const totalEmployees = data.datasets.reduce((sum, dataset) => sum + dataset.data[0], 0);
+    const totalDepartments = data.datasets.length;
 
-    console.log('Creating chart with data:', data); // Log the chart data before creating the chart
+    //const displayTextPlugin = createDisplayTextPlugin(totalEmployees, totalDepartments);
 
-    currentChart = new Chart(ctx, {
-        type: selectedGraphType, // Use the selected graph type here (line, bar, pie, etc.)
+    window.currentChart = new Chart(ctx, {
+        type: 'bar',
         data: data,
         options: {
             responsive: true,
@@ -134,73 +145,71 @@ function createChart(data) {
                 legend: {
                     position: 'top',
                     labels: {
-                        boxWidth: 12, // Adjust the box size next to each legend item
-                        padding: 20, // Add padding between the box and the label
-                        font: {
-                            size: 14, // Adjust font size of the department name
-                            weight: '600', // Font weight for the department name
-                        },
+                        boxWidth: 12,
+                        padding: 20,
+                        font: { size: 14, weight: '600' },
                     },
                 },
                 tooltip: {
                     mode: 'index',
                     intersect: false,
-                    backgroundColor: 'rgba(0,0,0,0.7)', // Darken the tooltip background
-                    bodyFont: {
-                        size: 14, // Adjust tooltip body font size
-                    },
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    bodyFont: { size: 14 },
                 },
             },
             scales: {
                 x: {
                     type: 'category',
-                    title: { display: true, text: 'Year' },
-                    grid: {
-                        color: '#ddd',
-                    },
+                    title: { display: true, text: 'Department' },
+                    grid: { color: '#ddd' },
                 },
                 y: {
                     title: { display: true, text: 'Number of Employees' },
                     ticks: { beginAtZero: true, stepSize: 1 },
-                    grid: {
-                        color: '#ddd',
-                    },
+                    grid: { color: '#ddd' },
                 },
             },
         },
+        //plugins: [displayTextPlugin],
     });
 }
 
-// Fetch data and create chart based on selected graph type and year range
-function updateChart() {
-    const selectedGraphType = document.getElementById('graphType').value; // This controls the data type (department/gender)
-    const startYear = parseInt(document.getElementById('startYear').value);
-    const endYear = parseInt(document.getElementById('endYear').value);
+//// Function to create custom plugin for displaying total employees and departments
+//function createDisplayTextPlugin(totalEmployees, totalDepartments) {
+//    return {
+//        id: 'displayTextPlugin',
+//        beforeDraw: function (chart) {
+//            const ctx = chart.ctx;
+//            const width = chart.width;
+//            const height = chart.height;
 
-    console.log('Selected Graph Type:', selectedGraphType);
-    console.log('Start Year:', startYear);
-    console.log('End Year:', endYear);
+//            ctx.font = '16px Arial';
+//            ctx.fillStyle = 'black';
+//            ctx.fillText(`Total Employees: ${totalEmployees}`, width - 200, 110);
+//            ctx.fillText(`Total Departments: ${totalDepartments}`, width - 200, 130);
+//        },
+//    };
+//}
+
+// Listen for changes in chart type and update accordingly
+document.getElementById('chartTypeSelector').addEventListener('change', function () {
+    const currentGraphType = document.getElementById('graphType').value;
+    if (currentGraphType === 'department') {
+        fetchDepartmentData().then(createChart);
+    } else if (currentGraphType === 'gender') {
+        createChart(window.genderData);
+    }
+});
+
+// Listen for changes in the graph type (department vs gender) and update accordingly
+document.getElementById('graphType').addEventListener('change', function () {
+    const selectedGraphType = this.value;
 
     if (selectedGraphType === 'department') {
-        fetchDepartmentData(startYear, endYear).then(data => {
-            if (data && data.labels && data.datasets) {
-                createChart(data);
-            } else {
-                console.error('Invalid data format:', data);
-                alert("No valid data received. Please try again.");
-            }
+        fetchDepartmentData().then(data => {
+            createChart(data, document.getElementById('chartTypeSelector').value);
         });
     } else if (selectedGraphType === 'gender') {
-        console.log('Gender Graph selected. Fetching data...');
-        // fetchGenderData(startYear, endYear).then(data => { createChart(data) });
+        createChart(window.genderData, document.getElementById('chartTypeSelector').value);
     }
-}
-
-// Listen for changes in the dropdowns and update the chart accordingly
-document.getElementById('graphType').addEventListener('change', updateChart);
-document.getElementById('chartTypeSelector').addEventListener('change', updateChart); // Listen to the chart type change
-document.getElementById('startYear').addEventListener('change', updateChart);
-document.getElementById('endYear').addEventListener('change', updateChart);
-
-// Initial chart load (on page load or when the page is ready)
-fetchYearRange(); // Ensure to fetch year range on page load
+});

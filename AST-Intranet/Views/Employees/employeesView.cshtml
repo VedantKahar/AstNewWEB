@@ -13,34 +13,22 @@
 <div class="main-content">
     <div class="container">
 
-        <!--Graph should show only particular department selected from here-->
-        <!--multiple option select should be there-->
-
-        
-        <!--<div class="department-type-selector">
-            <label for="departmentTypeSelector">Select Department:</label>
-            <select id="departmentTypeSelector" name="departments" multiple>-->
-                <!-- Display Departments -->
-                <!--@if (ViewBag.Departments != null)
-                {
-                    foreach (var department in ViewBag.Departments)
-                    {
-                        <option value="@department">@department</option>
-                    }
-                }
-                else
-                {
-                    <option>No departments available.</option>
-                }
-            </select>
-        </div>-->
-
-        <!-- Graph Container Below Header -->
         <div class="chart-container">
-            <canvas id="employeeChart"></canvas>
+            <canvas id="employeeChart">
+            </canvas>
+            @*<div class="summary-info">
+                <div>
+                    <h3>Total Employees</h3>
+                    <p id="totalEmployees">@ViewBag.TotalEmployees</p>
+                </div>
+                <div>
+                    <h3>Departments</h3>
+                    <p id="totalDepartments">@ViewBag.TotalDepartments</p>
+                </div>
+            </div>*@
+
         </div>
 
-        <!-- Dropdown for selecting graph type and year range -->
         <div class="graph-toggle-year">
             <div class="graph-toggle">
                 <label for="graphType" class="tooltip" data-tooltip="Select graph to view either gender distribution or employees per department.">
@@ -53,44 +41,35 @@
             </div>
 
             <!-- Dropdown for selecting chart type -->
-            <div class="chart-type-selector">
-                <label for="chartTypeSelector">Select Chart Type:</label>
-                <select id="chartTypeSelector">
-                    <option value="line">Line Graph</option>
-                    <option value="bar">Bar Graph</option>
-                    <option value="bubble">Bubble Chart</option>
-                </select>
+            <!--<div class="chart-type-selector">
+        <label for="chartTypeSelector">Select Chart Type:</label>
+        <select id="chartTypeSelector">
+            <option value="bar">Bar Graph</option>-->
+            @*<option value="line">Line Graph</option>
+        <option value="bubble">Bubble Chart</option>*@
+            <!--</select>
+    </div>-->
+            <div>
+                <h3>Total Employees</h3>
+                <p id="totalEmployees">@ViewBag.TotalEmployees</p>
             </div>
-
-            <!-- Year selection -->
-            <div class="year-selector">
-                <label for="startYear">Start Year:</label>
-                <select id="startYear"></select>
-
-                <label for="endYear">End Year:</label>
-                <select id="endYear"></select>
+            <div>
+                <h3>Departments</h3>
+                <p id="totalDepartments">@ViewBag.TotalDepartments</p>
             </div>
         </div>
-
     </div>
 
-    <hr />
 
-    <h2>Company Overview</h2>
+    @*<h2>Company Overview</h2>
     <div class="employee-count-box">
-        <div>
-            <h3>Total Employees</h3>
-            <p>@ViewBag.TotalEmployees</p>
-        </div>
+
+
         <div>
             <h3>New Joiners</h3>
             <p>@ViewBag.NewJoiners</p>
         </div>
-        <div>
-            <h3>Departments</h3>
-            <p>@ViewBag.TotalDepartments</p>
-        </div>
-    </div>
+    </div>*@
 
     <hr />
 

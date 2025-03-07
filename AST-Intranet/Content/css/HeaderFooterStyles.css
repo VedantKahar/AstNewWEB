@@ -39,7 +39,7 @@ body {
     gap: 40px;
 }
 
-/* Search Bar (3D Effect) */
+/* Improved Search Bar with 3D Effect */
 .search-bar {
     padding: 8px 15px;
     font-size: 16px;
@@ -51,43 +51,67 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15); /* Deeper shadow for stronger 3D effect */
 }
 
-    /* On focus, enhance the 3D effect */
     .search-bar:focus {
         border-color: #adb5bd; /* Accent color on focus */
         outline: none;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25); /* Stronger shadow and depth on focus */
-        transform: translateY(-2x); /* Slight lifting effect when focused */
+        transform: translateY(-2px); /* Slight lifting effect when focused */
     }
 
-    /* On hover, give a stronger lifting effect */
     .search-bar:hover {
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.2);
         transform: translateY(-2px); /* Slight upward movement on hover */
     }
 
-/* Add to your existing CSS file, e.g., HeaderFooterStyles.css */
+/* Suggestions Box Styling */
 .suggestions-box {
     position: absolute;
+    top: 60px; /* Adjust according to your navbar height */
+    left: 30%;
+    transform: translateX(-50%); /* Center align the suggestions box */
     background-color: #fff;
     width: 100%;
+    max-width: 400px; /* Limit the max width for a cleaner look */
     max-height: 200px;
     overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     margin-top: 5px;
     display: none;
+    padding: 5px 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Suggestion Item Styling */
 .suggestion-item {
-    padding: 10px;
+    padding: 12px 20px;
     cursor: pointer;
+    transition: background-color 0.2s ease, padding 0.2s ease;
+    font-size: 14px;
 }
 
     .suggestion-item:hover {
         background-color: #f5f5f5;
+        padding-left: 25px; /* Add some extra padding for a "sliding" effect */
+        /* background-image: url('https://image.shutterstock.com/image-vector/check-icon-approval-symbol-ok-260nw-1664763641.jpg'); Optional check icon */
+        background-position: 10px center;
+        background-repeat: no-repeat;
+        background-size: 18px;
     }
+
+/* Suggestions box visible */
+.suggestions-box.show {
+    display: block;
+}
+
+/* Transition Effect */
+.search-bar:focus + .suggestions-box {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
 
 
 /* Navigation Links */
@@ -101,19 +125,19 @@ body {
         position: relative;
     }
 
-    .nav-links a {
-        color: black; /* White text for contrast */
-        text-decoration: none;
-        font-size: 20px;
-        font-weight: 600;
-        letter-spacing: 1px;
-        transition: color 0.3s ease, transform 0.3s ease;
-    }
+.nav-links a {
+    color: black; /* White text for contrast */
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
 
-        .nav-links a:hover {
-            color: #dc3545; /* Hover color to complement the hero section's blue */
-            transform: translateY(-5px); /* Slight lift on hover */
-        }
+    .nav-links a:hover {
+        color: #dc3545; /* Hover color to complement the hero section's blue */
+        transform: translateY(-5px); /* Slight lift on hover */
+    }
 
 /* Dropdown */
 .dropdown {
@@ -146,20 +170,20 @@ body {
     border-radius: 15px;
 }
 
-    .dropdown-content a {
-        display: block;
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+.dropdown-content a {
+    display: block;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-        .dropdown-content a:hover {
-            color: #dc3545;
-            border-radius: 15px;
-        }
+.dropdown-content a:hover {
+    color: #dc3545;
+    border-radius: 15px;
+}
 
 .dropdown:hover .dropdown-content {
     display: block;
@@ -179,9 +203,9 @@ body {
     transition: transform 0.3s ease;
 }
 
-    .profile-img:hover {
-        transform: scale(1.1); /* Slight zoom effect on hover */
-    }
+.profile-img:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
 
 /* Logout Dropdown */
 .logout-dropdown {
@@ -195,16 +219,16 @@ body {
     width: 150px;
 }
 
-    .logout-dropdown a {
-        padding: 10px;
-        color: black;
-        text-decoration: none;
-        display: block;
-    }
+.logout-dropdown a {
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    display: block;
+}
 
-        .logout-dropdown a:hover {
-            color: #dc3545;
-        }
+.logout-dropdown a:hover {
+    color: #dc3545;
+}
 
 .profile-container:hover .logout-dropdown {
     display: block;
@@ -220,14 +244,14 @@ body {
     border-radius: 12px;
 }
 
-    .footer a {
-        color: black;
-        text-decoration: none;
-        font-weight: bold;
-        transition: color 0.3s ease;
-    }
+.footer a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
 
-        .footer a:hover {
-            text-decoration: underline;
-            color: #000072;
-        }
+.footer a:hover {
+    text-decoration: underline;
+    color: #000072;
+}

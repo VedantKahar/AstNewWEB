@@ -6,6 +6,9 @@
 
 }
 @using AST_Intranet.Models;
+@using System.Linq;
+
+
 
 @*FullCalendar CSS*@
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet">
@@ -312,12 +315,20 @@
                     <!-- Slide 1 -->
                     <div class="order-slide">
                         <h4><span class="text-gradient-span">Company A</span></h4>
-                        <p>Description about the order received from Company A. This includes more detailed information about the order.</p>
+                        <p>
+                            Description about the order received from Company A. This includes more detailed information about the order.
+
+                        </p>
                     </div>
                     <!-- Slide 2 -->
                     <div class="order-slide">
                         <h4><span class="text-gradient-span">Company B</span></h4>
-                        <p>Description about the order received from Company B. This includes more detailed information about the order.</p>
+                        <p>
+                            Description about the order received from Company B. This includes more detailed information about the order.
+                            Description about the order received from Company A. This includes more detailed information about the order.
+                            Description about the order received from Company A. This includes more detailed information about the order.
+                            Description about the order received from Company A. This includes more detailed information about the order.
+                        </p>
                     </div>
                     <!-- Slide 3 -->
                     <div class="order-slide">
@@ -385,7 +396,10 @@
         <section class="manuals">
             <center><h2>Manuals</h2></center>
 
-            <a href="@Url.Action("manualsView", "Manuals")">Click here for Other Manuals</a>
+            <!-- Align the link to the right -->
+            <div class="view-more-container">
+                <a href="@Url.Action("manualsView", "Manuals")" class="view-more-link">Click here for Other Manuals →</a>
+            </div>
 
             <div class="manual-list">
                 <div class="manual-item">
@@ -402,6 +416,7 @@
                 </div>
             </div>
         </section>
+
         <hr>
 
 
@@ -446,7 +461,7 @@
                         <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
                     </div>
                     <h3>Most beloved protagonists of all time</h3>
-                    <p>Arthur Morgan</p>
+                    <p style="color:black">Arthur Morgan</p>
                     <div class="desc">
                         Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
                         This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
@@ -458,18 +473,22 @@
         <hr />
 
 
-        <!--fetch pdf,doc,xls from general folder-->
+
         <section class="information-section">
             <div class="box-container">
-                 Cafeteria Menu
+                <!-- Cafeteria Menu Section -->
                 <div class="box2">
-                    <h3><span class="text-gradient-span">Cafeteria Menu</span></h3>
+                    <!-- Icon and Heading Section -->
+                    <div class="icon-and-heading">
+
+                        <h3><span class="text-gradient-span">Cafeteria Menu</span></h3>
+                    </div>
                     <p>Details about the cafeteria menu.</p>
-                    @if (ViewBag.CafeteriaMenu != null && ViewBag.CafeteriaMenu.Any())
+                    @if (ViewBag.CafeteriaMenu != null && ((List<string>)ViewBag.CafeteriaMenu).Count > 0)
                     {
-                        <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "Homepage/Cafeteria Menu", fileName = ViewBag.CafeteriaMenu.First() })" class="arrow-link">
+                        <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "Homepage/Cafeteria Menu", fileName = ((List<string>)ViewBag.CafeteriaMenu).FirstOrDefault() })" class="arrow-link" target="_blank">
                             <div class="floating-circle2">
-                                <img src="~/Images/icons/coffee-cup-white-icon.png" alt="Coffee Cup Icon" />
+                                &#x2197;
                             </div>
                         </a>
                     }
@@ -477,17 +496,26 @@
                     {
                         <p>No cafeteria menu available.</p>
                     }
+
+                    <!-- Large Icon Below the Paragraph -->
+                    <div class="large-icon-container">
+                        <img src="~/Images/icons/coffee-cup-white-icon.png" alt="Coffee Cup Icon" class="large-icon" />
+                    </div>
                 </div>
 
-                 Contact List
+                <!-- Contact List Section -->
                 <div class="box2">
-                    <h3><span class="text-gradient-span">Contact List</span></h3>
+                    <!-- Icon and Heading Section -->
+                    <div class="icon-and-heading">
+
+                        <h3><span class="text-gradient-span">Contact List</span></h3>
+                    </div>
                     <p>List of important contacts.</p>
-                    @if (ViewBag.ContactList != null && ViewBag.ContactList.Any())
+                    @if (ViewBag.ContactList != null && ((List<string>)ViewBag.ContactList).Count > 0)
                     {
-                        <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "Homepage/Contact List", fileName = ViewBag.ContactList.First() })" class="arrow-link">
+                        <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "Homepage/Contact List", fileName = ((List<string>)ViewBag.ContactList).FirstOrDefault() })" class="arrow-link" target="_blank">
                             <div class="floating-circle2">
-                                <img src="~/Images/icons/phone-call-white-icon.png" alt="Phone Icon" />
+                                &#x2197;
                             </div>
                         </a>
                     }
@@ -495,17 +523,25 @@
                     {
                         <p>No contact list available.</p>
                     }
+                    <!-- Large Icon Below the Paragraph -->
+                    <div class="large-icon-container">
+                        <img src="~/Images/icons/phone-call-white-icon.png" alt="Phone Icon" class="large-icon" />
+                    </div>
                 </div>
 
-                 Yearly Holidays
+                <!-- Yearly Holidays Section -->
                 <div class="box2">
-                    <h3><span class="text-gradient-span">Year Holiday Calendar</span></h3>
+                    <!-- Icon and Heading Section -->
+                    <div class="icon-and-heading">
+
+                        <h3><span class="text-gradient-span">Year Holiday Calendar</span></h3>
+                    </div>
                     <p>Calendar showing holidays for the year.</p>
-                    @if (ViewBag.YearlyHolidays != null && ViewBag.YearlyHolidays.Any())
+                    @if (ViewBag.YearlyHolidays != null && ((List<string>)ViewBag.YearlyHolidays).Count > 0)
                     {
-                        <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "Homepage/Yearly Holidays", fileName = ViewBag.YearlyHolidays.First() })" class="arrow-link">
+                        <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "Homepage/Yearly Holidays", fileName = ((List<string>)ViewBag.YearlyHolidays).FirstOrDefault() })" class="arrow-link" target="_blank">
                             <div class="floating-circle2">
-                                &#x2197;  or any icon here
+                                &#x2197;
                             </div>
                         </a>
                     }
@@ -513,22 +549,32 @@
                     {
                         <p>No yearly holidays available.</p>
                     }
+                    <!-- Large Icon Below the Paragraph -->
+                    <div class="large-icon-container">
+                        <img src="~/Images/icons/calendar-white-icon.png" alt="Calendar Icon" class="large-icon" />
+                    </div>
                 </div>
 
-                 Upcoming Training
+                <!-- Upcoming Training Section -->
                 <div class="box2">
-                    <h3><span class="text-gradient-span">Upcoming Training Calendar</span></h3>
+                    <!-- Icon and Heading Section -->
+                    <div class="icon-and-heading">
+
+                        <h3><span class="text-gradient-span">Upcoming Training Calendar</span></h3>
+                    </div>
                     <p>Upcoming training schedules and events.</p>
-                    <a href="@Url.Action("employeesView", "Employees")" class="arrow-link">
+                    <a href="@Url.Action("employeesView", "Employees")" class="arrow-link" target="_blank">
                         <div class="floating-circle2">
-                            &#x2197;  or any icon here
+                            &#x2197; <!-- You can change this icon as needed -->
                         </div>
                     </a>
+                    <!-- Large Icon Below the Paragraph -->
+                    <div class="large-icon-container">
+                        <img src="~/Images/icons/upoming-training-calendar-white-icon.png" alt="Calendar Icon" class="large-icon" />
+                    </div>
                 </div>
             </div>
         </section>
-
-
 
 
         <hr />
@@ -595,13 +641,13 @@
         <ul class="birthday-list">
             @if (ViewBag.Birthdays != null && ViewBag.Birthdays.Count > 0)
             {
-                foreach (var birthday in ViewBag.Birthdays as List<string>)
-                {
+                        foreach (var birthday in ViewBag.Birthdays as List<string>)
+                        {
                     <li class="birthday-item"><strong>@birthday</strong></li>
                 }
             }
             else
-            {
+                    {
                 <li class="birthday-item">No birthdays today.</li>
             }
         </ul>
@@ -685,7 +731,7 @@
         <hr />
 
 
-        <section class="section">
+        @*<section class="section">
             <h2>Events</h2>
             <div class="events-gallery-container">
                 <div class="slider">
@@ -729,24 +775,43 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>*@
 
-        @*<div id="cafeteria-menu" class="info-box" onclick="openPDF('cafeteria-menu.pdf')">
-            <h3>Cafeteria Menu</h3>
-            <p>Details about the cafeteria menu.</p>
-        </div>
-        <div id="Contact-list" class="info-box" onclick="openPDF('contact-list.pdf')">
-            <h3>Contact List</h3>
-            <p>List of important contacts.</p>
-        </div>
-        <div id="year-holiday-calendar" class="info-box" onclick="openPDF('holiday-calendar.pdf')">
-            <h3>Year Holiday Calendar</h3>
-            <p>Calendar showing holidays for the year.</p>
-        </div>
-        <div id="upcoming-training-calendar" class="info-box" onclick="openPDF('training-calendar.pdf')">
-            <h3>Upcoming Training Calendar</h3>
-            <p>Upcoming training schedules and events.</p>
-        </div>*@
+
+        @*only 1 image from folder with event name and description and on click on that event it would open a new page with all images presene in folder*@
+        <section class="section">
+            <h2>AST Events</h2>
+            <div class="events-gallery-container">
+                <div class="slider">
+                    <div class="slider-wrapper">
+                        @foreach (var image in ViewBag.EventImages as List<string>)
+                        {
+                            // Find the metadata for the current image
+                            var eventMetadata = (ViewBag.EventMetadata as List<EventMetadata>)
+                                .FirstOrDefault(e => e.Image == image);
+
+                            <div class="slider-item">
+                                <a href="@Url.Action("GetImage", "Dashboard", new { folderName = "Homepage/Events Images", fileName = image })" target="_blank">
+                                    <div class="image-container">
+                                        <img src="@Url.Action("GetImage", "Dashboard", new { folderName = "Homepage/Events Images", fileName = image })" alt="@image">
+                                        <div class="overlay"></div>
+                                    </div>
+                                    <div class="text-container">
+                                        @if (eventMetadata != null)
+                                        {
+                                            <!-- Display event name and description -->
+                                            <h3 class="events-title">@eventMetadata.Name</h3>
+                                            <p class="events-description">@eventMetadata.Description</p>
+                                        }
+                                        <!-- If no metadata, do not display name or description -->
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </div>
 </div>

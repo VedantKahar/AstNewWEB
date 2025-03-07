@@ -25,7 +25,7 @@
     }
     /* For document files section (4 items per row) */
     .other-files {
-        grid-template-columns: repeat(1, 1fr); /* 4 items per row for documents */
+        grid-template-columns: repeat(3, 1fr); /* 4 items per row for documents */
     }
 
     /* Individual items in the grid */
@@ -126,7 +126,7 @@
 
     /* Resources Section Styles */
     .resources-section {
-        background-color: #ffffff;
+        background-color: #d4d7da;
         border-radius: 15px;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
         padding: 40px;

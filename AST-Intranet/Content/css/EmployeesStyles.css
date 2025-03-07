@@ -76,8 +76,8 @@
 
     /* Graph Container */
     .chart-container {
-        width: 100%;
-        height: 600px;
+        width: 70%;
+        height: 400px;
         margin-top: 20px;
         background-color: #ffffff; /* White background for the graph */
         border-radius: 10px;
@@ -104,7 +104,9 @@
         align-items: center;
         gap: 15px;
     }
-
+.graph-toggle:hover {
+    background-color: #e9ecef;
+}
     /*chart-type and department*/
     label {
         font-size: 16px;
@@ -149,9 +151,11 @@
         gap: 20px;
         align-items: center;
     }
+
+
     /* Hover effect on chart type dropdown */
     #chartTypeSelector:hover,
-    #graphType:hover {
+    #graphType:hover{
         background-color: #e9ecef;
     }
 
@@ -160,6 +164,7 @@
         font-size: 16px;
         font-weight: 600;
     }
+
 
     /* Graph Type dropdown */
     .graph-toggle label {
@@ -242,7 +247,7 @@
         letter-spacing: 2px;
         text-transform: uppercase;
         text-align: center;
-        font-size: 1.5em;
+        font-size: 2em;
         margin-bottom: 30px;
         transition: all 0.3s ease;
     }
@@ -254,7 +259,7 @@
     }
 
     .employee-count-box div {
-        background: linear-gradient(135deg, #6C9EBF, #A4D7D1);
+        background: #d4d7da;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -270,11 +275,15 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 
-    .employee-count-box div h3 {
-        margin: 10px 0;
-        font-size: 1.4em;
-        color: #fff;
-    }
+        .employee-count-box div h3 {
+            margin: 10px 0;
+            font-size: 1.4em;
+            /* Apply a gradient background */
+            background: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+            /* Clip the background to the text */
+            -webkit-background-clip: text; /*For WebKit-based browsers*/
+            color: transparent; /*  Make text color transparent to show gradient*/
+        }
 
     .employee-count-box div p {
         font-size: 1.5em;
@@ -290,7 +299,7 @@
     }
 
     .department {
-        background: linear-gradient(135deg, #6C9EBF, #A4D7D1);
+        background-color: #d4d7da;/*linear-gradient(135deg, #6C9EBF, #A4D7D1);*/
         padding: 25px;
         border-radius: 12px;
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
@@ -303,11 +312,15 @@
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
     }
 
-    .department h3 {
-        margin-bottom: 12px;
-        color: #fff;
-        font-size: 1.6em;
-    }
+        .department h3 {
+            margin-bottom: 12px;
+            /* Apply a gradient background */
+            background: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+            /* Clip the background to the text */
+            -webkit-background-clip: text; /*For WebKit-based browsers*/
+            color: transparent; /*  Make text color transparent to show gradient*/
+            font-size: 1.6em;
+        }
 
     .department p {
         font-size: 1.1em;
@@ -315,12 +328,12 @@
         margin-bottom: 15px;
     }
 
-    .department a {
-        font-size: 1.1em;
-        color: #16A085;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
+        .department a {
+            font-size: 1.1em;
+            color: #ff1200;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
     .department a:hover {
         color: #2C3E50;

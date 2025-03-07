@@ -18,7 +18,8 @@
 
     /* Update for .manual-box to ensure padding is maintained */
     .manual-box {
-        background: linear-gradient(135deg, #6faedb 10%, #b8e2d3 70%);
+       /* background: linear-gradient(135deg, #6faedb 10%, #b8e2d3 70%);*/
+       background-color:#d4d7da;
         border-radius: 10px;
         padding: 15px; /* Keeps the padding around the box */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -54,7 +55,7 @@
 
    
     .manual-item:hover {
-        background-color: #16a085; /* Change background on hover */
+        background: linear-gradient(90deg, #ff1200 20%, #000000 100%); /* Change background on hover */
         color: #fff; /* Change text color to white on hover */
         transform: translateY(-2px);
     }
@@ -96,10 +97,14 @@
     }
 
     /* Header and Category Titles */
-    .manual-category h3 {
-        font-size: 1.5em;
-        color: #2c3e50;
-        margin-bottom: 20px;
-        text-align: center;
-        font-weight: bold;
-    }
+.manual-category h3 {
+    font-size: 1.5em;
+    /* Apply a gradient background */
+    background: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+    /* Clip the background to the text */
+    -webkit-background-clip: text; /*For WebKit-based browsers*/
+    color: transparent; /*  Make text color transparent to show gradient*/
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using AST_Intranet.Models.Database;
 using AST_Intranet.Models;
+using Newtonsoft.Json;
 
 namespace AST_Intranet.Controllers
 {
@@ -14,31 +15,60 @@ namespace AST_Intranet.Controllers
         // Path to the network shared folder
         private string baseFolderPath = @"\\astns\General\INTRANET\";
 
+
+        // Method to read event metadata from JSON file
+        public List<EventMetadata> GetEventMetadata()
+        {
+            string filePath = Path.Combine(baseFolderPath, "Homepage/Events Images/EventMetadata.json");
+
+            if (System.IO.File.Exists(filePath))
+            {
+                var json = System.IO.File.ReadAllText(filePath);
+                var events = JsonConvert.DeserializeObject<List<EventMetadata>>(json);
+                return events;
+            }
+
+            return new List<EventMetadata>(); // Return an empty list if the file doesn't exist
+        }
+
         // GET: Dashboard
         public ActionResult DashboardView()
         {
-            List<BirthdayViewModel> birthdays; // Use BirthdayViewModel instead of string
-
-            // Fetch birthdays and anniversaries using the UpdateDBConnector method
+            // Fetching Birthday, Anniversary, and New Joiners
+            List<BirthdayViewModel> birthdays;
             DashboardDBConnector.GetEmployeeBirthday(out birthdays);
-
-            // Pass the fetched list to the view
             ViewBag.Birthdays = birthdays;
 
-
-
-            List<WorkAnniversaryViewModel> workAnniversaries; // Use BirthdayViewModel instead of string
-
-            // Fetch birthdays and anniversaries using the UpdateDBConnector method
+            List<WorkAnniversaryViewModel> workAnniversaries;
             DashboardDBConnector.GetEmployeeWorkAnniversary(out workAnniversaries);
-
-            // Pass the fetched list to the view
             ViewBag.workAnniversary = workAnniversaries;
 
             List<NewJoinerViewModel> newJoiners;
             DashboardDBConnector.GetNewJoiners(out newJoiners);
             ViewBag.NewJoiners = newJoiners;
 
+            // Fetch video files from folders
+            var corporateVideo = GetVideoFromFolder("Homepage");
+            var bgVideo = GetVideoFromFolder("Homepage/Corporate Video");
+            ViewBag.CorporateVideoUrl = corporateVideo.Any() ? Url.Action("GetVideo", "Dashboard", new { folderName = "Homepage", fileName = corporateVideo.First() }) : null;
+            ViewBag.BgVideoUrl = bgVideo.Any() ? Url.Action("GetVideo", "Dashboard", new { folderName = "Homepage/Corporate Video", fileName = bgVideo.First() }) : null;
+
+            // Fetch other documents
+            var cafeteriaMenu = GetDocumentsFromFolder("Homepage/Cafeteria Menu");
+            var contactList = GetDocumentsFromFolder("Homepage/Contact List");
+            var yearlyHolidays = GetDocumentsFromFolder("Homepage/Yearly Holidays");
+            ViewBag.CafeteriaMenu = cafeteriaMenu;
+            ViewBag.ContactList = contactList;
+            ViewBag.YearlyHolidays = yearlyHolidays;
+
+            // Fetch event metadata and event images
+            List<EventMetadata> events = GetEventMetadata();
+            ViewBag.EventMetadata = events;
+
+            var eventImages = GetImagesFromFolder("Homepage/Events Images");
+            ViewBag.EventImages = eventImages;
+
+            return View();
             //List<string> birthdays;
             //List<string> anniversaries;
 
@@ -50,35 +80,18 @@ namespace AST_Intranet.Controllers
             //ViewBag.Anniversaries = anniversaries;
 
 
-            // Fetch the video files from the 'Homepage' and 'tp' folder
-            var corporateVideo = GetVideoFromFolder("Homepage");
-            var bgVideo = GetVideoFromFolder("Homepage/Corporate Video");
-
-            // If there are videos, we pick the first one from each folder (you can change logic as needed)
-            string corporateVideoUrl = corporateVideo.Any() ? Url.Action("GetVideo", "Dashboard", new { folderName = "Homepage", fileName = corporateVideo.First() }) : null;
-            string bgVideoUrl = bgVideo.Any() ? Url.Action("GetVideo", "Dashboard", new { folderName = "Homepage/Corporate Video", fileName = bgVideo.First() }) : null;
-
-            // Pass the video URLs to the view
-            ViewBag.CorporateVideoUrl = corporateVideoUrl;
-            ViewBag.BgVideoUrl = bgVideoUrl;
-
-            var cafeteriaMenu = GetDocumentsFromFolder("Homepage/Cafeteria Menu");
-            var contactList = GetDocumentsFromFolder("Homepage/Contact List");
-            var yearlyHolidays = GetDocumentsFromFolder("Homepage/Yearly Holidays");
-
-            ViewBag.CafeteriaMenu = cafeteriaMenu;
-            ViewBag.ContactList = contactList;
-            ViewBag.YearlyHolidays = yearlyHolidays;
-
-            return View();
+           
         }
         public ActionResult CelebrationPopup()
         {
             List<CelebrationViewModel> celebrations;
             DashboardDBConnector.GetEmployeeCelebrations(out celebrations);
+            Console.WriteLine($"Number of celebrations found: {celebrations.Count}");
             ViewBag.Celebrations = celebrations;
             return View();
         }
+
+
 
 
         //// Fetch the video files from the 'Homepage' folder
@@ -205,6 +218,8 @@ namespace AST_Intranet.Controllers
             try
             {
                 string folderPath = Path.Combine(baseFolderPath, folderName); // Network path
+                Console.WriteLine("Folder Path: " + folderPath);  // Debugging line
+
                 var documentFiles = new List<string>();
 
                 if (Directory.Exists(folderPath))
@@ -244,6 +259,8 @@ namespace AST_Intranet.Controllers
             {
                 string folderPath = Path.Combine(baseFolderPath, folderName);
                 string filePath = Path.Combine(folderPath, fileName);
+
+                Console.WriteLine("Accessing file at: " + filePath);  // Debugging line
 
                 if (System.IO.File.Exists(filePath))
                 {
@@ -285,7 +302,84 @@ namespace AST_Intranet.Controllers
             }
         }
 
+        // Method to get images from the folder (as already implemented)
+        private List<string> GetImagesFromFolder(string folderName)
+        {
+            try
+            {
+                string folderPath = Path.Combine(baseFolderPath, folderName);
+                var imageFiles = new List<string>();
+
+                if (Directory.Exists(folderPath))
+                {
+                    var allFiles = Directory.GetFiles(folderPath);
+                    var allowedExtensions = new List<string> { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+
+                    foreach (var file in allFiles)
+                    {
+                        string fileName = Path.GetFileName(file);
+                        string fileExtension = Path.GetExtension(fileName).ToLower();
+
+                        if (allowedExtensions.Contains(fileExtension))
+                        {
+                            imageFiles.Add(fileName);
+                        }
+                    }
+                }
+                return imageFiles;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error accessing folder: " + ex.Message);
+                return new List<string>(); // Return empty list on error
+            }
+        }
 
 
+        /*it will open only image onnext window on browser*/
+        public ActionResult GetImage(string folderName, string fileName)
+        {
+            try
+            {
+                string folderPath = Path.Combine(baseFolderPath, folderName);
+                string filePath = Path.Combine(folderPath, fileName);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    string fileExtension = Path.GetExtension(fileName).ToLower();
+                    string contentType = "image/jpeg"; // Default MIME type for images
+
+                    // MIME type determination
+                    switch (fileExtension)
+                    {
+                        case ".jpg":
+                        case ".jpeg":
+                            contentType = "image/jpeg";
+                            break;
+                        case ".png":
+                            contentType = "image/png";
+                            break;
+                        case ".gif":
+                            contentType = "image/gif";
+                            break;
+                        case ".bmp":
+                            contentType = "image/bmp";
+                            break;
+                    }
+
+                    byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+                    return File(fileBytes, contentType);
+                }
+                else
+                {
+                    return HttpNotFound($"File not found: {filePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error accessing file: " + ex.Message);
+                return new HttpStatusCodeResult(500, "Error accessing file: " + ex.Message);
+            }
+        }
     }
 }

@@ -646,11 +646,29 @@ h2 {
     margin-top: 10px;
 }
 
+/* Container for the 'view more' link to align it to the right */
+.view-more-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the link to the right */
+    margin-bottom: 20px;
+}
+
+/* Styling for the link */
+.view-more-link {
+    color: brown;
+    font-size: 1.3em;
+    text-decoration: none; /* Initially no underline */
+}
+
+    .view-more-link:hover {
+        color: black;
+        text-decoration: underline; /* Adds underline on hover */
+    }
+
 .manual-item {
     background-color: #d4d7da;
     padding: 20px;
     border-radius: 12px;
-    /*box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);*/
     width: 48%;
     transition: transform 0.3s, box-shadow 0.3s;
     margin-bottom: 20px;
@@ -673,7 +691,7 @@ h2 {
         background: linear-gradient(90deg, #ff1200 20%, #000000 100%);
         /* Clip the background to the text */
         -webkit-background-clip: text; /*For WebKit-based browsers*/
-        color: transparent; /*  Make text color transparent to show gradient*/
+        color: transparent; /* Make text color transparent to show gradient */
     }
 
 .manual-description {
@@ -1462,13 +1480,17 @@ section {
 /* Styling for each individual box (box2) */
 .box2 {
     background-color: #d4d7da;
-    width: 35%; /* Make each box take up 1/4th of the row */
-    padding: 10px;
+    width: 35%; /* Make each box take up 1/3rd of the row */
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative; /* For positioning the floating circle */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
+    height: 300px; /* Set a fixed height for the box */
 }
 
     .box2:hover {
@@ -1476,17 +1498,31 @@ section {
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     }
 
-    .box2 h3 {
-        font-size: 1.5rem;
-        color: #2c3e50;
-        margin-bottom: 15px;
-    }
+/* Container to align icon and heading */
+.icon-and-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    height: 60px; /* Set a fixed height for the heading area */
+    justify-content: center;
+}
 
-    .box2 p {
-        font-size: 1rem;
-        color: black;
-        margin-bottom: 40px;
-    }
+.box2 h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin: 0;
+    text-align: center;
+}
+
+/* Paragraph Styling */
+.box2 p {
+    font-size: 1rem;
+    color: black;
+    margin-bottom: 10px;
+    flex-grow: 1; /* Allow the paragraph to take the remaining space */
+    text-align: center;
+}
 
 /* Floating Circle Styling (floating-circle2) */
 .floating-circle2 {
@@ -1505,22 +1541,24 @@ section {
 
     /* Ensure the icon fits inside the floating circle */
     .floating-circle2 img {
-        max-width: 20px; /* Make sure icon doesn't overflow */
-        max-height: 20px;
+        width: 300px; /* Fit icon inside the circle */
+        height: 20px; /* Fit icon inside the circle */
         object-fit: contain; /* Maintain aspect ratio */
-        margin: 0;
     }
 
-.arrow-link {
-    font-weight: bold;
-    color: white;
-    font-size: 20px;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Large Icon Below the Paragraph */
+.large-icon-container {
+    text-align: center;
 }
 
+.large-icon {
+    width: 100%;
+    max-width: 80px; /* You can adjust this size */
+    margin: 0 auto;
+    display: block;
+}
+
+/* Hover Effect for Floating Circle */
 .floating-circle2:hover {
     background-color: #2980b9;
 }
@@ -1528,7 +1566,6 @@ section {
     .floating-circle2:hover .arrow-link {
         color: white;
     }
-
 /* Responsive Design */
 @media (max-width: 1024px) {
     .cards-container, .event-gallery {
