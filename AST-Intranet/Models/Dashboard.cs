@@ -54,9 +54,11 @@ namespace AST_Intranet.Models
         public string Location { get; set; }
         public string ImageUrl { get; set; }
     }
+    
     public class EventMetadata
     {
-        public string Image { get; set; }
+        public string Folder { get; set; } // Folder containing event images
+        public string Image { get; set; }  // Selected image for display
         public string Name { get; set; }
         public string Description { get; set; }
     }

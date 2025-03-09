@@ -13,10 +13,12 @@ namespace AST_Intranet.Controllers
     public class DashboardController : Controller
     {
         // Path to the network shared folder
-        private string baseFolderPath = @"\\astns\General\INTRANET\";
+        //private string baseFolderPath = @"\\astns\General\INTRANET\";
+        private string baseFolderPath = @"D:\INTRANET Dummy Folder";
 
 
         // Method to read event metadata from JSON file
+        // Fetch Event Metadata from JSON
         public List<EventMetadata> GetEventMetadata()
         {
             string filePath = Path.Combine(baseFolderPath, "Homepage/Events Images/EventMetadata.json");
@@ -28,7 +30,7 @@ namespace AST_Intranet.Controllers
                 return events;
             }
 
-            return new List<EventMetadata>(); // Return an empty list if the file doesn't exist
+            return new List<EventMetadata>();
         }
 
         // GET: Dashboard
@@ -65,8 +67,8 @@ namespace AST_Intranet.Controllers
             List<EventMetadata> events = GetEventMetadata();
             ViewBag.EventMetadata = events;
 
-            var eventImages = GetImagesFromFolder("Homepage/Events Images");
-            ViewBag.EventImages = eventImages;
+            //var eventImages = GetImagesFromFolder("Homepage/Events Images");
+            //ViewBag.EventImages = eventImages;
 
             return View();
             //List<string> birthdays;
@@ -79,8 +81,15 @@ namespace AST_Intranet.Controllers
             //ViewBag.Birthdays = birthdays;
             //ViewBag.Anniversaries = anniversaries;
 
-
-           
+        }
+        
+        // Fetch all images from a folder when an event is clicked
+        public ActionResult EventGallery(string folderName)
+        {
+            var eventImages = GetImagesFromFolder(folderName);
+            ViewBag.EventImages = eventImages;
+            ViewBag.FolderName = folderName;
+            return View();
         }
         public ActionResult CelebrationPopup()
         {
@@ -252,7 +261,6 @@ namespace AST_Intranet.Controllers
             }
         }
 
-
         public ActionResult GetDocument(string folderName, string fileName)
         {
             try
@@ -307,7 +315,7 @@ namespace AST_Intranet.Controllers
         {
             try
             {
-                string folderPath = Path.Combine(baseFolderPath, folderName);
+                string folderPath = Path.Combine(baseFolderPath, "Homepage/Events Images", folderName);
                 var imageFiles = new List<string>();
 
                 if (Directory.Exists(folderPath))
@@ -341,7 +349,8 @@ namespace AST_Intranet.Controllers
         {
             try
             {
-                string folderPath = Path.Combine(baseFolderPath, folderName);
+                // Correctly combine the base folder path with the subfolder
+                string folderPath = Path.Combine(baseFolderPath, "Homepage", "Events Images", folderName);
                 string filePath = Path.Combine(folderPath, fileName);
 
                 if (System.IO.File.Exists(filePath))
@@ -381,5 +390,6 @@ namespace AST_Intranet.Controllers
                 return new HttpStatusCodeResult(500, "Error accessing file: " + ex.Message);
             }
         }
+
     }
 }

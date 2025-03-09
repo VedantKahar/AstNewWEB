@@ -679,9 +679,6 @@
         </div>*@
 
 
-
-
-
         <!--<div id="calendar"></div>-->
         <!-- Event form with added date, time, and description inputs -->
         <!--<div class="event-form" id="event-form">
@@ -779,31 +776,23 @@
 
 
         @*only 1 image from folder with event name and description and on click on that event it would open a new page with all images presene in folder*@
+        
         <section class="section">
-            <h2>AST Events</h2>
+            <h2>Events</h2>
             <div class="events-gallery-container">
                 <div class="slider">
                     <div class="slider-wrapper">
-                        @foreach (var image in ViewBag.EventImages as List<string>)
+                        @foreach (var eventMetadata in ViewBag.EventMetadata as List<EventMetadata>)
                         {
-                            // Find the metadata for the current image
-                            var eventMetadata = (ViewBag.EventMetadata as List<EventMetadata>)
-                                .FirstOrDefault(e => e.Image == image);
-
                             <div class="slider-item">
-                                <a href="@Url.Action("GetImage", "Dashboard", new { folderName = "Homepage/Events Images", fileName = image })" target="_blank">
+                                <a href="@Url.Action("EventGallery", "Dashboard", new { folderName = eventMetadata.Folder })">
                                     <div class="image-container">
-                                        <img src="@Url.Action("GetImage", "Dashboard", new { folderName = "Homepage/Events Images", fileName = image })" alt="@image">
+                                        <img src="@Url.Action("GetImage", "Dashboard", new { folderName = eventMetadata.Folder, fileName = eventMetadata.Image })" alt="@eventMetadata.Name">
                                         <div class="overlay"></div>
                                     </div>
                                     <div class="text-container">
-                                        @if (eventMetadata != null)
-                                        {
-                                            <!-- Display event name and description -->
-                                            <h3 class="events-title">@eventMetadata.Name</h3>
-                                            <p class="events-description">@eventMetadata.Description</p>
-                                        }
-                                        <!-- If no metadata, do not display name or description -->
+                                        <h3 class="events-title">@eventMetadata.Name</h3>
+                                        <p class="events-description">@eventMetadata.Description</p>
                                     </div>
                                 </a>
                             </div>
