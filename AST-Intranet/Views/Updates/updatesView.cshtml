@@ -17,49 +17,119 @@
         </div>
 
         <!-- Birthday Section -->
-        <div class="section birthday">
-            <h3>Employee Birthdays</h3>
-            <ul class="birthday-list">
-                @if (ViewBag.Birthdays != null && ViewBag.Birthdays.Count > 0)
+        <!--<div class="section birthday">
+        <h3>Employee Birthdays</h3>
+        <ul class="birthday-list">
+            @if (ViewBag.Birthdays != null && ViewBag.Birthdays.Count > 0)
+            {
+                foreach (var birthday in ViewBag.Birthdays as List<string>)
                 {
-                    foreach (var birthday in ViewBag.Birthdays as List<string>)
-                    {
-                <li class="birthday-item"><strong>@birthday</strong></li>
-                    }
+            <li class="birthday-item"><strong>@birthday</strong></li>
                 }
-                else
-                {
-                <li class="birthday-item">No birthdays today.</li>
-                }
-            </ul>
-        </div>
-
+            }
+            else
+            {
+            <li class="birthday-item">No birthdays today.</li>
+            }
+        </ul>
+    </div>-->
         <!-- Anniversary Section -->
-        <div class="section anniversary">
-            <h3>Work Anniversaries</h3>
-            <ul class="anniversary-list">
-                @if (ViewBag.Anniversaries != null && ViewBag.Anniversaries.Count > 0)
+        <!--<div class="section anniversary">
+        <h3>Work Anniversaries</h3>
+        <ul class="anniversary-list">
+            @if (ViewBag.Anniversaries != null && ViewBag.Anniversaries.Count > 0)
+            {
+                foreach (var anniversary in ViewBag.Anniversaries as List<string>)
                 {
-                    foreach (var anniversary in ViewBag.Anniversaries as List<string>)
-                    {
-                <li class="anniversary-item"><strong>@anniversary</strong></li>
-                    }
+            <li class="anniversary-item"><strong>@anniversary</strong></li>
                 }
-                else
-                {
-                <li class="anniversary-item">No work anniversaries today.</li>
-                }
-            </ul>
-        </div>
+            }
+            else
+            {
+            <li class="anniversary-item">No work anniversaries today.</li>
+            }
+        </ul>
+    </div>-->
+
+        <section class="birthday-anniversary-section">
+            <div class="slider-container">
+                <h2 id="sliderTitle">Employee Birthdays</h2>
+                <!-- Image Slider for Birthdays and Anniversaries -->
+                <div class="image-slider">
+                    <button class="prev-btn" onclick="prevSlide()">&#10094;</button>
+                    <div class="slider-content">
+                        <!-- Birthday Content (Dynamic Rendering) -->
+                        @if (ViewBag.Birthdays != null && ViewBag.Birthdays.Count > 0)
+                        {
+                            int index = 1;
+                            foreach (var birthday in ViewBag.Birthdays)
+                            {
+                                <div class="birthday-anniversary-item" id="birthday@index">
+                                    <div class="employee-card">
+                                        <div class="employee-image">
+                                            <img src="~/Images/default-avatar.jpg" alt="Employee Image @index">
+                                        </div>
+                                        <div class="employee-details">
+                                            <h3>Name: @birthday.Name</h3>
+                                            <p>Role: @birthday.Role</p>
+                                            <p>Department: @birthday.Department</p>
+                                            <p>Location: @birthday.Location</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                index++;
+                            }
+                        }
+                        else
+                        {
+                            <div class="birthday-anniversary-item">
+                                <p>No birthdays today.</p>
+                            </div>
+                        }
+
+                        <!-- Work Anniversary Content (Dynamic Rendering) -->
+                        @if (ViewBag.Anniversaries != null && ViewBag.Anniversaries.Count > 0)
+                        {
+                            int index = 1;
+                            foreach (var anniversary in ViewBag.Anniversaries)
+                            {
+                                <div class="birthday-anniversary-item" id="anniversary@index">
+                                    <div class="employee-card">
+                                        <div class="employee-image">
+                                            <img src="~/Images/default-avatar.jpg" alt="Employee Image @index">
+                                        </div>
+                                        <div class="employee-details">
+                                            <h3>Name: @anniversary.Name</h3>
+                                            <p>Role: @anniversary.Role</p>
+                                            <p>Department: @anniversary.Department</p>
+                                            <p>Anniversary: @anniversary.YearsCompleted} years</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                index++;
+                            }
+                        }
+                        else
+                        {
+                            <div class="birthday-anniversary-item">
+                                <p>No work anniversaries today.</p>
+                            </div>
+                        }
+                    </div>
+                    <button class="next-btn" onclick="nextSlide()">&#10095;</button>
+                </div>
+            </div>
+        </section>
+
 
 
         <!-- Cafeteria Menu Section -->
         @*<div class="section">*@
-            <div class="cafeteria">
-                <h3>Today's Cafeteria Menu</h3>
-                <p><strong>xyz,abc,efg</strong></p>
+        <div class="cafeteria">
+            <h3>Today's Cafeteria Menu</h3>
+            <p><strong>xyz,abc,efg</strong></p>
 
-            </div>
+        </div>
         @*</div>*@
         <!-- Daily Notifications Section -->
         <div class="section notifications">
@@ -165,4 +235,45 @@
             quoteElement.innerText = quoteOfTheDay;
         }
     });
+
+    let currentSlide = 0;
+    let totalSlides = 0;
+    let sliderTitle = document.getElementById('sliderTitle');
+
+    function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+            currentSlide++;
+        } else {
+            currentSlide = 0;
+            changeTitle('Work Anniversaries');
+        }
+        updateSlidePosition();
+    }
+
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+        } else {
+            currentSlide = totalSlides - 1;
+            changeTitle('Employee Birthdays');
+        }
+        updateSlidePosition();
+    }
+
+    function updateSlidePosition() {
+        const sliderContent = document.querySelector('.slider-content');
+        const slideWidth = document.querySelector('.birthday-anniversary-item').offsetWidth;
+        sliderContent.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+    }
+
+    function changeTitle(title) {
+        sliderTitle.innerText = title;
+    }
+
+    // Update total slides based on content
+    window.onload = function () {
+        totalSlides = document.querySelectorAll('.birthday-anniversary-item').length;
+        updateSlidePosition();
+    };
+
 </script>

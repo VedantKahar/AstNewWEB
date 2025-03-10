@@ -83,7 +83,7 @@
     }
 
     /* Birthday Section Styling */
-    .section.birthday {
+    /*.section.birthday {
         background: linear-gradient(135deg, #f39c12, #f1c40f, #e67e22);
         color: #fff;
         animation: bounceIn 1s ease-out;
@@ -128,19 +128,19 @@
         100% {
             text-shadow: 0 0 5px #16a085, 0 0 10px #16a085;
         }
-    }
+    }*/
 
     /* Anniversary Section Styling */
-    .section.anniversary {
+    /*.section.anniversary {
         background: linear-gradient(135deg, #2980b9, #1abc9c);
         color: #fff;
         padding: 30px;
         text-align: center;
     }
 
-    .section.anniversary h3 {
+    .section.anniversary h3 {*/
         /*animation: glow2 1.5s ease-in-out infinite;*/
-        font-size: 2em;
+        /*font-size: 2em;
         margin-bottom: 15px;
         font-weight: bold;
         color: #fff;
@@ -159,47 +159,161 @@
         100% {
             text-shadow: 0 0 10px #f39c12, 0 0 15px #f39c12, 0 0 20px #f39c12;
         }
-    }
+    }*/
 
     /* Style for List Items inside Birthday Section */
-    .birthday-list {
-        list-style-type: none; /* Removes bullet points */
-        padding-left: 0; /* Removes left padding */
-    }
+    /*.birthday-list {
+        list-style-type: none;*/ /* Removes bullet points */
+        /*padding-left: 0;*/ /* Removes left padding */
+    /*}
 
     .birthday-list .birthday-item {
         font-size: 1.2em;
         margin-bottom: 10px;
         color: #fff;
-        padding-left: 0; /* Ensures no indentation */
-        transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for hover effect */
-    }
+        padding-left: 0;*/ /* Ensures no indentation */
+        /*transition: transform 0.3s ease, background-color 0.3s ease;*/ /* Smooth transition for hover effect */
+    /*}*/
 
     /* Hover Effect for Birthday Items */
-    .birthday-list .birthday-item:hover {
-        transform: scale(1.05); /* Slightly enlarge the item on hover */
+    /*.birthday-list .birthday-item:hover {
+        transform: scale(1.05);*/ /* Slightly enlarge the item on hover */
         /*background-color: rgba(255, 255, 255, 0.1);*/ /* Light background color on hover */
-    }
+    /*}*/
 
     /* Style for List Items inside Anniversary Section */
-    .anniversary-list {
-        list-style-type: none; /* Removes bullet points */
-        padding-left: 0; /* Removes left padding */
-    }
+    /*.anniversary-list {
+        list-style-type: none;*/ /* Removes bullet points */
+        /*padding-left: 0;*/ /* Removes left padding */
+    /*}
 
     .anniversary-list .anniversary-item {
         font-size: 1.2em;
         margin-bottom: 10px;
         color: #fff;
-        padding-left: 0; /* Ensures no indentation */
-        transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition for hover effect */
-    }
+        padding-left: 0;*/ /* Ensures no indentation */
+        /*transition: transform 0.3s ease, background-color 0.3s ease;*/ /* Smooth transition for hover effect */
+    /*}*/
 
     /* Hover Effect for Anniversary Items */
-    .anniversary-list .anniversary-item:hover {
-        transform: scale(1.05); /* Slightly enlarge the item on hover */
+    /*.anniversary-list .anniversary-item:hover {
+        transform: scale(1.05);*/ /* Slightly enlarge the item on hover */
         /*background-color: rgba(255, 255, 255, 0.1);*/ /* Light background color on hover */
+    /*}*/
+
+/* Common styling for birthday and anniversary section */
+.birthday-anniversary-section h2 {
+    font-size: 2rem;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Slider Container */
+.slider-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Image Slider Styling */
+.image-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.slider-content {
+    display: flex;
+    transition: transform 1s ease-in-out;
+}
+
+.birthday-anniversary-item {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Styling for Each Employee Card */
+.employee-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #f2f3f7;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    width: 90%;
+    height: 250px;
+    transition: transform 0.3s ease-in-out;
+    margin: 0 auto;
+}
+
+    .employee-card img {
+        max-width: 130px;
+        max-height: 130px;
     }
+
+/* Styling for Employee Details */
+.employee-details {
+    flex: 1;
+    text-align: left;
+}
+
+    .employee-details h3 {
+        font-size: 1.3em;
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .employee-details p {
+        font-size: 1em;
+        color: #34495e;
+        margin-top: 8px;
+    }
+
+/* Slider Navigation Buttons */
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.slider-container:hover .prev-btn,
+.slider-container:hover .next-btn {
+    opacity: 1;
+    visibility: visible;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+    .prev-btn:hover, .next-btn:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
 
 
     /* Cafeteria Box Card Design */

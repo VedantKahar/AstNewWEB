@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "D:\\astWebsite\\AstNewWEB\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|d:\\astwebsite\\astnewweb\\ast-intranet\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|d:\\astwebsite\\astnewweb\\ast-intranet\\views\\updates\\updatesview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\views\\updates\\updatesview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Content\\css\\UpdatesStyles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:AST-Intranet\\Content\\css\\UpdatesStyles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|d:\\astwebsite\\astnewweb\\ast-intranet\\views\\dashboard\\dashboardview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\views\\dashboard\\dashboardview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|d:\\astwebsite\\astnewweb\\ast-intranet\\controllers\\updatescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\controllers\\updatescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|D:\\astWebsite\\AstNewWEB\\ast-intranet\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|D:\\astWebsite\\AstNewWEB\\ast-intranet\\views\\dashboard\\eventgallery.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\views\\dashboard\\eventgallery.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|D:\\astWebsite\\AstNewWEB\\ast-intranet\\views\\dashboard\\dashboardview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\views\\dashboard\\dashboardview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|D:\\astWebsite\\AstNewWEB\\ast-intranet\\models\\dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,11 +38,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "UpdatesStyles.css",
+              "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Content\\css\\UpdatesStyles.css",
+              "RelativeDocumentMoniker": "AST-Intranet\\Content\\css\\UpdatesStyles.css",
+              "ToolTip": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Content\\css\\UpdatesStyles.css",
+              "RelativeToolTip": "AST-Intranet\\Content\\css\\UpdatesStyles.css",
+              "ViewState": "AgIAABIBAAAAAAAAAAAQwDsBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-03-10T18:04:06.097Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "updatesView.cshtml",
+              "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Views\\Updates\\updatesView.cshtml",
+              "RelativeDocumentMoniker": "AST-Intranet\\Views\\Updates\\updatesView.cshtml",
+              "ToolTip": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Views\\Updates\\updatesView.cshtml",
+              "RelativeToolTip": "AST-Intranet\\Views\\Updates\\updatesView.cshtml",
+              "ViewState": "AgIAAOsAAAAA/v////8gwEcAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-10T17:55:42.9Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UpdatesController.cs",
+              "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Controllers\\UpdatesController.cs",
+              "RelativeDocumentMoniker": "AST-Intranet\\Controllers\\UpdatesController.cs",
+              "ToolTip": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Controllers\\UpdatesController.cs",
+              "RelativeToolTip": "AST-Intranet\\Controllers\\UpdatesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T17:55:32.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "EventGallery.cshtml",
               "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Views\\Dashboard\\EventGallery.cshtml",
               "RelativeDocumentMoniker": "AST-Intranet\\Views\\Dashboard\\EventGallery.cshtml",
@@ -48,13 +99,14 @@
               "RelativeDocumentMoniker": "AST-Intranet\\Views\\Dashboard\\dashboardView.cshtml",
               "ToolTip": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Views\\Dashboard\\dashboardView.cshtml",
               "RelativeToolTip": "AST-Intranet\\Views\\Dashboard\\dashboardView.cshtml",
-              "ViewState": "AgIAAPsCAAAAtMzMzMwmwCIDAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAD0CAAAAHDMzMzMLwEUCAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-07T16:27:33.695Z"
+              "WhenOpened": "2025-03-07T16:27:33.695Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Dashboard.cs",
               "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Models\\Dashboard.cs",
               "RelativeDocumentMoniker": "AST-Intranet\\Models\\Dashboard.cs",
@@ -66,7 +118,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "DashboardController.cs",
               "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Controllers\\DashboardController.cs",
               "RelativeDocumentMoniker": "AST-Intranet\\Controllers\\DashboardController.cs",
@@ -74,8 +126,7 @@
               "RelativeToolTip": "AST-Intranet\\Controllers\\DashboardController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T16:27:41.695Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-07T16:27:41.695Z"
             }
           ]
         }
