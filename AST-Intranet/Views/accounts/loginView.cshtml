@@ -1,0 +1,236 @@
+﻿
+@{ ViewBag.Title = "loginView"; }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('images/AST bg.jfif') center center / cover no-repeat;
+            background-size: cover;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        .login-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%; /* Ensure container takes up full width */
+            height: 100vh; /* Make container take up the entire height */
+            display: flex;
+            justify-content: right;
+            align-items: center;
+        }
+
+        .form-section {
+            width: 100%;
+            max-width: 400px; /* Adjust width of the form */
+            height: 100%; /* Set form to fill the full height */
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center the form content vertically */
+            background: rgba(255, 255, 255, 0.85); /* Slightly more opaque background */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px); /* Adds a slight blur effect behind the form */
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .form-section h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            background: white;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+         }
+
+        .form-group label {
+            position: absolute;
+            top: 12px;
+            left: 14px;
+            font-size: 16px;
+            color: #666;
+            transition: 0.3s ease;
+            pointer-events: none;
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 12px;
+            font-size: 14px;
+            color: #0056b3;
+            background: #fff;
+            padding: 0 6px;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-container .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .forgotpasswordtext {
+            font-size: 14px;
+            color: #0056b3;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .forgotpasswordtext:hover {
+            color: #004494;
+            text-decoration: underline;
+            transform: scale(1.05);
+        }
+
+        .actions-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .new-user {
+            font-size: 14px;
+            color: #0056b3;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .new-user:hover {
+            color: #004494;
+            transform: scale(1.05);
+        }
+
+        .actions-container button {
+            padding: 12px 24px;
+            background-color: #0056b3;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .actions-container button:hover {
+            background-color: #004494;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="form-section">
+            <div class="logo-container">
+                <img src="images/AST-Logo.png" alt="Logo">
+            </div>
+
+            <h1>Login</h1>
+
+            <div class="form-group">
+                <input type="text" id="username" placeholder=" " required>
+                <label for="username">Username or Email Address</label>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">Password</label>
+            </div>
+
+            <div>
+                <a class="forgotpasswordtext" href="forgotpassword.html">Forgot password?</a>
+            </div>
+
+            <div class="actions-container">
+                <a class="new-user" href="createaccount.html">Create an Account</a>
+                <button type="button" onclick="validateLogin()">Log In</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginButton = document.querySelector("button[type='button']");
+
+            // Add event listener to the login button
+            loginButton.addEventListener("click", function () {
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+
+                const correctUsername = "q";
+                const correctPassword = "q";
+
+                // Perform validation on username and password
+                if (username === correctUsername && password === correctPassword) {
+                    window.location.href = "Homepage/homepage.html";
+
+                } else {
+                    alert("Invalid username or password. Please try again.");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+

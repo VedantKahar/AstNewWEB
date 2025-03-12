@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.35425.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AST-Intranet", "AST-Intranet\AST-Intranet.csproj", "{ACFBFC28-4273-494E-8A39-6FD999EB993C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACFBFC28-4273-494E-8A39-6FD999EB993C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACFBFC28-4273-494E-8A39-6FD999EB993C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACFBFC28-4273-494E-8A39-6FD999EB993C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACFBFC28-4273-494E-8A39-6FD999EB993C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {928E04A2-6194-41A6-AB2D-7D186016489F}
+	EndGlobalSection
+EndGlobal

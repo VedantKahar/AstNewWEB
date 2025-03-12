@@ -1,0 +1,800 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";  // Make sure the layout is set
+
+    string corporateVideoUrl = ViewBag.CorporateVideoUrl;
+    string bgVideoUrl = ViewBag.BgVideoUrl;
+
+}
+@using AST_Intranet.Models;
+@using System.Linq;
+@using Newtonsoft.Json;
+@using System.Linq
+
+
+@*FullCalendar CSS*@
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet">
+@*jQuery*@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@*Moment.js*@
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+@*FullCalendar JS*@
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/HomepageStyles.css")">
+
+
+<div class="main-content">
+    <!-- Birthday Popup -->
+    <div id="birthday-popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2>🎉 Happy Celebration! 🎂</h2>
+            </div>
+
+            <!-- Birthday or Anniversary Image Slider -->
+            <div class="celebration-slider">
+                <!-- This will dynamically populate based on celebrations -->
+            </div>
+
+            <!-- Celebration Text -->
+            <div class="birthday-text">
+                <p id="celebration-person-name"></p>
+                <p id="celebration-wish"></p>
+            </div>
+
+            <!-- Celebration animations -->
+            <div id="confetti-container"></div>
+
+            <div class="popup-footer">
+                <button id="close-popup">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const birthdayPopup = document.getElementById('birthday-popup');
+            const closePopupButton = document.getElementById('close-popup');
+            const celebrationPersonName = document.getElementById('celebration-person-name');
+            const celebrationWishElement = document.getElementById('celebration-wish');
+            const celebrationSlider = document.querySelector('.celebration-slider');
+            const confettiContainer = document.getElementById('confetti-container');
+            const popupHeader = document.querySelector('.popup-header h2'); // Title element
+
+            // Get celebrations (from backend)
+            const birthdayPeople = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Celebrations));
+
+            console.log("Celebrations received from server:", birthdayPeople); // Debugging line to see the raw data
+
+            // Separate birthday and anniversary people
+            const birthdayPeopleList = birthdayPeople.filter(person => person.CelebrationType === 'Birthday');
+            const anniversaryPeopleList = birthdayPeople.filter(person => person.CelebrationType === 'Anniversary');
+
+            console.log("Birthday Celebrations:", birthdayPeopleList); // Debugging line
+            console.log("Anniversary Celebrations:", anniversaryPeopleList); // Debugging line
+
+            let currentCelebrationIndex = 0;
+
+            // Check if there are any celebrations, if so, display the popup
+            if (birthdayPeopleList.length > 0 || anniversaryPeopleList.length > 0) {
+                // Check if there are birthdays first, if not, show anniversary
+                const allCelebrations = birthdayPeopleList.concat(anniversaryPeopleList);
+
+                // Display the first celebration (either birthday or anniversary)
+                displayCelebration([allCelebrations[0]], allCelebrations[0].CelebrationType === 'Birthday' ? "Happy Birthday" : "Happy Work Anniversary");
+
+                // Display the popup
+                birthdayPopup.style.display = 'flex';
+                birthdayPopup.classList.add('show');  // Trigger the show animation
+
+                // Start the confetti animation
+                triggerConfetti();
+            } else {
+                console.log("No celebrations found!"); // Debugging line
+            }
+
+            // Close the popup when the button is clicked
+            closePopupButton.addEventListener('click', function () {
+                birthdayPopup.style.display = 'none';
+                birthdayPopup.classList.remove('show');  // Hide popup
+            });
+
+            // Function to display the celebration person's information
+            function displayCelebration(people, celebrationTitle) {
+                celebrationSlider.innerHTML = '';  // Clear any previous content
+                let celebrationText = '';
+
+                people.forEach(person => {
+                    celebrationSlider.innerHTML += `
+                    <div class="celebration-slide">
+                        <img src="${person.ImageUrl}" alt="${person.EmployeeName}" id="birthday-person-image">
+                        <div class="celebration-info">
+                            <h3>${person.EmployeeName}</h3>
+                            <p>${person.CelebrationType} - ${person.CelebrationType === 'Birthday' ? person.Age + ' years' : person.Year + ' years'}</p>
+                            <p>${person.Department} | ${person.Designation}</p>
+                        </div>
+                    </div>
+                `;
+
+                    // Update the wish message based on celebration type
+                    if (person.CelebrationType === 'Birthday') {
+                        celebrationText = `Wishing you a wonderful day full of joy, ${person.EmployeeName}!`;
+                    } else if (person.CelebrationType === 'Anniversary') {
+                        celebrationText = `Congratulations on your anniversary, ${person.EmployeeName}!`;
+                    }
+                });
+
+                celebrationWishElement.textContent = celebrationText;
+
+                // Change title based on celebration type
+                popupHeader.textContent = celebrationTitle;
+
+                // Add slider transition effect
+                setTimeout(() => {
+                    celebrationSlider.classList.add('slider-show');
+                }, 100);  // Delay to ensure elements are added first
+            }
+
+            // Function to trigger confetti animation
+            function triggerConfetti() {
+                const duration = 5000;  // How long confetti will fall (in ms)
+                const animationEnd = Date.now() + duration;
+
+                const interval = setInterval(() => {
+                    const timeLeft = animationEnd - Date.now();
+                    if (timeLeft <= 0) {
+                        clearInterval(interval);
+                    } else {
+                        // Emit confetti
+                        confetti({
+                            particleCount: 5,
+                            angle: 60,
+                            spread: 70,
+                            origin: { x: Math.random(), y: 0 },
+                            colors: ['#ff5733', '#ffbd33', '#33ff57', '#3399ff', '#9933ff']
+                        });
+                        confetti({
+                            particleCount: 5,
+                            angle: 120,
+                            spread: 70,
+                            origin: { x: Math.random(), y: 0 },
+                            colors: ['#ff5733', '#ffbd33', '#33ff57', '#3399ff', '#9933ff']
+                        });
+                    }
+                }, 100);
+            }
+
+            // Automatically slide through birthday people first, then anniversary people
+            let allCelebrationPeople = birthdayPeopleList.concat(anniversaryPeopleList);
+
+            setInterval(function () {
+                currentCelebrationIndex = (currentCelebrationIndex + 1) % allCelebrationPeople.length;
+                const currentCelebration = allCelebrationPeople[currentCelebrationIndex];
+
+                // Switch to anniversary title once we start displaying anniversary celebrations
+                const celebrationTitle = currentCelebration.CelebrationType === 'Birthday' ? "Happy Birthday" : "Happy Work Anniversary";
+                displayCelebration([currentCelebration], celebrationTitle);
+            }, 5000); // Slide every 5 seconds
+        });
+    </script>
+
+
+
+    <div class="content">
+
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <!-- Video as background -->
+            @if (!string.IsNullOrEmpty(bgVideoUrl))
+            {
+                <video id="bg-video" class="hero-video" preload="auto" autoplay loop muted playsinline>
+                    <source src="@bgVideoUrl" type="video/mp4" loading="lazy" />
+                    Your browser does not support the video tag.
+                </video>
+            }
+
+            <!-- Translucent Overlay for the Video -->
+            <div class="video-overlay"></div>
+
+            <!-- Hero Image Section (Optional) -->
+            <img src="~/Images/images/AST-building.png" alt="Advance-Systek" />
+
+            <!-- Hero Content Section -->
+            <div class="hero-content">
+                <h1 class="text-gradient">Advanced Sys-Tek Limited</h1>
+                <p>
+                    Advanced Sys-Tek Limited is a leading innovator in the Oil & Gas industry,<br />
+                    specializing in Fluid Metering and Terminal Automation Systems.
+                </p>
+                <p>
+                    Headquartered in India with a growing global presence, we deliver turnkey solutions
+                    in Measurement, Control, and Automation through expert system integration, manufacturing,
+                    and software development.
+                </p>
+                <a href="https://www.advancedsystek.com/" target="_blank" class="hero-link">
+                    Discover More
+                </a>
+            </div>
+
+            <!-- Controls for Play/Pause and Fullscreen -->
+            <div class="video-controls">
+                @if (!string.IsNullOrEmpty(bgVideoUrl))
+                {
+                    <button onclick="toggleFullScreen()" class="fullscreen-btn">
+                        <img src="~/Images/icons/fullscreen-square-icon-white.jpg" alt="Fullscreen" />
+                    </button>
+                }
+            </div>
+        </div>
+
+
+        <!-- Other Sections (Like Subsidiaries, Portals, etc.) -->
+        <hr>
+
+        <center><h2 class="centered-title">Our Subsidiaries</h2></center>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-logo-container">
+                    <img src="https://astenviron.com/wp-content/uploads/2024/08/products.webp" alt="AST Environment Logo" class="card-logo">
+                </div>
+                <div class="card-content">
+                    <h3 class="text-gradient">AST Environment Solution</h3>
+                    <p>
+                        A prominent manufacturer of Diesel Exhaust Fluid (DEF) plants. Having over two decades of experience in Terminal Automation and Metering Skids.
+                    </p>
+                    <a href="https://astenviron.com/" target="_blank">Visit Website</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-logo-container">
+                    <img src="~/Images/images/Terra-Logo.png" alt="Terranomous Logo" class="card-logo">
+                </div>
+                <div class="card-content">
+                    <h3 class="text-gradient">Terranomous</h3>
+                    <p>
+                        It delivers high-quality and innovative defense and military technologies that exceed the expectations of our clients.
+                    </p>
+                    <a href="https://terranomous.in/" target="_blank">Visit Website</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <hr>
+
+        <!-- Our Portals Section -->
+        <section class="section portal-section">
+            <h2>Our Portals</h2>
+            <div class="stats">
+                <!-- Portal Links -->
+                @* Example for one portal, repeat for others... *@
+                <div>
+                    <a href="your-link-here" target="_blank" class="clickable-box">
+                        <span class="text-gradient-span">Eresource</span>
+                        <p class="description">Access a wide range of digital resources and services.</p>
+                        <h4>Open Portal</h4>
+                    </a>
+                    <a href="@Url.Action("manualsView", "Manuals")">
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
+                    </a>
+                </div>
+
+                <!-- Repeat similar blocks for other portals -->
+                <div>
+                    <a href="your-link-here" target="_blank" class="clickable-box">
+                        <span class="text-gradient-span">Spine HR</span>
+                        <p class="description">Manages human resources and employee data efficiently.</p>
+                        <h4>Open Portal</h4>
+                    </a>
+                    <a href="@Url.Action("manualsView", "Manuals")">
+                        @*target="_blank"*@
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
+                    </a>
+                </div>
+
+                <div>
+                    <a href="your-link-here" target="_blank" class="clickable-box">
+                        <span class="text-gradient-span">CIM</span>
+                        <p class="description">Centralized system for inventory and material management.</p>
+                        <h4>Open Portal</h4>
+                    </a>
+                    <a href="@Url.Action("manualsView", "Manuals")">
+                        @*target="_blank"*@
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
+                    </a>
+                </div>
+
+                <div>
+                    <a href="your-link-here" target="_blank" class="clickable-box">
+                        <span class="text-gradient-span">CRR</span>
+                        <p class="description">Track and manage customer relationship records easily.</p>
+                        <h4>Open Portal</h4>
+                    </a>
+                    <a href="@Url.Action("manualsView", "Manuals")">
+                        @*target="_blank"*@
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+        <section class="order-section">
+            <h2>Orders Overview</h2>
+
+            <!-- Orders Slider -->
+            <div class="orders-slider-container">
+                <!-- Button for previous slide -->
+                <button class="prev-order-btn" onclick="prevOrderSlide()">&#10094;</button>
+                <div class="orders-slider">
+
+
+                    <!-- Slider content -->
+                    <!-- Slide 1 -->
+                    <div class="order-slide">
+                        <h4><span class="text-gradient-span">Company A</span></h4>
+                        <p>
+                            Description about the order received from Company A. This includes more detailed information about the order.
+
+                        </p>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="order-slide">
+                        <h4><span class="text-gradient-span">Company B</span></h4>
+                        <p>
+                            Description about the order received from Company B. This includes more detailed information about the order.
+                            Description about the order received from Company A. This includes more detailed information about the order.
+                            Description about the order received from Company A. This includes more detailed information about the order.
+                            Description about the order received from Company A. This includes more detailed information about the order.
+                        </p>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="order-slide">
+                        <h4><span class="text-gradient-span">Company C</span></h4>
+                        <p>Description about the order received from Company C. This includes more detailed information about the order.</p>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="order-slide">
+                        <h4><span class="text-gradient-span">Company D</span></h4>
+                        <p>Description about the order received from Company D. This includes more detailed information about the order.</p>
+                    </div>
+
+
+                </div>
+                <!-- Button for next slide -->
+                <button class="next-order-btn" onclick="nextOrderSlide()">&#10095;</button>
+            </div>
+        </section>
+        <hr>
+        <section class="information-section">
+            <div class="box-container">
+                <!-- Box 1 - Policies -->
+                <div class="box">
+                    <h3><span class="text-gradient-span">Policies</span></h3>
+                    <p>Click to view policies</p>
+                    @*<a href="your-policies-page-url" class="box-link">Link to Policies</a>*@
+                    <a href="@Url.Action("policiesView", "Policies")" class="arrow-link">
+                        <div class="floating-circle">&#x2197;</div>@*&#8594;*@
+                    </a>
+                </div>
+
+                <!-- Box 2 - Resources -->
+                <div class="box">
+                    <h3><span class="text-gradient-span">Resources</span></h3>
+                    <p>Click to access resources</p>
+                    @*<a href="your-resources-page-url" class="box-link">Link to Resources</a>*@
+                    <a href="@Url.Action("resourcesView", "Resources")" class="arrow-link">
+                        <div class="floating-circle">&#x2197;</div>@*&#8594;*@
+                    </a>
+                </div>
+
+                <!-- Box 3 - Townhall Link -->
+                <div class="box">
+                    <h3><span class="text-gradient-span">Townhall Link</span></h3>
+                    <p>Click to join townhall</p>
+                    @*<a href="your-townhall-page-url" class="box-link">Link to Townhall</a>*@
+                    <a href="your-townhall-page-url" class="arrow-link">
+                        <div class="floating-circle">&#x2197;</div>@*&#8594;*@
+                    </a>
+                </div>
+
+                <!-- Box 4 - Organization -->
+                <div class="box">
+                    <h3><span class="text-gradient-span">Organization</span></h3>
+                    <p>Click to view organization page</p>
+                    @*<a href="your-employee-page-url" class="box-link">Link to Employee Page</a>*@
+                    <a href="@Url.Action("employeesView", "Employees")" class="arrow-link">
+                        <div class="floating-circle">&#x2197;</div>@*&#8594;*@
+                    </a>
+                </div>
+            </div>
+        </section>
+        <hr />
+
+        <section class="manuals">
+            <center><h2>Manuals</h2></center>
+
+
+            <!-- Align the link to the right -->
+            <div class="view-more-container">
+                <a href="@Url.Action("manualsView", "Manuals")" class="view-more-link">Click here for Other Manuals →</a>
+            </div>
+
+            <div class="manual-list">
+                <div class="manual-item">
+                    @if (ViewBag.InductionManual != null && ((List<string>)ViewBag.InductionManual).Count > 0)
+                    {
+                        <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "INTRANET/Homepage/Manuals/InductionManual", fileName = ((List<string>)ViewBag.InductionManual).FirstOrDefault() })" class="manual-link" target="_blank">
+                            <h3>Induction Manual</h3>
+                            <p class="manual-description">A comprehensive guide designed to introduce new employees to Advanced SysTek Limited's policies, culture, and operational procedures.</p>
+
+                        </a>
+                     }
+                    else
+                    {
+                        <p>No Induction Manual available.</p>
+                    }
+                </div>
+                <div class="manual-item">
+                    
+                        @if (ViewBag.ExitManual != null && ((List<string>)ViewBag.ExitManual).Count > 0)
+                        {
+                            <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "INTRANET/Homepage/Manuals/ExitManual", fileName = ((List<string>)ViewBag.ExitManual).FirstOrDefault() })" class="manual-link" target="_blank">
+                                <h3>Exit Manual</h3>
+                                <p class="manual-description">A detailed manual outlining the steps and requirements for employees leaving Advanced SysTek Limited, ensuring a smooth and organized transition.</p>
+                            </a>
+                        }
+                        else
+                        {
+                            <p>No Exit Manual available.</p>
+                        }
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+
+        <!--<section class="employee-achievements-section">
+    <h2>Employee Achievements</h2>
+    <div class="employee-achievement-cards-container">
+        <div class="employee-achievement-card">
+            <div class="achievement-image">
+                <img src="https://static.turbosquid.com/Preview/2019/09/24__07_14_04/render004.jpgE6E6CDF8-D2E0-4F8F-A035-81A31CDEABACDefault.jpg" alt="Company Achievement 1">
+            </div>
+            <h3>Employee of the Month</h3>
+            <p style="color:black">Steve</p>
+            <div class="desc">
+                Beat Ender Dragon and received achievement of "Free the End". Steve can lift up to 97941957.12 pounds (44425720 kg)!"
+            </div>
+        </div>
+
+        <div class="employee-achievement-card">
+            <div class="achievement-image">
+                <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
+            </div>
+            <h3>Most beloved protagonists of all time</h3>
+            <p style="color:black">Arthur Morgan</p>
+            <div class="desc">
+                Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
+                This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
+            </div>
+        </div>-->
+        @*<div class="employee-achievement-card">
+            <div class="achievement-image">
+                <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
+            </div>
+            <h3>Most beloved protagonists of all time</h3>
+            <p style="color:black">Arthur Morgan</p>
+            <div class="desc">
+                Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
+                This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
+            </div>
+        </div>*@
+        @*<div class="employee-achievement-card">
+            <div class="achievement-image">
+                <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
+            </div>
+            <h3>Most beloved protagonists of all time</h3>
+            <p style="color:black">Arthur Morgan</p>
+            <div class="desc">
+                Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
+                This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
+            </div>
+        </div>*@
+
+        <!--</div>
+    </section>-->
+
+
+        <section class="employee-achievements-section">
+            <h2>Employee Achievements</h2>
+            <div class="employee-achievement-cards-container">
+                @if (ViewBag.AchievementMetadata != null && ((List<AchievementMetadata>)ViewBag.AchievementMetadata).Any())
+                {
+                    foreach (var achievementMetadata in ViewBag.AchievementMetadata as List<AchievementMetadata>)
+                    {
+                        <div class="employee-achievement-card">
+                            <div class="achievement-image">
+                                <img src="@Url.Action("GetImage", "Dashboard", new { folderName = achievementMetadata.Folder, fileName = achievementMetadata.Image })" alt="@achievementMetadata.Title">
+                            </div>
+                            <h3>@achievementMetadata.Title</h3>
+                            <p class="emp-name">@achievementMetadata.EmpName</p>
+                            <p class="emp-department">(@achievementMetadata.Department)</p> <!-- Department in brackets -->
+                            <div class="desc">
+                                @achievementMetadata.Description
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No achievements found.</p>
+                }
+            </div>
+        </section>
+
+
+
+        <hr />
+
+
+
+        <section class="information-section">
+            <div class="box-container">
+                <!-- Cafeteria Menu Section -->
+                <div class="box2">
+                    <!-- Icon and Heading Section -->
+                    <div class="icon-and-heading">
+
+                        <h3><span class="text-gradient-span">Cafeteria Menu</span></h3>
+                    </div>
+                    <p>Details about the cafeteria menu.</p>
+                    @if (ViewBag.CafeteriaMenu != null && ((List<string>)ViewBag.CafeteriaMenu).Count > 0)
+                    {
+                        <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "INTRANET/Homepage/Cafeteria Menu", fileName = ((List<string>)ViewBag.CafeteriaMenu).FirstOrDefault() })" class="arrow-link" target="_blank">
+                            <div class="floating-circle2">
+                                &#x2197;
+                            </div>
+                        </a>
+                    }
+                    else
+                    {
+                        <p>No cafeteria menu available.</p>
+                    }
+
+                    <!-- Large Icon Below the Paragraph -->
+                    <div class="large-icon-container">
+                        <img src="~/Images/icons/coffee-cup-white-icon.png" alt="Coffee Cup Icon" class="large-icon" />
+                    </div>
+                </div>
+
+                <!-- Contact List Section -->
+                <div class="box2">
+                    <!-- Icon and Heading Section -->
+                    <div class="icon-and-heading">
+
+                        <h3><span class="text-gradient-span">Contact List</span></h3>
+                    </div>
+                    <p>List of important contacts.</p>
+                    @if (ViewBag.ContactList != null && ((List<string>)ViewBag.ContactList).Count > 0)
+                    {
+                        <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "INTRANET/Homepage/Contact List", fileName = ((List<string>)ViewBag.ContactList).FirstOrDefault() })" class="arrow-link" target="_blank">
+                            <div class="floating-circle2">
+                                &#x2197;
+                            </div>
+                        </a>
+                    }
+                    else
+                    {
+                        <p>No contact list available.</p>
+                    }
+                    <!-- Large Icon Below the Paragraph -->
+                    <div class="large-icon-container">
+                        <img src="~/Images/icons/phone-call-white-icon.png" alt="Phone Icon" class="large-icon" />
+                    </div>
+                </div>
+
+                <!-- Yearly Holidays Section -->
+                <div class="box2">
+                    <!-- Icon and Heading Section -->
+                    <div class="icon-and-heading">
+
+                        <h3><span class="text-gradient-span">Year Holiday Calendar</span></h3>
+                    </div>
+                    <p>Calendar showing holidays for the year.</p>
+                    @if (ViewBag.YearlyHolidays != null && ((List<string>)ViewBag.YearlyHolidays).Count > 0)
+                    {
+                        <a href="@Url.Action("GetDocument", "Dashboard", new { folderName = "INTRANET/Homepage/Yearly Holidays", fileName = ((List<string>)ViewBag.YearlyHolidays).FirstOrDefault() })" class="arrow-link" target="_blank">
+                            <div class="floating-circle2">
+                                &#x2197;
+                            </div>
+                        </a>
+                    }
+                    else
+                    {
+                        <p>No yearly holidays available.</p>
+                    }
+                    <!-- Large Icon Below the Paragraph -->
+                    <div class="large-icon-container">
+                        <img src="~/Images/icons/calendar-white-icon.png" alt="Calendar Icon" class="large-icon" />
+                    </div>
+                </div>
+
+                <!-- Upcoming Training Section -->
+                <div class="box2">
+                    <!-- Icon and Heading Section -->
+                    <div class="icon-and-heading">
+
+                        <h3><span class="text-gradient-span">Upcoming Training Calendar</span></h3>
+                    </div>
+                    <p>Upcoming training schedules and events.</p>
+                    <a href="@Url.Action("employeesView", "Employees")" class="arrow-link" target="_blank">
+                        <div class="floating-circle2">
+                            &#x2197; <!-- You can change this icon as needed -->
+                        </div>
+                    </a>
+                    <!-- Large Icon Below the Paragraph -->
+                    <div class="large-icon-container">
+                        <img src="~/Images/icons/upoming-training-calendar-white-icon.png" alt="Calendar Icon" class="large-icon" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <hr />
+        <section class="new-joinee-section">
+            <div class="new-joinee-cards-container">
+                <!-- Slider Container: New Joinee -->
+                <div class="slider-container">
+                    <h2>New Joiner</h2>
+                    <!-- Image Slider for Joinees -->
+                    <div class="image-slider">
+                        <button class="prev-btn" onclick="prevAchievement()">&#10094;</button>
+                        <div class="slider-content">
+                            @if (ViewBag.NewJoiners != null && ((List<AST_Intranet.Models.NewJoinerViewModel>)ViewBag.NewJoiners).Any())
+                            {
+                                int index = 1;
+                                foreach (var joinee in (List<AST_Intranet.Models.NewJoinerViewModel>)ViewBag.NewJoiners)
+                                {
+                                    <div class="new-joinee-content" id="joinee@joinee.EmployeeCode">
+                                        <div class="joinee-card">
+                                            <div class="employee-image">
+                                                @if (!string.IsNullOrEmpty(joinee.ImageUrl))
+                                                {
+                                                    <img src="@joinee.ImageUrl" alt="Joinee Image @index" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="@Url.Content("~/Images/images/default-image.jpg")" alt="Default Joinee Image" />
+                                                }
+                                            </div>
+
+                                            <div class="employee-details">
+                                                <h3>Name: @joinee.EmployeeName</h3>
+                                                <p>Role: @joinee.Designation</p>
+                                                <p>Department: @joinee.Department</p>
+                                                <p>Date of Joining: @joinee.DateOfJoining.ToString("dd/MM/yyyy")</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    index++;
+                                }
+                            }
+                            else
+                            {
+                                <!-- Show message when there are no new joinees -->
+                                <div class="no-joinees-message">
+                                    <p>No New Joinees in the last 3 months.</p>
+                                </div>
+                            }
+                        </div>
+                        <button class="next-btn" onclick="nextAchievement()">&#10095;</button>
+                    </div>
+                </div>
+
+
+                <!-- Right-side Container: Career Section -->
+                <div class="right-side-container">
+                    <h2>Our Career Page</h2>
+                    <div class="openings-info-box">
+                        <h3>Join Us!</h3>
+                        <p>We are always looking for talented individuals. Start your journey with us!</p>
+                        <p>Discover exciting job opportunities and apply now!</p>
+                        <a href="https://www.advancedsystek.com/career/" class="redirect-link">Visit Careers</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!--<div id="calendar"></div>-->
+        <!-- Event form with added date, time, and description inputs -->
+        <!--<div class="event-form" id="event-form">
+    <div class="event-form-header">
+        <span id="closeFormBtn" class="close-btn">&times;</span>
+        <h4>Add Event</h4>
+    </div>
+    <form id="event-form-body">
+        <label for="user-event-name">Event Name:</label>
+        <input type="text" id="event-name" required>
+
+        <label for="user-event-date">Event Date:</label>
+        <input type="text" id="event-date" disabled>-->
+        <!-- Date field should be displayed but not editable -->
+        <!--<label for="user-event-time">Event Time:</label>
+            <input type="time" id="event-time" required>
+
+            <label for="user-event-full-day" class="toggle-label">Full Day Event</label>
+            <div class="toggle-container">
+                <label class="switch">
+                    <input type="checkbox" id="user-event-full-day">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <label for="user-event-description">Event Description:</label>
+            <textarea id="user-event-description" rows="4" placeholder="Describe your event..."></textarea>
+            <button type="button" id="addEventBtn">Add Event</button>
+        </form>
+    </div>-->
+        <!-- Modal to display event details -->
+        <!--<div class="event-details-modal" id="event-details-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeDetailsModal">&times;</span>
+            <h4 id="event-details-title"></h4>
+            <p><strong>Time:</strong> <span id="event-details-time"></span></p>
+            <p><strong>Description:</strong></p>
+            <p id="event-details-description"></p>
+            <button id="deleteEventBtn" class="btn btn-danger">Delete Event</button>
+        </div>
+    </div>
+
+    <div class="events-box" id="events-box">-->
+        <!--it will show events that will be added by users-->
+        <!--</div>-->
+
+
+        <hr />
+
+
+        @*only 1 image from folder with event name and description and on click on that event it would open a new page with all images presene in folder*@
+        <section class="section">
+            <h2>Events</h2>
+            <div class="events-gallery-container">
+                <div class="slider">
+                    <div class="slider-wrapper">
+                        @foreach (var eventMetadata in ViewBag.EventMetadata as List<EventMetadata>)
+                        {
+                            <div class="slider-item">
+                                <!-- Adding target="_blank" to open in a new tab -->
+                                <a href="@Url.Action("EventGallery", "Dashboard", new { folderName = eventMetadata.Folder })" target="_blank">
+                                    <div class="image-container">
+                                        <img src="@Url.Action("GetImage", "Dashboard", new { folderName = eventMetadata.Folder, fileName = eventMetadata.Image })" alt="@eventMetadata.Name">
+                                        <div class="overlay"></div>
+                                    </div>
+                                    <div class="text-container">
+                                        <h3 class="events-title">@eventMetadata.Name</h3>
+                                        <p class="events-description">@eventMetadata.Description</p>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/script/HomepageScript.js")"></script>
+<!-- JavaScript to dynamically update the current year -->

@@ -1,0 +1,220 @@
+/* Digital Calendar Styling */
+.digital-calendar {
+    font-size: 2em;
+    font-weight: bold;
+    color: #34495e;
+    padding: 10px 20px;
+    /* margin-top: 20px;*/
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.3s ease;
+}
+
+    .digital-calendar:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+
+#quote {
+    font-size: 1.4em;
+    color: #34495e;
+    font-style: italic;
+    text-align: center;
+    margin-top: 30px;
+    background: linear-gradient(135deg, #ecf0f1, #ffffff);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.6s ease-out;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    #quote:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    #quote::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        z-index: 1;
+    }
+
+/* Section Styling */
+.section {
+    margin-top: 30px;
+    background-color: #ffffff; /* White background for sections */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.6s ease-out;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    background: linear-gradient(135deg, #ecf0f1, #ffffff);
+}
+
+    .section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Style for the slider container */
+.slider-container {
+    margin-bottom: 20px;
+}
+
+/* Circle image styling */
+.employee-image img.circle-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+/* Card styling */
+.celebration-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    margin: 10px;
+}
+
+/* Celebration details */
+.celebration-details {
+    flex: 1;
+}
+
+/* Style for slider */
+.slider {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.celebration-item {
+    flex-shrink: 0;
+    width: 300px; /* Adjust this as per the size of your cards */
+    margin-right: 20px;
+}
+
+/* Styling for Titles */
+h4 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
+
+/* Cafeteria Box Card Design */
+.cafeteria {
+    background: linear-gradient(135deg, #ecf0f1, #ffffff);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.6s ease-out;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: 30px;
+}
+
+    .cafeteria:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .cafeteria::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        z-index: 1;
+    }
+/* Notifications Section Styling */
+.section.notifications {
+    background: linear-gradient(135deg, #2980b9, #6dd5fa); /* Blue gradient */
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+    .section.notifications h3 {
+        font-size: 1.8em;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #fff;
+        letter-spacing: 1px;
+    }
+
+/* Style for notifications list */
+.notifications-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+    .notification-item:hover {
+        background-color: #ecf0f1;
+    }
+
+.notification-icon {
+    font-size: 1.5em;
+    margin-right: 15px;
+    color: #2980b9;
+}
+
+.notification-item span {
+    font-size: 1.2em;
+    color: #34495e;
+}
+
+
+

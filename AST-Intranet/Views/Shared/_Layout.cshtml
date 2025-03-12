@@ -1,0 +1,111 @@
+﻿﻿<!-- Views/Shared/_Layout.cshtml -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/Content/css/HeaderFooterStyles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Render Header -->
+    @Html.Partial("_Header")
+
+    <div class="main-content">
+        <!-- Content of the page will go here -->
+        <div class="content">
+            @RenderBody() <!-- This will render the content from the current view -->
+        </div>
+
+        <!-- Render Footer -->
+        @Html.Partial("_Footer")
+    </div>
+
+    <!-- Inline JavaScript -->
+
+    <script>
+        // Function to get all visible text content from the page
+        function getVisibleText() {
+            let bodyText = document.body.innerText || document.body.textContent;
+
+            // Filter out text from hidden elements
+            let visibleText = Array.from(document.body.getElementsByTagName('*')).filter(function (element) {
+                return element.offsetHeight > 0 && element.offsetWidth > 0 && window.getComputedStyle(element).visibility !== 'hidden';
+            }).map(function (element) {
+                return element.innerText || element.textContent;
+            }).join(' ');
+
+            return visibleText;
+        }
+
+        $(document).ready(function () {
+            const searchInput = $("#searchInput");
+            const searchSuggestions = $("#searchSuggestions");
+
+            // Show suggestions when typing
+            searchInput.on("input", function () {
+                let query = $(this).val().trim();
+
+                if (query.length < 2) { // Avoid searching for very short queries
+                    searchSuggestions.hide();
+                    return;
+                }
+
+                // Get all visible content on the page
+                let visibleText = getVisibleText();
+
+                // Check if the query is in the visible text content
+                if (visibleText.toLowerCase().includes(query.toLowerCase())) {
+                    searchSuggestions.show();
+                    searchSuggestions.empty();
+
+                    // Call backend API to fetch search results
+                    $.ajax({
+                        url: "/Search/GetSearchSuggestions",
+                        type: "GET",
+                        data: { query: query },
+                        success: function (response) {
+                            // Show suggestions from backend
+                            if (response.length > 0) {
+                                response.forEach(item => {
+                                    searchSuggestions.append(`
+                                        <div class="suggestion-item" data-url="${item.Url}">
+                                            <strong>${item.PageName}</strong><br>
+                                            <span>${item.Content}</span>
+                                        </div>
+                                    `);
+                                });
+                            } else {
+                                searchSuggestions.append("<p>No results found</p>");
+                            }
+                        },
+                        error: function () {
+                            searchSuggestions.html("<p>Error fetching results</p>").show();
+                        }
+                    });
+                } else {
+                    searchSuggestions.hide();
+                }
+            });
+
+            // When clicking on a suggestion item, navigate to the URL
+            $(document).on("click", ".suggestion-item", function () {
+                let pageUrl = $(this).data("url");
+                if (pageUrl && pageUrl !== "#") {
+                    window.location.href = pageUrl;
+                }
+            });
+
+            // Hide suggestions when clicking outside
+            $(document).click(function (e) {
+                if (!$(e.target).closest("#searchInput, #searchSuggestions").length) {
+                    searchSuggestions.hide();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!-- Views/Shared/_Header.cshtml -->
+<div class="top-nav">
+ <div class="left-section">
+        <img style="height:30px; border-radius:5px" src="~/Images/images/ast_logo3.jpg" alt="AST logo" class="ast-logo">
+        <input type="text" id="searchInput" placeholder="Search..." class="search-bar">
+        <div id="searchSuggestions" class="suggestions-box"></div>
+    </div>
+    <ul class="nav-links">
+        <li><a href="@Url.Action("dashboardView", "Dashboard")">Dashboard</a></li>
+        <li><a href="@Url.Action("EmployeesView", "Employees")">Employees</a></li>
+        <li><a href="@Url.Action("ResourcesView", "Resources")">Resources</a></li>
+        <li><a href="@Url.Action("TownhallView", "Townhall")">Town Hall</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">
+                Others
+                <img src="~/Images/icons/down-arrow.png" alt="Others" style="width: 20px; height: 20px; margin-right: 8px;">
+            </a>
+            <div class="dropdown-content">
+                <a href="@Url.Action("updatesView", "Updates")">Today's Updates</a>
+                <a href="@Url.Action("manualsView", "Manuals")">Manuals</a>
+                <a href="@Url.Action("AchievementsView", "Achievements")">Achievements</a>
+                <a href="@Url.Action("policiesView", "Policies")">Policies</a>
+                <a href="@Url.Action("EventsView", "Events")">Events</a>
+            </div>
+        </li>
+    </ul>
+    <div class="profile-container">
+        <img src="~/Images/images/profile-pic.jfif" alt="Profile Picture" class="profile-img" id="profileIcon">
+        <div class="logout-dropdown" id="logoutDropdown">
+            <a href="@Url.Action("LoginView", "Accounts")">Log Out</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const searchSuggestions = document.getElementById("searchSuggestions");
+
+        // Show suggestions when typing
+        searchInput.addEventListener("input", function () {
+            if (this.value.trim() !== "") {
+                searchSuggestions.style.display = "block";
+            } else {
+                searchSuggestions.style.display = "none";
+            }
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener("click", function (event) {
+            if (!searchInput.contains(event.target) && !searchSuggestions.contains(event.target)) {
+                searchSuggestions.style.display = "none";
+            }
+        });
+
+        // Handle click on suggestions
+        document.querySelectorAll(".suggestion-item").forEach(item => {
+            item.addEventListener("click", function () {
+                searchInput.value = this.innerText;
+                searchSuggestions.style.display = "none";
+            });
+        });
+    });
+</script>
+
+--------------------
+﻿<!-- Views/Shared/_Layout.cshtml -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/Content/css/HeaderFooterStyles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <!-- Render Header -->
+    @Html.Partial("_Header")
+
+    <div class="main-content">
+        <!-- Content of the page will go here -->
+        <div class="content">
+            @RenderBody() <!-- This will render the content from the current view -->
+        </div>
+
+        <!-- Render Footer -->
+        @Html.Partial("_Footer")
+    </div>
+
+    <!-- Inline JavaScript -->
+
+    <script>
+        $(document).ready(function () {
+            $("#searchInput").on("input", function () {
+                let query = $(this).val().trim();
+
+                if (query.length < 2) { // Avoid searching for very short queries
+                    $("#searchSuggestions").hide();
+                    return;
+                }
+
+                $.ajax({
+                    url: "/Search/GetSearchSuggestions",
+                    type: "GET",
+                    data: { query: query },
+                    success: function (response) {
+                        let suggestionsBox = $("#searchSuggestions");
+                        suggestionsBox.empty().show();
+
+                        if (response.length === 0) {
+                            suggestionsBox.append("<p>No results found</p>");
+                            return;
+                        }
+
+                        response.forEach(item => {
+                            suggestionsBox.append(`<div class='suggestion-item' data-url='${item.Url}'>${item.PageName} - ${item.Content}</div>`);
+                        });
+                    },
+                    error: function () {
+                        $("#searchSuggestions").html("<p>Error fetching results</p>").show();
+                    }
+                });
+
+            });
+
+            $(document).on("click", ".suggestion-item", function () {
+                let pageUrl = $(this).data("url");
+                if (pageUrl && pageUrl !== "#") {
+                    window.location.href = pageUrl;
+                }
+            });
+
+            $(document).click(function (e) {
+                if (!$(e.target).closest("#searchInput, #searchSuggestions").length) {
+                    $("#searchSuggestions").hide();
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>
+--------------------
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web.Hosting;
+using System.Web.Mvc;
+
+namespace AST_Intranet.Controllers
+{
+    public class SearchController : Controller
+    {
+        public JsonResult GetSearchSuggestions(string query)
+        {
+            List<SearchResult> results = new List<SearchResult>();
+
+            // Prevent unnecessary searches for very short queries
+            if (string.IsNullOrWhiteSpace(query) || query.Length < 2)
+            {
+                return Json(results, JsonRequestBehavior.AllowGet);
+            }
+
+            string viewsPath = HostingEnvironment.MapPath("~/Views");
+
+            if (viewsPath != null)
+            {
+                try
+                {
+                    // Iterate over all the pages
+                    string[] cshtmlFiles = Directory.GetFiles(viewsPath, "*.cshtml", SearchOption.AllDirectories)
+                                                    .Where(file => !file.Contains(@"\Shared\") && !Path.GetFileName(file).StartsWith("_"))
+                                                    .ToArray();
+
+                    foreach (string file in cshtmlFiles)
+                    {
+                        // Read the content of the .cshtml file
+                        string content = System.IO.File.ReadAllText(file);
+
+                        // Extract text content from the view (visible content only)
+                        string pageTextContent = ExtractTextFromHtml(content);
+
+                        // Check if the query is in the page content
+                        if (pageTextContent.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            string controllerName = GetControllerName(file, viewsPath);
+                            string viewName = Path.GetFileNameWithoutExtension(file);
+
+                            // Get the matching lines of the text content
+                            var matchingLines = pageTextContent.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+                                                               .Where(line => line.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                                                               .Take(3) // Limit to 3 matches per file
+                                                               .ToList();
+
+                            results.Add(new SearchResult
+                            {
+                                PageName = viewName,
+                                Content = string.Join(" | ", matchingLines),
+                                Url = Url.Action(viewName, controllerName) + "?highlight=" + Uri.EscapeDataString(query) // Pass query as a parameter
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle directory access issues
+                    Console.WriteLine(ex.Message); // For debugging
+                }
+            }
+
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+
+        // Extracts visible text from HTML (ignores tags)
+        private string ExtractTextFromHtml(string htmlContent)
+        {
+            // Strip out HTML tags to leave only visible text
+            var strippedText = System.Text.RegularExpressions.Regex.Replace(htmlContent, "<[^>]*?>", string.Empty);
+            return strippedText;
+        }
+
+        // Get the controller name based on the file path
+        private string GetControllerName(string filePath, string viewsPath)
+        {
+            string relativePath = filePath.Replace(viewsPath, "").TrimStart('\\', '/');
+            string[] pathParts = relativePath.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+            return pathParts.Length > 1 ? pathParts[0] : "Home"; // Default to Home if not found
+        }
+    }
+
+    // Search result model
+    public class SearchResult
+    {
+        public string PageName { get; set; }
+        public string Content { get; set; }
+        public string Url { get; set; }
+    }
+}
+
+correct the code, "only search through and show ui contents(visible on page)", from all pages
+and on the click on the particular suggestion from particular page, 
+it should redirect to that certain page and whatever was search should highlightened on page,after redirection
+
+eg:if i search por
+
+it should suggest me like this in suggestion box:
+
+Dashboard(page name)
+———————————————————————— 
+Our Portal
+
+Achievements(page name)
+————————————————————————
+Cricket - Sports Week
+Carrom - Sports Week
+Volleyball - Sports Week
+Table Tennis - Sports Week
+
+if page has multiple suggested items, each items can be selected individually 
+if i click on volleyball-Sports Week; it should open Achievements page and volleyball-Sports Week text hould be hightened

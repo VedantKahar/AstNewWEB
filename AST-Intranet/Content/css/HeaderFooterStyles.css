@@ -1,0 +1,257 @@
+﻿/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Aptos
+}
+
+/* Body and Background */
+body {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+/* Top Navigation Bar */
+
+/* Sticky Navbar */
+.top-nav {
+    position: sticky;
+    top: 0; /* Keeps navbar at the top while scrolling */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #ffffff, #d4d7da);
+    padding: 10px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Slightly darker shadow for depth */
+    z-index: 1000; /* Keeps navbar above other elements */
+    transition: all 0.3s ease; /* Smooth transition for background and other effects */
+}
+
+/* Left section (Logo and Search Bar) */
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Improved Search Bar with 3D Effect */
+.search-bar {
+    padding: 8px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 250px;
+    transition: width 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    background-color: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15); /* Deeper shadow for stronger 3D effect */
+}
+
+    .search-bar:focus {
+        border-color: #adb5bd; /* Accent color on focus */
+        outline: none;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25); /* Stronger shadow and depth on focus */
+        transform: translateY(-2px); /* Slight lifting effect when focused */
+    }
+
+    .search-bar:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px); /* Slight upward movement on hover */
+    }
+
+/* Suggestions Box Styling */
+.suggestions-box {
+    position: absolute;
+    top: 60px; /* Adjust according to your navbar height */
+    left: 30%;
+    transform: translateX(-50%); /* Center align the suggestions box */
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px; /* Limit the max width for a cleaner look */
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    margin-top: 5px;
+    display: none;
+    padding: 5px 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Suggestion Item Styling */
+.suggestion-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, padding 0.2s ease;
+    font-size: 14px;
+}
+
+    .suggestion-item:hover {
+        background-color: #f5f5f5;
+        padding-left: 25px; /* Add some extra padding for a "sliding" effect */
+        /* background-image: url('https://image.shutterstock.com/image-vector/check-icon-approval-symbol-ok-260nw-1664763641.jpg'); Optional check icon */
+        background-position: 10px center;
+        background-repeat: no-repeat;
+        background-size: 18px;
+    }
+
+/* Suggestions box visible */
+.suggestions-box.show {
+    display: block;
+}
+
+/* Transition Effect */
+.search-bar:focus + .suggestions-box {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+
+/* Navigation Links */
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+    .nav-links li {
+        position: relative;
+    }
+
+.nav-links a {
+    color: black; /* White text for contrast */
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+    .nav-links a:hover {
+        color: #dc3545; /* Hover color to complement the hero section's blue */
+        transform: translateY(-5px); /* Slight lift on hover */
+    }
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+}
+
+.dropbtn {
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+    .dropbtn:hover {
+        color: #dc3545;
+    }
+
+/* Dropdown Content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #d4d7da;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    padding: 0;
+    border-radius: 15px;
+}
+
+.dropdown-content a {
+    display: block;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-content a:hover {
+    color: #dc3545;
+    border-radius: 15px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Profile Icon and Logout Dropdown */
+.profile-container {
+    position: relative;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid none; /* Border color to match hover color */
+    transition: transform 0.3s ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Logout Dropdown */
+.logout-dropdown {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background: #d4d7da; /* Lighter blue for dropdown */
+    border-radius: 15px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    width: 150px;
+}
+
+.logout-dropdown a {
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    display: block;
+}
+
+.logout-dropdown a:hover {
+    color: #dc3545;
+}
+
+.profile-container:hover .logout-dropdown {
+    display: block;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(90deg, #efefef, #d4d7da);
+    color: black;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+.footer a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    color: #000072;
+}

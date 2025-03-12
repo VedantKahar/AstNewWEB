@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "manualsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cimFiles = ViewBag.CIMManuals as List<string>;
+    var crrFiles = ViewBag.CRRManuals as List<string>;
+    var eResourceFiles = ViewBag.EResourceManuals as List<string>;
+    var spineHRExpenseFiles = ViewBag.SpineHRExpenseManuals as List<string>;
+    var spineHRTimesheetFiles = ViewBag.SpineHRTimesheetManuals as List<string>;
+    var spineHRPayrollFiles = ViewBag.SpineHRPayrollManuals as List<string>;
+    var productManualsFiles = ViewBag.ProductManuals as List<string>;
+    var othersFiles = ViewBag.OthersManuals as List<string>;
+}
+
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/ManualsStyles.css")">
+
+
+    <div class="main-content">
+         <h2>AST Manuals</h2>
+        <div class="manual-category-container">
+           
+            <!-- CIM Manuals -->
+            <div class="manual-category">
+                <h3>CIM Manuals</h3>
+                <div class="manual-box">
+                    <div class="manual-box-content">
+                        @if (cimFiles != null && cimFiles.Any())
+                        {
+                            foreach (var file in cimFiles)
+                            {
+                                <div class="manual-item">
+                                    <a href="@Url.Action("GetManual", "Manuals", new { folderName = "CIM", fileName = file })" target="_blank">
+                                        <span>@file</span>
+                                    </a>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No CIM manuals found.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- CIM Manuals -->
+            <div class="manual-category">
+                <h3>CRR Manuals</h3>
+                <div class="manual-box">
+                    <div class="manual-box-content">
+                            @if (crrFiles != null && crrFiles.Any())
+                            {
+                                foreach (var file in crrFiles)
+                                {
+                                <div class="manual-item">
+                                    <a href="@Url.Action("GetManual", "Manuals", new { folderName = "CRR", fileName = file })" target="_blank">
+                                        <span>@file</span>
+                                    </a>
+                                </div>
+                                }
+                            }
+                            else
+                            {
+                                <p>No CRR manuals found.</p>
+                            }
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- E Resources Manuals -->
+            <div class="manual-category">
+                <h3>E Resources</h3>
+                <div class="manual-box">
+                    <div class="manual-box-content">
+                        @if (eResourceFiles != null && eResourceFiles.Any())
+                    {
+                        foreach (var file in eResourceFiles)
+                        {
+                        <div class="manual-item">
+                            <a href="@Url.Action("GetManual", "Manuals", new { folderName = "EResources", fileName = file })" target="_blank">
+                                <span>@file</span>
+                            </a>
+                        </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No E Resources manuals found.</p>
+                    }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spine HR - Expense Manuals -->
+            <div class="manual-category">
+                <h3>Spine HR - Expense</h3>
+                <div class="manual-box">
+                    <div class="manual-box-content">
+                        @if (spineHRExpenseFiles != null && spineHRExpenseFiles.Any())
+                        {
+                            foreach (var file in spineHRExpenseFiles)
+                            {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "SpineHr/SpineHR-Expense", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No Spine HR - Expense manuals found.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Spine HR - Timesheet Manuals -->
+            <div class="manual-category">
+                <h3>Spine HR - Timesheet</h3>
+                <div class="manual-box">
+                    <div class="manual-box-content">
+                        @if (spineHRTimesheetFiles != null && spineHRTimesheetFiles.Any())
+                        {
+                            foreach (var file in spineHRTimesheetFiles)
+                            {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "SpineHr/SpineHR-Timesheet", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No Spine HR - Timesheet manuals found.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spine HR - Payroll Manuals -->
+            <div class="manual-category">
+                <h3>Spine HR - Payroll</h3>
+                <div class="manual-box">
+                    <div class="manual-box-content">
+                        @if (spineHRPayrollFiles != null && spineHRPayrollFiles.Any())
+                        {
+                            foreach (var file in spineHRPayrollFiles)
+                            {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "SpineHr/SpineHR-payroll", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No Spine HR - Payroll manuals found.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product  Manuals -->
+            <div class="manual-category">
+                <h3>Product</h3>
+                <div class="manual-box">
+                    <div class="manual-box-content">
+                        @if (productManualsFiles != null && productManualsFiles.Any())
+                        {
+                            foreach (var file in productManualsFiles)
+                            {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "products", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No Product manuals found.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Manuals -->
+            <div class="manual-category">
+                <h3>Others </h3>
+                <div class="manual-box">
+                    <div class="manual-box-content">
+                        @if (othersFiles != null && othersFiles.Any())
+                        {
+                            foreach (var file in othersFiles)
+                            {
+                            <div class="manual-item">
+                                <a href="@Url.Action("GetManual", "Manuals", new { folderName = "Others", fileName = file })" target="_blank">
+                                    <span>@file</span>
+                                </a>
+                            </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No other manuals found.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- add similar blocks for other folders like CRR, E Resources, etc. -->
+
+        </div>
+
+    </div>
+
+        <script>
+            // Get the current year
+            document.getElementById("current-year").textContent = new Date().getFullYear();
+            document.addEventListener("DOMContentLoaded", function () {
+                const highlightText = new URLSearchParams(window.location.search).get('highlight');
+
+                if (highlightText) {
+                    let regex = new RegExp(`(${highlightText})`, 'gi');
+                    document.body.innerHTML = document.body.innerHTML.replace(regex, `<mark>$1</mark>`);
+                }
+            });
+
+        </script>

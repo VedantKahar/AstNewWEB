@@ -1,0 +1,184 @@
+﻿@{
+    ViewBag.Title = "Employee List";
+    var employees = Model; // Assuming Model contains the list of employee data passed from the controller
+    var departmentName = ViewBag.DepartmentName; // Department name passed from controller
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+    Layout = null;
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employees in @departmentName Department</h2>
+
+<div class="employee-list">
+    @if (employees != null && employees.Count > 0)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sr.No.</th>
+                    <th>EmpCode</th>
+                    <th>EmpName</th>
+                    <th>Designation</th>
+                    <th>Email</th>
+                    <th>Phone No</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < employees.Count; i++)
+                {
+                    <tr>
+                        <td>@((currentPage - 1) * 15 + i + 1)</td>
+                        <td>@employees[i]["EMP_CODE"]</td>
+                        <td>@employees[i]["EMP_NAME"]</td>
+                        <td>@employees[i]["DESIGNATION"]</td>
+                        <td>@employees[i]["EMAIL"]</td>
+                        <td>@employees[i]["PHONE_NO"]</td>
+                        <td>@employees[i]["LOCATION"]</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No employees found in this department.</p>
+    }
+</div>
+
+<!-- Pagination Controls -->
+@if (totalPages > 1)
+{
+    <div class="pagination">
+        <span>
+            Showing
+            @((currentPage - 1) * 15 + 1)
+            to
+            @((currentPage * 15 > ViewBag.TotalEmployees) ? ViewBag.TotalEmployees : currentPage * 15)
+            of
+            @ViewBag.TotalEmployees
+            entries
+        </span>
+
+        <ul class="pagination-list">
+            @if (currentPage > 1)
+            {
+                <li><a href="@Url.Action("GetEmployeesByDepartment", "Employees", new { departmentName = departmentName, page = currentPage - 1 })">&laquo; Previous</a></li>
+            }
+
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="@(i == currentPage ? "active" : "")">
+                    <a href="@Url.Action("GetEmployeesByDepartment", "Employees", new { departmentName = departmentName, page = i })">@i</a>
+                </li>
+            }
+
+            @if (currentPage < totalPages)
+            {
+                <li><a href="@Url.Action("GetEmployeesByDepartment", "Employees", new { departmentName = departmentName, page = currentPage + 1 })">Next &raquo;</a></li>
+            }
+        </ul>
+    </div>
+}
+
+<!-- Add custom styles for pagination -->
+<style>
+    /* Page Background */
+    body {
+        background-color: #f7f7f7;
+        font-family: Arial, sans-serif;
+        color: #333;
+        padding: 20px;
+    }
+
+    /* Table Styling */
+    .table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 2px solid #ddd; /* Border around the table */
+    }
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd; /* Border around table cells */
+    }
+
+    /* Remove border-collapse for clearer separation */
+    .table {
+        border-collapse: separate;
+    }
+
+    .table th {
+        background: linear-gradient(225deg, #5DADE2, #8bc5b2);
+        color: white;
+        font-weight: bold;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table tr:hover {
+        background-color: #e0e0e0;
+        transform: scale(1.01); /* Zoom out effect on hover */
+        transition: transform 0.2s ease, background-color 0.2s ease;
+        cursor: pointer;
+    }
+
+    .table-bordered {
+        border: 2px solid #ddd;
+    }
+
+    /* Pagination Styling */
+    .pagination-list {
+        list-style: none;
+        padding: 0;
+        display: inline-flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination-list li {
+        display: inline;
+    }
+
+    .pagination-list li a {
+        text-decoration: none;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+    }
+
+    .pagination-list li.active a {
+        background-color: #0056b3;
+    }
+
+    .pagination-list li a:hover {
+        background-color: #0056b3;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    /* Optional: Add a shadow and padding to the table */
+    .table-container {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: white;
+        padding: 20px;
+    }
+
+    .table-wrapper {
+        padding: 20px;
+    }
+</style>

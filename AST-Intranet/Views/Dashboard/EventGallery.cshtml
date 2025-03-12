@@ -1,0 +1,157 @@
+﻿@{
+    var images = ViewBag.EventImages as List<string>;
+}
+
+<section class="section">
+    <h2>@ViewBag.Title Gallery</h2>
+    <div class="events-gallery-container">
+        @foreach (var image in images.Take(16))
+        {
+        <div class="event-image" onclick="openModal('@Url.Action("GetImage", "Dashboard", new { folderName = ViewBag.FolderName, fileName = image })')">
+            <img src="@Url.Action("GetImage", "Dashboard", new { folderName = ViewBag.FolderName, fileName = image })" alt="@image" loading="lazy">
+        </div>
+        }
+    </div>
+
+    <!-- Pagination Links -->
+    <div class="pagination">
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        <a href="@Url.Action("EventGallery", "Dashboard", new { page = i, folderName = ViewBag.FolderName })" class="page-link">@i</a>
+    }
+    </div>
+
+</section>
+
+<!-- Modal for Image -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation();">
+        <span class="close-btn" onclick="closeModal()">×</span>
+        <img id="modalImage" src="" alt="Modal Image">
+    </div>
+</div>
+
+<style>
+    /* Section styling */
+    .section {
+        padding: 40px;
+        background-color: #f4f4f4;
+    }
+
+    /* Gallery container */
+    .events-gallery-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Grid with auto-filled columns */
+        gap: 20px; /* Space between grid items */
+        padding: 20px;
+    }
+
+    /* Individual image block */
+    .event-image {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+        /* Image styling */
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures images cover the container area without distortion */
+            border-radius: 8px;
+        }
+
+        /* Hover effect for image */
+        .event-image:hover {
+            transform: scale(1.05); /* Slight zoom effect on hover */
+        }
+
+    /* Pagination Styling */
+    .pagination {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .page-link {
+        margin: 0 5px;
+        text-decoration: none;
+        color: #333;
+        font-size: 18px;
+    }
+
+        .page-link:hover {
+            color: #007bff;
+        }
+
+    /* Modal and Image Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        overflow: hidden;
+    }
+
+    #modalImage {
+        width: 100%;
+        height: auto;
+        max-height: 90vh;
+        object-fit: contain;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+        color: #fff;
+        /*background-color: rgba(0, 0, 0, 0.5);*/
+        border: none;
+        border-radius: 50%;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+       /* .close-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }*/
+</style>
+
+<script>
+    // Open Modal with Image
+    function openModal(imageSrc) {
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+        modalImage.src = imageSrc;
+        modal.style.display = "flex"; // Show modal
+    }
+
+    // Close Modal
+    function closeModal() {
+        const modal = document.getElementById("imageModal");
+        modal.style.display = "none"; // Hide modal
+    }
+
+    // Close modal if clicked outside of it
+    window.onclick = function (event) {
+        if (event.target == document.getElementById("imageModal")) {
+            closeModal();
+        }
+    };
+</script>

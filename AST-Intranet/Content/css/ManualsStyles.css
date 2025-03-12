@@ -1,0 +1,127 @@
+h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+}
+    h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #000;
+    }
+
+    .manual-category:nth-child(even) {
+        animation-delay: 0.2s;
+    }
+
+    .manual-category h3 {
+        font-size: 1.5em;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .manual-category-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Three boxes per row */
+        gap: 20px;
+   
+    }
+
+    /* Update for .manual-box to ensure padding is maintained */
+    .manual-box {
+       /* background: linear-gradient(135deg, #6faedb 10%, #b8e2d3 70%);*/
+       background-color:#d4d7da;
+        border-radius: 10px;
+        padding: 15px; /* Keeps the padding around the box */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: 250px; /* Fixed height */
+        overflow-y: auto; /* Makes box scrollable if content overflows */
+        box-sizing: border-box; /* Ensures padding is inside the box */
+    }
+
+    /* Inner container for scrollable content */
+    .manual-box .manual-box-content {
+        padding: 10px 0; /* Keeps padding on top and bottom */
+        max-height: calc(100% - 5px); /* Subtract the total padding from the height */
+        overflow-y: auto;
+    }
+
+    /* Optional: additional spacing for individual items */
+    .manual-item {
+        background-color: #ecf0f1;
+        border-radius: 8px;
+        padding: 5px; /* Adjust padding as per your need */
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .manual-box:hover {
+        transform: translateY(-2px); /* Slight upward movement on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+   
+    .manual-item:hover {
+        background: linear-gradient(90deg, #ff1200 20%, #000000 100%); /* Change background on hover */
+        color: #fff; /* Change text color to white on hover */
+        transform: translateY(-2px);
+    }
+
+    .manual-item a {
+        text-decoration: none;  
+        color: inherit;
+    }
+
+    .manual-item span {
+        font-size: 0.9em;
+        font-weight: bold;
+        color: #34495e; /* Default color */
+        margin-bottom: 10px;
+    }
+
+    /* Change text color in the manual description when the list item is hovered */
+    .manual-item:hover .manual-description {
+        color: #fff;
+    }
+
+    /* Optional: if you want to ensure the text color of <span> inside manual-item changes on hover */
+    .manual-item:hover span {
+        color: #fff; /* Change text color to white on hover */
+    }
+
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Header and Category Titles */
+.manual-category h3 {
+    font-size: 1.5em;
+    /* Apply a gradient background */
+    background: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+    /* Clip the background to the text */
+    -webkit-background-clip: text; /*For WebKit-based browsers*/
+    color: transparent; /*  Make text color transparent to show gradient*/
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}

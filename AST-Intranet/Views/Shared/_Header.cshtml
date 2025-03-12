@@ -1,0 +1,67 @@
+﻿<!-- Views/Shared/_Header.cshtml -->
+<div class="top-nav">
+    <div class="left-section">
+        <a href="@Url.Action("DashboardView", "Dashboard")">
+            <img style="height:30px; border-radius:5px" src="~/Images/images/ast_logo3.jpg" alt="AST logo" class="ast-logo">
+        </a>
+
+        <input type="text" id="searchInput" placeholder="Search..." class="search-bar">
+        <div id="searchSuggestions" class="suggestions-box"></div>
+    </div>
+    <ul class="nav-links">
+        <li><a href="@Url.Action("dashboardView", "Dashboard")">Dashboard</a></li>
+        <li><a href="@Url.Action("EmployeesView", "Employees")">Organization</a></li>
+        <li><a href="@Url.Action("ResourcesView", "Resources")">Resources</a></li>
+        <li><a href="@Url.Action("TownhallView", "Townhall")">Town Hall</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">
+                Others
+                <img src="~/Images/icons/down-arrow.png" alt="Others" style="width: 20px; height: 20px; margin-right: 8px;">
+            </a>
+            <div class="dropdown-content">
+                <a href="@Url.Action("updatesView", "Updates")">Today's Updates</a>
+                <a href="@Url.Action("manualsView", "Manuals")">Manuals</a>
+                <a href="@Url.Action("AchievementsView", "Achievements")">Achievements</a>
+                <a href="@Url.Action("policiesView", "Policies")">Policies</a>
+                <a href="@Url.Action("EventsView", "Events")">Events</a>
+            </div>
+        </li>
+    </ul>
+    <div class="profile-container">
+        <img src="~/Images/images/profile-pic.jfif" alt="Profile Picture" class="profile-img" id="profileIcon">
+        <div class="logout-dropdown" id="logoutDropdown">
+            <a href="@Url.Action("LoginView", "Accounts")">Log Out</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const searchSuggestions = document.getElementById("searchSuggestions");
+
+        // Show suggestions when typing
+        searchInput.addEventListener("input", function () {
+            if (this.value.trim() !== "") {
+                searchSuggestions.style.display = "block";
+            } else {
+                searchSuggestions.style.display = "none";
+            }
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener("click", function (event) {
+            if (!searchInput.contains(event.target) && !searchSuggestions.contains(event.target)) {
+                searchSuggestions.style.display = "none";
+            }
+        });
+
+        // Handle click on suggestions
+        document.querySelectorAll(".suggestion-item").forEach(item => {
+            item.addEventListener("click", function () {
+                searchInput.value = this.innerText;
+                searchSuggestions.style.display = "none";
+            });
+        });
+    });
+</script>

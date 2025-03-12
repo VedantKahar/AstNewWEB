@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "Achievements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/AchievementsStyles.css")">
+
+    <div class="main-content">
+        <div class="content">
+
+            <!-- Company Achievements Section -->
+            <section class="achievements-section">
+                <h2>AST Achievements</h2>
+                <div class="achievement-cards-container">
+                    <div class="achievement-card">
+                        <!-- Prev Button -->
+                        <button class="prev-btn" onclick="prevAchievement()">&#10094;</button>
+
+                        <!-- Image Slider -->
+                        <div class="image-slider">
+                            <div class="slider-content">
+                                <!-- Achievement 1 -->
+                                <div class="achievement-content" id="achievement1">
+                                    <div class="image-slider">
+                                        <img src="~/Images/images/AST bg.jfif" alt="Achievement Image 1" @*class="slider-image"*@>
+                                        <img src="~/Images/images/AST-Env-Logo.png" alt="Achievement Image 2" @*class="slider-image"*@>
+                                        <img src="~/Images/images/Terra-Logo.png" alt="Achievement Image 3" @*class="slider-image"*@>
+                                    </div>
+
+                                    <h3>Company Achievement 1</h3>
+                                    <p>Details about the achievement. This can include awards or recognitions received by the company.</p>
+                                </div>
+
+                                <!-- Achievement 2 -->
+                                <div class="achievement-content" id="achievement2">
+                                    <img src="~/Images/images/AST-building.png" alt="Achievement 2">
+                                    <h3>Company Achievement 2</h3>
+                                    <p>Details about another achievement. This includes more information about the company's growth or progress.</p>
+                                </div>
+
+
+                                <div class="achievement-content" id="achievement4">
+                                    <img src="https://th.bing.com/th/id/R.59ff510426f1d76979361809bb851716?rik=c%2fTf0LaIFlgHrA&riu=http%3a%2f%2fwww.impawards.com%2fintl%2findia%2f2015%2fposters%2fbahubali_the_beginning_ver2_xlg.jpg&ehk=yBFgAmmHhFihNXWKpum23W6EZ%2bUv73qz3cPrdy%2btWM0%3d&risl=&pid=ImgRaw&r=0" alt="Achievement 4">
+                                    <h3>Company Achievement 4</h3>
+                                    <p>Details about another achievement. This includes more information about the company's growth or progress.</p>
+                                </div>
+
+                                <div class="achievement-content" id="achievements 5">
+                                    <img src="~/Images/images/AST-building.png" />
+                                    <h3>Company Achievements 5</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Next Button -->
+                        <button class="next-btn" onclick="nextAchievement()">&#10095;</button>
+                    </div>
+                </div>
+            </section>
+
+            @*Employee Achievements Section*@
+            <!--<section class="employee-achievements-section">
+                <h2>Employee Achievements</h2>
+                <div class="achievement-cards-container">
+                    <div class="achievement-card">-->
+                        @*<div class="image-slider">*@
+                        @*<div class="slider-images">*@
+                        <!--<img src="https://static.turbosquid.com/Preview/2019/09/24__07_14_04/render004.jpgE6E6CDF8-D2E0-4F8F-A035-81A31CDEABACDefault.jpg" alt="Company Achievement 1">-->
+                        @*<img src="../images/AST building.png" alt="Company Achievement 2">*@
+                        <!--<!-- You can add more images here -->
+                        <!--@*</div>*@
+                        @*</div>*@
+                        <h3>Employee of the Month</h3>
+                        <p>Steve</p>
+                        <div class="desc">
+                            Beat Ender Dragon and recieve acheivement of "Free the End".
+                        </div>
+
+                    </div>
+
+                    <div class="achievement-card">
+                        <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
+                        <h3>Most beloved protagonists of all time</h3>
+                        <p>Arthur Morgan</p>
+                        <div class="desc">
+                            Lovable and enigmatic character,extremely loyal,Adapts to pretty much any situation he comes across
+                        </div>
+                    </div>
+                </div>
+            </section>-->
+
+            <section class="employee-achievements-section">
+                <h2>Employee Achievements</h2>
+                <div class="employee-achievement-cards-container">
+                    <div class="employee-achievement-card">
+                        <div class="achievement-image">
+                            <img src="https://static.turbosquid.com/Preview/2019/09/24__07_14_04/render004.jpgE6E6CDF8-D2E0-4F8F-A035-81A31CDEABACDefault.jpg" alt="Company Achievement 1">
+                        </div>
+                        <h3>Employee of the Month</h3>
+                        <p>Steve</p>
+                        <div class="desc">
+                            Beat Ender Dragon and received achievement of "Free the End". Long additional description to test the scrollable behavior. More content goes here.
+                        </div>
+                    </div>
+
+                    <div class="employee-achievement-card">
+                        <div class="achievement-image">
+                            <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
+                        </div>
+                        <h3>Most beloved protagonists of all time</h3>
+                        <p>Arthur Morgan</p>
+                        <div class="desc">
+                            Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
+                            This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Competition Winners Section -->
+            <section class="competition-section">
+                <h2>Competition Winners</h2>
+                <div class="competition-cards-container">
+                    <div class="competition-card">
+                        <img src="~/Images/images/AST bg.jfif" alt="Cricket Winner">
+                        <div>
+                            <h4>Cricket - Sports Week</h4>
+                            <span>Winner: John Doe</span>
+                        </div>
+                    </div>
+                    <div class="competition-card">
+                        <img src="~/Images/images/AST-building.png" alt="Carrom Winner">
+                        <div>
+                            <h4>Carrom - Sports Week</h4>
+                            <span>Winner: Jane Smith</span>
+                        </div>
+                    </div>
+                    <div class="competition-card">
+                        <img src="../images/volleyball-winner.jpg" alt="Volleyball Winner">
+                        <div>
+                            <h4>Volleyball - Sports Week</h4>
+                            <span>Winner: Mark Johnson</span>
+                        </div>
+                    </div>
+                    <div class="competition-card">
+                        <img src="../images/table-tennis-winner.jpg" alt="Table Tennis Winner">
+                        <div>
+                            <h4>Table Tennis - Sports Week</h4>
+                            <span>Winner: Emily Davis</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        @*footer will come*@
+    </div>
+
+    <script src="@Url.Content("~/Scripts/script/AchievementsScript.js")"></script>

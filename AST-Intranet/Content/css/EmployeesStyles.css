@@ -1,0 +1,396 @@
+/* Container for the department type selector */
+/*.department-type-selector {
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        display: flex;
+        flex-direction: column;
+    }*/
+
+/*Label styling */
+/*.department-type-selector label {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+        display: block;
+    }*/
+
+/*  Styling the select dropdown */
+/*#departmentTypeSelector {
+        width: 100%;  Full width of the parent container 
+        padding: 10px 15px;  Add padding inside the dropdown 
+        border: 1px solid #ddd;  Light gray border 
+        border-radius: 8px;  Rounded corners 
+        background-color: #f9f9f9;  Light background color 
+        color: #333;  Text color for the options 
+        font-size: 16px;  Font size for better readability 
+        font-family: Arial, sans-serif;  Consistent font 
+        box-sizing: border-box;  Prevent padding from affecting the width 
+        outline: none;  Remove default outline on focus 
+        transition: all 0.3s ease;  Smooth transition for focus effect 
+        height: 200px;  Fixed height to show multiple options and enable scroll 
+        overflow-y: auto;  Allow scrolling when there are too many options 
+    }*/
+
+/* Style when the select element is focused */
+/*#departmentTypeSelector:focus {
+        border-color: #6C9EBF;  Focus border color 
+        background-color: #fff;  White background when focused 
+    }*/
+
+/*Styling the individual options */
+/*#departmentTypeSelector option {
+        padding: 10px;  Add padding for better clickability 
+        background-color: #fff;  White background for each option 
+        color: #333;  Dark text color 
+        border-bottom: 1px solid #ddd;  Subtle border between options 
+        cursor: pointer;  Pointer cursor for better interactivity 
+    }*/
+
+/*Option hover effect*/
+/*#departmentTypeSelector option:hover {
+        background-color: #e3f0f8;  Light blue background on hover 
+    }*/
+
+/*Styling selected options */
+/*#departmentTypeSelector option:checked {
+        background-color: #6C9EBF;  Highlight selected options with blue 
+        color: white;  Change text color to white for selected items 
+    }*/
+
+/*  Responsive design for smaller screens */
+/*@media (max-width: 768px) {
+        #departmentTypeSelector {
+            width: 100%;
+        }
+    }*/
+/* General container style for centering */
+.container {
+    margin: 0 auto;
+    padding: 40px 20px;
+    max-width: 1200px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Flex container for Chart and Summary */
+.chart-and-summary {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+    /* Hover effect on chart and summary */
+    .chart-and-summary:hover {
+        /*transform: scale(1.02);*/
+        /*box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);*/
+    }
+
+/* Graph Container */
+.chart-container {
+    width: 70%;
+    height: 400px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+    .chart-container canvas {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 10px;
+    }
+
+/* Summary Information */
+.summary-info {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-size: 16px;
+    color: #333;
+}
+
+    .summary-info h3 {
+        font-size: 22px;
+        font-weight: 600;
+        /* Apply a gradient background */
+        background: linear-gradient(90deg, #ff1200 0%, #000000 80%);
+        /* Clip the background to the text */
+        -webkit-background-clip: text; /*For WebKit-based browsers*/
+        color: transparent; /*  Make text color transparent to show gradient*/
+        margin-bottom: 8px;
+    }
+
+    .summary-info p {
+        font-size: 20px;
+        font-weight: 400;
+        color: #555;
+    }
+
+    /* Box for each summary item with shadow */
+    .summary-info div {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+        /* Hover effect on summary boxes */
+        .summary-info div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+/* Responsive Design: Stack chart and summary on smaller screens */
+@media (max-width: 768px) {
+    .chart-and-summary {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .summary-info {
+        width: 100%;
+    }
+
+    .chart-container {
+        width: 100%;
+        height: 350px;
+    }
+}
+
+/* Graph Type Dropdown */
+.graph-toggle {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+ /*   .graph-toggle:hover {
+        background-color: #e9ecef;
+    }*/
+
+label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+select {
+    padding: 10px 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+    select:focus {
+        border-color: #4CAF50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    }
+
+
+/* Year Selector Container */
+.year-selector {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+
+/* Hover effect on chart type dropdown */
+#chartTypeSelector:hover,
+#graphType:hover {
+    background-color: #e9ecef;
+}
+
+/* Year Selector */
+.year-selector label {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* Graph Type dropdown */
+.graph-toggle label {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Tooltip styling for better UI experience */
+.tooltip {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+}
+
+    .tooltip:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 8px 12px;
+        background-color: #333;
+        color: white;
+        font-size: 14px;
+        border-radius: 5px;
+        white-space: nowrap;
+        z-index: 10;
+        opacity: 0;
+        animation: fadeIn 0.3s forwards;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Styling for the modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 70%;
+    max-width: 800px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    color: #aaa;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #333;
+    }
+
+/* Heading Style */
+h2 {
+    color: #2c3e50;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.employee-count-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+    .employee-count-box div {
+        background: #d4d7da;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 30%;
+        height: 140px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+
+        .employee-count-box div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .employee-count-box div h3 {
+            margin: 10px 0;
+            font-size: 1.4em;
+            /* Apply a gradient background */
+            background: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+            /* Clip the background to the text */
+            -webkit-background-clip: text; /*For WebKit-based browsers*/
+            color: transparent; /*  Make text color transparent to show gradient*/
+        }
+
+        .employee-count-box div p {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+.department-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.department {
+    background-color: #d4d7da; /*linear-gradient(135deg, #6C9EBF, #A4D7D1);*/
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+    .department:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    .department h3 {
+        margin-bottom: 12px;
+        /* Apply a gradient background */
+        background: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+        /* Clip the background to the text */
+        -webkit-background-clip: text; /*For WebKit-based browsers*/
+        color: transparent; /*  Make text color transparent to show gradient*/
+        font-size: 1.6em;
+    }
+
+    .department p {
+        font-size: 1.1em;
+        color: #000;
+        margin-bottom: 15px;
+    }
+
+    .department a {
+        font-size: 1.1em;
+        color: #ff1200;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .department a:hover {
+            color: #2C3E50;
+        }

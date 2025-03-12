@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Department List";
+    ViewBag.Title = "Employee Information";
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/EmployeesStyles.css")">
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="main-content">
+    <div class="container">
+        <div class="chart-and-summary">
+            <!-- Graph Container -->
+            <div class="chart-container">
+                <canvas id="employeeChart"></canvas>
+            </div>
+
+            <!-- Summary Information -->
+            <div class="summary-info">
+                <!-- Total Employees -->
+                <div>
+                    <h3>Total Employees</h3>
+                    <p id="totalEmployees">@ViewBag.TotalEmployees</p>
+                </div>
+
+                <!-- Total Departments -->
+                <div>
+                    <h3>Departments</h3>
+                    <p id="totalDepartments">@ViewBag.TotalDepartments</p>
+                </div>
+
+                <div>
+                    <h3>New Joiners</h3>
+                    <p id="totalEmployees">@ViewBag.NewJoiners</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="graph-toggle-year">
+            <div class="graph-toggle">
+                <label for="graphType" class="tooltip" data-tooltip="Select graph to view either gender distribution or employees per department.">
+                    Select Graph:
+                </label>
+                <select id="graphType">
+                    <option value="department">Employees per Department</option>
+                    <option value="gender">Male/Female Distribution</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+    @*<h2>Company Overview</h2>
+        <div class="employee-count-box">
+
+
+            <div>
+                <h3>New Joiners</h3>
+                <p>@ViewBag.NewJoiners</p>
+            </div>
+        </div>*@
+
+    <hr />
+
+    <h2>Departments</h2>
+
+    <!-- Display Departments -->
+    <div class="department-container">
+        @if (ViewBag.Departments != null)
+        {
+            foreach (var department in ViewBag.Departments)
+            {
+                <div class="department">
+                    <!-- Link to GetEmployeesByDepartment action with department name -->
+                    <a href="@Url.Action("GetEmployeesByDepartment", "Employees", new { departmentName = department })">
+                        <h3>@department</h3>
+                        <hr />
+                        <p>Short description of the @department department.</p>
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No departments available.</p>
+        }
+    </div>
+
+    <!-- Employee list will be loaded here -->
+    <div id="employee-list">
+        <!-- Employee details will be dynamically loaded here -->
+    </div>
+
+</div>
+
+<!-- Link to the JavaScript file -->
+<script src="@Url.Content("~/Scripts/script/EmployeesScript.js")"></script>

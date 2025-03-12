@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Welcome to the Home Page</h2>
+
+<!-- Display the database connection status -->
+<div>
+    <h3>Database Connection Status</h3>
+    <p>@ViewBag.DbStatusMessage</p>
+</div>
+
+<!-- Display the list of departments if available -->
+@if (ViewBag.Departments != null && ViewBag.Departments.Count > 0){
+    <h3>Department List</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Department ID</th>
+                <th>Department Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dept in ViewBag.Departments)
+            {
+                <tr>
+                    <td>@dept.DEPT_ID</td>
+                    <td>@dept.DEPT_NAME</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else{
+    <p>No departments available or error fetching data.</p>
+}
+<h2>Employee List</h2>
+<!-- Display the list of employees if available -->
+@if (ViewBag.Employees != null && ViewBag.Employees.Count > 0)
+{
+    <table border="1">
+        <thead>
+            <tr>
+                @foreach (var key in ViewBag.Employees[0].Keys)
+                {
+                    <th>@key</th>
+ <!-- Display dynamic column names -->
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in ViewBag.Employees)
+            {
+                <tr>
+                    @foreach (var value in emp.Values)
+                    {
+                        <td>@value</td>
+ <!-- Display dynamic column values -->
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No employees available or error fetching data.</p>
+}
+
+
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>

@@ -1,0 +1,295 @@
+﻿    /* Main container for media */
+    .media-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    /* Sections for images, videos, other files, and document files */
+    .image-files, .video-files, .other-files, .document-files {
+        display: grid;
+        gap: 0; /* Remove space between items */
+        grid-template-columns: repeat(5, 2fr); /* 5 items per row for images, videos, other files */
+        grid-template-rows: auto; /* Rows will adjust according to content */
+        padding: 0; /* Remove internal padding */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    /* For document files section (4 items per row) */
+    .document-files {
+        grid-template-columns: repeat(5, 1fr); /* 4 items per row for documents */
+    }
+    /* For document files section (4 items per row) */
+    .other-files {
+        grid-template-columns: repeat(3, 1fr); /* 4 items per row for documents */
+    }
+
+    /* Individual items in the grid */
+    .image-files > div, .video-files > div, .other-files > div, .document-files > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f9f9f9;
+        padding: 10px;
+        box-sizing: border-box;
+        text-align: center; /* Center the text */
+        position: relative;
+        border: 1px solid #ddd; /* Add border between items */
+        width: 100%; /* Full width of the grid cell */
+        height: 150px; /* Fixed height */
+        overflow: hidden; /* Prevents content from resizing the box */
+    }
+
+    /* Add borders between grid items (horizontally and vertically) */
+    .image-files > div:nth-child(5n),
+    .video-files > div:nth-child(5n),
+    .other-files > div:nth-child(5n),
+    .document-files > div:nth-child(4n) {
+        border-right: none; /* Remove right border for the last item in each row */
+    }
+
+    .image-files > div:nth-child(n+21),
+    .video-files > div:nth-child(n+21),
+    .other-files > div:nth-child(n+21),
+    .document-files > div:nth-child(n+16) {
+        border-bottom: none; /* Remove bottom border for the last row */
+    }
+
+    /* Optional: Add hover effect to items */
+    .image-files > div:hover,
+    .video-files > div:hover,
+    .other-files > div:hover,
+    .document-files > div:hover {
+        background-color: #f0f0f0; /* Change background on hover */
+    }
+
+    /* Individual media item styles */
+    .image-file img,
+    .video-file video,
+    .document-file {
+        width: 100%; /* Let images, videos, and documents fill the container width */
+        height: 100%; /* Fill the height of the container */
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Style for each file item, for all file types (including document files) */
+    .file-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f9f9f9;
+        padding: 10px;
+        box-sizing: border-box;
+        text-align: center; /* Center the text */
+        position: relative;
+        border: 1px solid #ddd; /* Add border between items */
+        width: 100%; /* Full width of the grid cell */
+        height: 150px; /* Fixed height */
+        overflow: hidden; /* Prevents content from resizing the box */
+        word-wrap: break-word; /* Allow long file names to break and wrap within the container */
+        word-break: break-word; /* Ensure that the file names are properly wrapped if necessary */
+        overflow-wrap: break-word; /* Another option to ensure wrapping behavior */
+        max-width: 100%; /* Ensure the container takes the full available width */
+        box-sizing: border-box; /* Ensures padding does not affect width calculation */
+    }
+
+    /* Link style for file items */
+    .file-item a {
+        text-decoration: none;
+        color: #2980b9;
+        font-weight: bold;
+        display: block;
+        font-size: 14px; /* Default font size */
+        line-height: 1.2;
+        max-width: 100%; /* Make sure the link occupies available width */
+        overflow-wrap: break-word; /* Ensure the file name is wrapped within the container */
+        word-break: break-word; /* Breaks long words */
+    }
+
+    /* Adjust font size dynamically for long file names */
+    .file-item a.long-file-name {
+        font-size: 12px; /* Smaller font size for long names */
+        line-height: 1.4; /* Adjust line height for readability */
+    }
+
+    /* Hover effect for file links */
+    .file-item a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* Resources Section Styles */
+    .resources-section {
+        background-color: #d4d7da;
+        border-radius: 15px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        margin-top: 0px;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .resources-section h2 {
+        font-size: 2.5rem;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    .resources-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color:#000 /*#3498db*/;
+    }
+
+    .resource-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #ecf0f1;
+        padding: 25px;
+        margin-bottom: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+
+    .resource-item:hover {
+        transform: translateY(-8px);
+        background-color: #e1e8ed;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .resource-header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+        .resource-header a {
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+            background-image: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+    
+
+    .resource-item p {
+        font-size: 1rem;
+        color: #7f8c8d;
+    }
+
+    .resource-content {
+        margin-top: 20px;
+        max-height: 0;
+        width: 100%;
+        overflow: hidden;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-top: 2px solid #bdc3c7;
+        transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+        background: white;
+        overflow-y: auto;
+    }
+        .resource-content a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+            .resource-content a:hover {
+                text-decoration: underline;
+                color: #2980b9;
+                transition: color 0.3s ease, text-decoration 0.3s ease;
+            }
+    .resource-content h4 {
+        font-size: 1.2rem;
+        color: #34495e;
+        margin-bottom: 10px;
+    }
+
+    .resource-content hr {
+        margin: 10px 0;
+        border: 0;
+        height: 1px;
+        background-color: #bdc3c7;
+    }
+
+    .resource-content .preview {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+
+    .resource-item.open .resource-content {
+        max-height: 200px;
+    }
+
+    .resource-item.open {
+        background-color: #e0e0e0;
+        max-height: 500px;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .media-grid {
+            grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .media-grid {
+            grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+        }
+
+        .resource-item img {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .media-grid {
+            grid-template-columns: 1fr; /* 1 item per row */
+        }
+
+        .resource-item {
+            padding: 15px;
+        }
+
+        .resource-section h4 {
+            font-size: 1.4rem;
+        }
+
+        .resource-item a {
+            font-size: 1.05rem;
+        }
+
+        .resource-item img {
+            width: 35px;
+            height: 35px;
+        }
+    }

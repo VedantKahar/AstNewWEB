@@ -1,0 +1,765 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";  // Make sure the layout is set
+
+    string corporateVideoUrl = ViewBag.CorporateVideoUrl;
+    string bgVideoUrl = ViewBag.BgVideoUrl;
+
+}
+@using AST_Intranet.Models;
+
+@*FullCalendar CSS*@
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet">
+@*jQuery*@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@*Moment.js*@
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+@*FullCalendar JS*@
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/HomepageStyles.css")">
+
+
+<div class="main-content">
+    <!-- Birthday Popup -->
+    <div id="birthday-popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2>🎉 Happy Birthday! 🎂</h2>
+            </div>
+
+            <!-- Birthday Image -->
+            <div class="birthday-image">
+                <img src="" alt="Birthday Person" id="birthday-person-image">
+            </div>
+
+            <!-- Display the birthday wish for each person -->
+            <div class="birthday-text">
+                <p id="birthday-person-name"></p>
+                <p id="birthday-wish">Wishing you a wonderful day full of joy!</p>
+            </div>
+
+            <!-- Celebration animations -->
+            <div id="confetti-container"></div>
+
+            <div class="popup-footer">
+                <button id="close-popup">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const birthdayPopup = document.getElementById('birthday-popup');
+            const closePopupButton = document.getElementById('close-popup');
+            const birthdayPersonName = document.getElementById('birthday-person-name');
+            const birthdayWishElement = document.getElementById('birthday-wish');
+            const birthdayPersonImage = document.getElementById('birthday-person-image');
+            const confettiContainer = document.getElementById('confetti-container');
+
+            // List of people with their birthday details (images, names, wishes)
+            const birthdayPeople = [
+                {
+                    name: 'John Doe',
+                    image: 'path_to_john_image.jpg',
+                    wish: 'Wishing you a day full of happiness and laughter!',
+                },
+                {
+                    name: 'Jane Smith',
+                    image: 'path_to_jane_image.jpg',
+                    wish: 'Hope your birthday is filled with joy and all your dreams come true!',
+                },
+                {
+                    name: 'Alex Johnson',
+                    image: 'path_to_alex_image.jpg',
+                    wish: 'Cheers to another year of success and happiness, Alex!',
+                }
+            ];
+
+            let currentBirthdayIndex = 0;
+
+            // Display the first birthday person's popup
+            displayBirthday(birthdayPeople[currentBirthdayIndex]);
+
+            // Display the popup
+            birthdayPopup.style.display = 'flex';
+            birthdayPopup.classList.add('show');  // Trigger the show animation
+
+            // Start the confetti animation
+            triggerConfetti();
+
+            // Close the popup when the button is clicked
+            closePopupButton.addEventListener('click', function () {
+                birthdayPopup.style.display = 'none';
+                birthdayPopup.classList.remove('show');  // Hide popup
+            });
+
+            // Function to display the birthday person information
+            function displayBirthday(person) {
+                birthdayPersonName.textContent = person.name;
+                birthdayWishElement.textContent = person.wish;
+                birthdayPersonImage.src = person.image;
+
+                // Reset animation classes
+                const popupContent = document.querySelector('.popup-content');
+                popupContent.classList.remove('show');
+
+                // Force reflow so the animation restarts
+                void popupContent.offsetWidth;
+
+                // Add the animation class again
+                setTimeout(function () {
+                    popupContent.classList.add('show');
+                }, 100); // Delay to ensure the class is removed first
+            }
+
+            // Function to trigger confetti animation
+            function triggerConfetti() {
+                const duration = 5000;  // How long confetti will fall (in ms)
+                const animationEnd = Date.now() + duration;
+
+                const interval = setInterval(() => {
+                    const timeLeft = animationEnd - Date.now();
+                    if (timeLeft <= 0) {
+                        clearInterval(interval);
+                    } else {
+                        // Emit confetti
+                        confetti({
+                            particleCount: 5,
+                            angle: 60,
+                            spread: 70,
+                            origin: { x: Math.random(), y: 0 },
+                            colors: ['#ff5733', '#ffbd33', '#33ff57', '#3399ff', '#9933ff']
+                        });
+                        confetti({
+                            particleCount: 5,
+                            angle: 120,
+                            spread: 70,
+                            origin: { x: Math.random(), y: 0 },
+                            colors: ['#ff5733', '#ffbd33', '#33ff57', '#3399ff', '#9933ff']
+                        });
+                    }
+                }, 100);
+            }
+
+            // Automatically slide through birthday people every 5 seconds
+            setInterval(function () {
+                currentBirthdayIndex = (currentBirthdayIndex + 1) % birthdayPeople.length;
+                displayBirthday(birthdayPeople[currentBirthdayIndex]);
+            }, 5000); // Slide every 5 seconds
+
+        });
+
+    </script>
+
+    <div class="content">
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <!-- Video as background -->
+            @if (!string.IsNullOrEmpty(bgVideoUrl))
+            {
+                <video id="bg-video" class="hero-video" preload="auto" autoplay loop muted playsinline>
+                    <source src="@bgVideoUrl" type="video/mp4" loading="lazy" />
+                    Your browser does not support the video tag.
+                </video>
+            }
+
+            <!-- Translucent Overlay for the Video -->
+            <!-- Hero Image Section (Optional) -->
+            <img src="~/Images/images/AST-building.png" alt="Advance-Systek" />
+
+            <!-- Hero Content Section -->
+            <div class="hero-content">
+                <h1 class="text-gradient">Advanced Sys-Tek Limited</h1>
+                <p>
+                    Advanced Sys-Tek Limited is a leading innovator in the Oil & Gas industry,<br />
+                    specializing in Fluid Metering and Terminal Automation Systems.
+                </p>
+                <p>
+                    Headquartered in India with a growing global presence, we deliver turnkey solutions
+                    in Measurement, Control, and Automation through expert system integration, manufacturing,
+                    and software development.
+                </p>
+                <a href="https://www.advancedsystek.com/" target="_blank" class="hero-link">
+                    Discover More
+                </a>
+            </div>
+
+            <!-- Controls for Play/Pause and Fullscreen -->
+            <div class="video-controls">
+                @if (!string.IsNullOrEmpty(bgVideoUrl))
+                {
+                    <button onclick="toggleFullScreen()" class="fullscreen-btn">
+                        <img src="~/Images/icons/fullscreen-square-icon-white.jpg" alt="Fullscreen" />
+                    </button>
+                }
+            </div>
+        </div>
+
+        <!-- Other Sections (Like Subsidiaries, Portals, etc.) -->
+        <hr>
+
+        <h2 class="centered-title">Our Subsidiaries</h2>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-logo-container">
+                    <img src="https://astenviron.com/wp-content/uploads/2024/08/products.webp" alt="AST Environment Logo" class="card-logo">
+                </div>
+                <div class="card-content">
+                    <h3 class="text-gradient">AST Environment Solution</h3>
+                    <p>
+                        A prominent manufacturer of Diesel Exhaust Fluid (DEF) plants. Having over two decades of experience in Terminal Automation and Metering Skids.
+                    </p>
+                    <a href="https://astenviron.com/" target="_blank">Visit Website</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-logo-container">
+                    <img src="~/Images/images/Terra-Logo.png" alt="Terranomous Logo" class="card-logo">
+                </div>
+                <div class="card-content">
+                    <h3 class="text-gradient">Terranomous</h3>
+                    <p>
+                        It delivers high-quality and innovative defense and military technologies that exceed the expectations of our clients.
+                    </p>
+                    <a href="https://terranomous.in/" target="_blank">Visit Website</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <section class="announcements">
+            <h3 class="text-gradient">Important Announcements</h3>
+            <ul>
+                <li>Recent order received: <b>XYZ System for $2 million.</b></li>
+                <li>Prabhas Awarded <b>"Best Innovator 2024."</b></li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <!-- Our Portals Section -->
+        <section class="section portal-section">
+            <h2>Our Portals</h2>
+            <div class="stats">
+                <!-- Portal Links -->
+                @* Example for one portal, repeat for others... *@
+                <div>
+                    <a href="your-link-here" target="_blank" class="clickable-box">
+                        <span class="text-gradient-span">Eresource</span>
+                        <p class="description">Access a wide range of digital resources and services.</p>
+                        <h4>Open Portal</h4>
+                    </a>
+                    <a href="@Url.Action("manualsView", "Manuals")">
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
+                    </a>
+                </div>
+
+                <!-- Repeat similar blocks for other portals -->
+                <div>
+                    <a href="your-link-here" target="_blank" class="clickable-box">
+                        <span class="text-gradient-span">Spine HR</span>
+                        <p class="description">Manages human resources and employee data efficiently.</p>
+                        <h4>Open Portal</h4>
+                    </a>
+                    <a href="@Url.Action("manualsView", "Manuals")">
+                        @*target="_blank"*@
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
+                    </a>
+                </div>
+
+                <div>
+                    <a href="your-link-here" target="_blank" class="clickable-box">
+                        <span class="text-gradient-span">CIM</span>
+                        <p class="description">Centralized system for inventory and material management.</p>
+                        <h4>Open Portal</h4>
+                    </a>
+                    <a href="@Url.Action("manualsView", "Manuals")">
+                        @*target="_blank"*@
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
+                    </a>
+                </div>
+
+                <div>
+                    <a href="your-link-here" target="_blank" class="clickable-box">
+                        <span class="text-gradient-span">CRR</span>
+                        <p class="description">Track and manage customer relationship records easily.</p>
+                        <h4>Open Portal</h4>
+                    </a>
+                    <a href="@Url.Action("manualsView", "Manuals")">
+                        @*target="_blank"*@
+                        <button style="margin-top:15px" class="open-manual-btn">Open Manual</button>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+        <section class="section order-section">
+            <h2>Orders Overview</h2>
+            @*<div class="stats">
+            <div style="width:50%">
+                <h3>150</h3>
+                <p>Orders Received</p>
+            </div>
+        </div>*@
+
+            <!-- Orders Slider -->
+            <div class="orders-slider-container">
+                <div class="orders-slider">
+                    <button class="prev-btn" onclick="prevSlide()">&#10094;</button>
+
+                    <div class="slider-content">
+                        <!-- Slide 1 -->
+                        <div class="order-slide">
+                            <h4>Company A</h4>
+                            <p>Description about the order received from Company A. This includes more detailed information about the order.</p>
+                            <p>Description about the order received from Company A. This includes more detailed information about the order.</p>
+                            <p>Description about the order received from Company A. This includes more detailed information about the order.eihutihgpiiiiiiiiiiuhnpqwu98ub</p>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="order-slide">
+                            <h4>Company B</h4>
+                            <p>Description about the order received from Company B. This includes more detailed information about the order.</p>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="order-slide">
+                            <h4>Company C</h4>
+                            <p>Description about the order received from Company C. This includes more detailed information about the order.</p>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="order-slide">
+                            <h4>Company D</h4>
+                            <p>Description about the order received from Company D. This includes more detailed information about the order.</p>
+                        </div>
+                    </div>
+
+                    <button class="next-btn" onclick="nextSlide()">&#10095;</button>
+                </div>
+            </div>
+        </section>
+        <hr>
+
+        <section class="manuals">
+            <h2>Manuals</h2>
+            <div class="manual-list">
+                <div class="manual-item">
+                    <a href="#" class="manual-link">
+                        <h3>Induction Manual</h3>
+                        <p class="manual-description">A comprehensive guide designed to introduce new employees to Advanced SysTek Limited's policies, culture, and operational procedures.</p>
+                    </a>
+                </div>
+                <div class="manual-item">
+                    <a href="#" class="manual-link">
+                        <h3>Exit Manual</h3>
+                        <p class="manual-description">A detailed manual outlining the steps and requirements for employees leaving Advanced SysTek Limited, ensuring a smooth and organized transition.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="information-section">
+            <div class="box-container">
+                <!-- Box 1 - Policies -->
+                <div class="box">
+                    <h3>Policies</h3>
+                    <p>Click to view policies</p>
+                    @*<a href="your-policies-page-url" class="box-link">Link to Policies</a>*@
+                    <a href="@Url.Action("policiesView", "Policies")" class="arrow-link">
+                        <div class="floating-circle">&#x2197;</div>@*&#8594;*@
+                    </a>
+                </div>
+
+                <!-- Box 2 - Resources -->
+                <div class="box">
+                    <h3>Resources</h3>
+                    <p>Click to access resources</p>
+                    @*<a href="your-resources-page-url" class="box-link">Link to Resources</a>*@
+                    <a href="@Url.Action("resourcesView", "Resources")" class="arrow-link">
+                        <div class="floating-circle">&#x2197;</div>@*&#8594;*@
+                    </a>
+                </div>
+
+                <!-- Box 3 - Townhall Link -->
+                <div class="box">
+                    <h3>Townhall Link</h3>
+                    <p>Click to join townhall</p>
+                    @*<a href="your-townhall-page-url" class="box-link">Link to Townhall</a>*@
+                    <a href="your-townhall-page-url" class="arrow-link">
+                        <div class="floating-circle">&#x2197;</div>@*&#8594;*@
+                    </a>
+                </div>
+
+                <!-- Box 4 - Organization -->
+                <div class="box">
+                    <h3>Organization</h3>
+                    <p>Click to view organization page</p>
+                    @*<a href="your-employee-page-url" class="box-link">Link to Employee Page</a>*@
+                    <a href="@Url.Action("employeesView", "Employees")" class="arrow-link">
+                        <div class="floating-circle">&#x2197;</div>@*&#8594;*@
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <hr />
+        <section class="information-section">
+            <div class="box-container">
+                <div class="box2">
+                    <h3>Cafeteria Menu</h3>
+                    <p>Details about the cafeteria menu.</p>
+                    <a href="@Url.Action("policiesView", "Policies")" class="arrow-link">
+                        <div class="floating-circle2">
+                            <img src="~/Images/icons/coffee-cup-white-icon.png" alt="Coffee Cup Icon" />
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Box 2 - Contact List -->
+                <div class="box2">
+                    <h3>Contact List</h3>
+                    <p>List of important contacts.</p>
+                    <a href="@Url.Action("resourcesView", "Resources")" class="arrow-link">
+                        <div class="floating-circle2">
+                            <img src="~/Images/icons/phone-call-white-icon.png" alt="Coffee Cup Icon" />
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Box 3 - Year Holiday Calendar -->
+                <div class="box2">
+                    <h3>Year Holiday Calendar</h3>
+                    <p>Calendar showing holidays for the year.</p>
+                    <a href="your-townhall-page-url" class="arrow-link">
+                        <div class="floating-circle2">
+                            &#x2197; <!-- or any icon here -->
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Box 4 - Upcoming Training Calendar -->
+                <div class="box2">
+                    <h3>Upcoming Training Calendar</h3>
+                    <p>Upcoming training schedules and events.</p>
+                    <a href="@Url.Action("employeesView", "Employees")" class="arrow-link">
+                        <div class="floating-circle2">
+                            &#x2197; <!-- or any icon here -->
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <hr />
+        <section class="employee-achievements-section">
+            <h2>Employee Achievements</h2>
+            <div class="employee-achievement-cards-container">
+                <div class="employee-achievement-card">
+                    <div class="achievement-image">
+                        <img src="https://static.turbosquid.com/Preview/2019/09/24__07_14_04/render004.jpgE6E6CDF8-D2E0-4F8F-A035-81A31CDEABACDefault.jpg" alt="Company Achievement 1">
+                    </div>
+                    <h3>Employee of the Month</h3>
+                    <p style="color:black">Steve</p>
+                    <div class="desc">
+                        Beat Ender Dragon and received achievement of "Free the End". Steve can lift up to 97941957.12 pounds (44425720 kg)!"
+                    </div>
+                </div>
+
+                <div class="employee-achievement-card">
+                    <div class="achievement-image">
+                        <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
+                    </div>
+                    <h3>Most beloved protagonists of all time</h3>
+                    <p style="color:black">Arthur Morgan</p>
+                    <div class="desc">
+                        Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
+                        This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
+                    </div>
+                </div>
+                <div class="employee-achievement-card">
+                    <div class="achievement-image">
+                        <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
+                    </div>
+                    <h3>Most beloved protagonists of all time</h3>
+                    <p style="color:black">Arthur Morgan</p>
+                    <div class="desc">
+                        Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
+                        This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
+                    </div>
+                </div>
+                @*<div class="employee-achievement-card">
+                        <div class="achievement-image">
+                            <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
+                        </div>
+                        <h3>Most beloved protagonists of all time</h3>
+                        <p>Arthur Morgan</p>
+                        <div class="desc">
+                            Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
+                            This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
+                        </div>
+                    </div>*@
+
+            </div>
+        </section>
+        <hr />
+        <section class="new-joinee-section">
+            <div class="new-joinee-cards-container">
+                <!-- Slider Container: New Joinee -->
+                <div class="slider-container">
+                    <h2>New Joinee</h2>
+                    <!-- Image Slider for Joinees -->
+                    <div class="image-slider">
+                        <button class="prev-btn" onclick="prevAchievement()">&#10094;</button>
+                        <div class="slider-content">
+                            <!-- Joinee 1 -->
+                            <div class="new-joinee-content" id="joinee1">
+                                <div class="joinee-card">
+                                    <div class="employee-image">
+                                        <img src="~/Images/images/AST bg.jfif" alt="Joinee Image 1">
+                                    </div>
+                                    <div class="employee-details">
+                                        <h3>Name: Employee 1</h3>
+                                        <p>Role: Developer</p>
+                                        <p>Department: IT</p>
+                                        <p>Date of Joining: 01/01/2025</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Joinee 2 -->
+                            <div class="new-joinee-content" id="joinee2">
+                                <div class="joinee-card">
+                                    <div class="employee-image">
+                                        <img src="~/Images/images/AST-building.png" alt="Joinee 2">
+                                    </div>
+                                    <div class="employee-details">
+                                        <h3>Name: Employee 2</h3>
+                                        <p>Role: Designer</p>
+                                        <p>Department: Marketing</p>
+                                        <p>Date of Joining: 15/02/2025</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Joinee 3 -->
+                            <div class="new-joinee-content" id="joinee3">
+                                <div class="joinee-card">
+                                    <div class="employee-image">
+                                        <img src="https://th.bing.com/th/id/R.59ff510426f1d76979361809bb851716?rik=c%2fTf0LaIFlgHrA&riu=http%3a%2f%2fwww.impawards.com%2fintl%2findia%2f2015%2fposters%2fbahubali_the_beginning_ver2_xlg.jpg&ehk=yBFgAmmHhFihNXWKpum23W6EZ%2bUv73qz3cPrdy%2btWM0%3d&risl=&pid=ImgRaw&r=0" alt="Joinee 3">
+                                    </div>
+                                    <div class="employee-details">
+                                        <h3>Name: Employee 3</h3>
+                                        <p>Role: HR Manager</p>
+                                        <p>Department: HR</p>
+                                        <p>Date of Joining: 20/02/2025</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Joinee 4 -->
+                            <div class="new-joinee-content" id="joinee4">
+                                <div class="joinee-card">
+                                    <div class="employee-image">
+                                        <img src="~/Images/images/AST-building.png" />
+                                    </div>
+                                    <div class="employee-details">
+                                        <h3>Name: Employee 4</h3>
+                                        <p>Role: Project Manager</p>
+                                        <p>Department: Operations</p>
+                                        <p>Date of Joining: 01/03/2025</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="next-btn" onclick="nextAchievement()">&#10095;</button>
+                    </div>
+                </div>
+
+                <!-- Right-side Container: Career Section -->
+                <div class="right-side-container">
+                    <h2>Our Career Page</h2>
+                    <div class="openings-info-box">
+                        <h3>Join Us!</h3>
+                        <p>We are always looking for talented individuals. Start your journey with us!</p>
+                        <p>Discover exciting job opportunities and apply now!</p>
+                        <a href="https://www.advancedsystek.com/career/" class="redirect-link">Visit Careers</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Birthday Section -->
+        <!--<div class="section birthday">
+            <h3>Employee Birthdays</h3>
+            <ul class="birthday-list">
+                @if (ViewBag.Birthdays != null && ViewBag.Birthdays.Count > 0)
+                {
+                    foreach (var birthday in ViewBag.Birthdays as List<string>)
+                    {
+                        <li class="birthday-item"><strong>@birthday</strong></li>
+                    }
+                }
+                else
+                {
+                    <li class="birthday-item">No birthdays today.</li>
+                }
+            </ul>
+        </div>-->
+        <!-- Anniversary Section -->
+        @*<div class="section anniversary">
+                <h3>Work Anniversaries</h3>
+                <ul class="anniversary-list">
+                    @if (ViewBag.Anniversaries != null && ViewBag.Anniversaries.Count > 0)
+                    {
+                        foreach (var anniversary in ViewBag.Anniversaries as List<string>)
+                        {
+                            <li class="anniversary-item"><strong>@anniversary</strong></li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="anniversary-item">No work anniversaries today.</li>
+                    }
+                </ul>
+            </div>*@
+
+
+        <!-- Birthday Section -->
+        @*<h2>Employee Birthdays</h2>
+            <div class="section birthday">
+
+
+            </div>*@
+
+
+
+
+
+        <!--<div id="calendar"></div>-->
+        <!-- Event form with added date, time, and description inputs -->
+        <!--<div class="event-form" id="event-form">
+        <div class="event-form-header">
+            <span id="closeFormBtn" class="close-btn">&times;</span>
+            <h4>Add Event</h4>
+        </div>
+        <form id="event-form-body">
+            <label for="user-event-name">Event Name:</label>
+            <input type="text" id="event-name" required>
+
+            <label for="user-event-date">Event Date:</label>
+            <input type="text" id="event-date" disabled>-->
+        <!-- Date field should be displayed but not editable -->
+        <!--<label for="user-event-time">Event Time:</label>
+                <input type="time" id="event-time" required>
+
+                <label for="user-event-full-day" class="toggle-label">Full Day Event</label>
+                <div class="toggle-container">
+                    <label class="switch">
+                        <input type="checkbox" id="user-event-full-day">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <label for="user-event-description">Event Description:</label>
+                <textarea id="user-event-description" rows="4" placeholder="Describe your event..."></textarea>
+                <button type="button" id="addEventBtn">Add Event</button>
+            </form>
+        </div>-->
+        <!-- Modal to display event details -->
+        <!--<div class="event-details-modal" id="event-details-modal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeDetailsModal">&times;</span>
+                <h4 id="event-details-title"></h4>
+                <p><strong>Time:</strong> <span id="event-details-time"></span></p>
+                <p><strong>Description:</strong></p>
+                <p id="event-details-description"></p>
+                <button id="deleteEventBtn" class="btn btn-danger">Delete Event</button>
+            </div>
+        </div>
+
+        <div class="events-box" id="events-box">-->
+        <!--it will show events that will be added by users-->
+        <!--</div>-->
+
+
+        <hr />
+
+
+        <section class="section">
+            <h2>Events</h2>
+            <div class="events-gallery-container">
+                <div class="slider">
+                    <div class="slider-wrapper">
+                        <div class="slider-item">
+                            <a href="https://link-to-event1.com" target="_blank">
+                                <div class="image-container">
+                                    <img src="https://media.licdn.com/dms/image/v2/D4D22AQGobAIxlOHYKg/feedshare-shrink_800/feedshare-shrink_800/0/1729238416221?e=2147483647&v=beta&t=rlgNJodfrokBuBaLoj-Ghu56o9QtbA2H0zBIQI0fq4Y" alt="Garba">
+                                    <div class="overlay"></div>
+                                </div>
+                                <div class="text-container">
+                                    <h3 class="events-title">Garba</h3>
+                                    <p class="events-description">A lively traditional dance event celebrating the festival of Navratri.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slider-item">
+                            <a href="https://link-to-event2.com" target="_blank">
+                                <div class="image-container">
+                                    <img src="https://media.licdn.com/dms/image/v2/D4D22AQGeeOIbO_5Cnw/feedshare-shrink_800/feedshare-shrink_800/0/1727068347298?e=2147483647&v=beta&t=lMaagA73msBfbfGEvnKA1IUZbhCkrlUFzlshW1C_RHQ" alt="BVM Industrial Visit">
+                                    <div class="overlay"></div>
+                                </div>
+                                <div class="text-container">
+                                    <h3 class="events-title">BVM Industrial Visit</h3>
+                                    <p class="events-description">A tour to explore industrial advancements and innovations.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slider-item">
+                            <a href="https://link-to-event3.com" target="_blank">
+                                <div class="image-container">
+                                    <img src="https://media.licdn.com/dms/image/v2/D4D22AQFHpmWf-sNCrA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1723705015505?e=2147483647&v=beta&t=nl4jgJGy5eW_tY1M8EuUmMz4tMll1hMQ2Ls25907F0k" alt="Independence Day">
+                                    <div class="overlay"></div>
+                                </div>
+                                <div class="text-container">
+                                    <h3 class="events-title">Independence Day</h3>
+                                    <p class="events-description">A celebration of freedom and patriotism.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        @*<div id="cafeteria-menu" class="info-box" onclick="openPDF('cafeteria-menu.pdf')">
+                <h3>Cafeteria Menu</h3>
+                <p>Details about the cafeteria menu.</p>
+            </div>
+            <div id="Contact-list" class="info-box" onclick="openPDF('contact-list.pdf')">
+                <h3>Contact List</h3>
+                <p>List of important contacts.</p>
+            </div>
+            <div id="year-holiday-calendar" class="info-box" onclick="openPDF('holiday-calendar.pdf')">
+                <h3>Year Holiday Calendar</h3>
+                <p>Calendar showing holidays for the year.</p>
+            </div>
+            <div id="upcoming-training-calendar" class="info-box" onclick="openPDF('training-calendar.pdf')">
+                <h3>Upcoming Training Calendar</h3>
+                <p>Upcoming training schedules and events.</p>
+            </div>*@
+
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/script/HomepageScript.js")"></script>
+<!-- JavaScript to dynamically update the current year -->
