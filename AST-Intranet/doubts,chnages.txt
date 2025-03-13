@@ -1,0 +1,30 @@
+Order Overview: data fetched?
+		keep Induction and Exit manual in folder
+
+	change/add anything?
+
+Employee/Organization: add anything?
+
+Resources:- display 3 folders of other files in a row,
+		the box should not close if lead to another page, only when open another box()script
+
+Town Hall:
+
+Today's update: design
+Manulas: 
+achievements: rn hardcoded 
+
+Policies: in one folder or different folder??
+	 if one folder: json
+	
+
+No photos of employees in general
+
+NO login and signup
+
+town hall strucutre ready-> connect with folders 
+Title(Name of folder)
+images in grid
+-----------------------
+Achievements:
+connect with folder (json)

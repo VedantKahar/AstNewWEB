@@ -4,7 +4,6 @@
     font-weight: bold;
     color: #34495e;
     padding: 10px 20px;
-    /* margin-top: 20px;*/
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -20,12 +19,34 @@
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     }
 
+/* Quote of the Day Section */
+.card-section {
+    margin-top:20px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.6s ease-out;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    background: linear-gradient(135deg, #ecf0f1, #ffffff);
+}
+
+    .card-section h3 {
+        background-image: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+        -webkit-background-clip: text;
+        color: transparent;
+        font-size: 1.8em;
+        font-weight: bold;
+        text-align: center;
+        margin: 0; /* Ensures there's no extra margin pushing the heading outside */
+        padding-bottom: 05px; /* Optional: Adds space between the heading and the quote */
+    }
+
 #quote {
     font-size: 1.4em;
     color: #34495e;
     font-style: italic;
     text-align: center;
-    margin-top: 30px;
     background: linear-gradient(135deg, #ecf0f1, #ffffff);
     padding: 30px;
     border-radius: 15px;
@@ -34,10 +55,11 @@
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
+    margin-top: 05px; /* Adds space between the heading and the quote */
 }
 
     #quote:hover {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
     }
 
@@ -56,7 +78,7 @@
 /* Section Styling */
 .section {
     margin-top: 30px;
-    background-color: #ffffff; /* White background for sections */
+    background-color: #ffffff;
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -70,6 +92,7 @@
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     }
 
+/* Slide-up animation */
 @keyframes slideUp {
     from {
         transform: translateY(30px);
@@ -82,7 +105,7 @@
     }
 }
 
-/* Style for the slider container */
+/* Slider Container Styling */
 .slider-container {
     margin-bottom: 20px;
 }
@@ -96,7 +119,7 @@
     margin-right: 15px;
 }
 
-/* Card styling */
+/* Celebration Card Styling */
 .celebration-card {
     display: flex;
     align-items: center;
@@ -112,7 +135,7 @@
     flex: 1;
 }
 
-/* Style for slider */
+/* Slider styling */
 .slider {
     display: flex;
     overflow: hidden;
@@ -123,21 +146,22 @@
 
 .celebration-item {
     flex-shrink: 0;
-    width: 300px; /* Adjust this as per the size of your cards */
+    width: 300px;
     margin-right: 20px;
 }
 
-/* Styling for Titles */
+/* Slider Title Styling */
 h4 {
+    margin-top:20px;
     text-align: center;
-    color: #2c3e50;
+    background-image: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+    -webkit-background-clip: text;
+    color: transparent;
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-
-
-/* Cafeteria Box Card Design */
+/* Cafeteria Menu Section Styling */
 .cafeteria {
     background: linear-gradient(135deg, #ecf0f1, #ffffff);
     padding: 30px;
@@ -166,9 +190,10 @@ h4 {
         border-radius: 12px;
         z-index: 1;
     }
+
 /* Notifications Section Styling */
 .section.notifications {
-    background: linear-gradient(135deg, #2980b9, #6dd5fa); /* Blue gradient */
+    background: linear-gradient(135deg, #2980b9, #6dd5fa);
     color: #fff;
     padding: 20px;
     border-radius: 12px;
@@ -184,7 +209,7 @@ h4 {
         letter-spacing: 1px;
     }
 
-/* Style for notifications list */
+/* Notifications List Styling */
 .notifications-list {
     list-style-type: none;
     padding-left: 0;
@@ -215,6 +240,3 @@ h4 {
     font-size: 1.2em;
     color: #34495e;
 }
-
-
-

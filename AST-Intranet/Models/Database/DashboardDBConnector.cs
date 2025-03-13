@@ -295,11 +295,11 @@ namespace AST_Intranet.Models.Database
                     DateTime testDate = new DateTime(2025, 3, 1); // For example, March 11, 2025
 
                     string query = @"
-                SELECT EMP_CODE, EMP_NAME, DOB, DOJ, DEPARTMENT, DESIGNATION, LOCATION
-                FROM cim_emp_master_list
-                WHERE (TO_CHAR(DOB, 'MM-DD') = TO_CHAR(:TestDate, 'MM-DD') OR TO_CHAR(DOJ, 'MM-DD') = TO_CHAR(:TestDate, 'MM-DD'))
-                AND STATUS = 'Active'
-            ";
+                        SELECT EMP_CODE, EMP_NAME, DOB, DOJ, DEPARTMENT, DESIGNATION, LOCATION
+                        FROM cim_emp_master_list
+                        WHERE (TO_CHAR(DOB, 'MM-DD') = TO_CHAR(:TestDate, 'MM-DD') OR TO_CHAR(DOJ, 'MM-DD') = TO_CHAR(:TestDate, 'MM-DD'))
+                        AND STATUS = 'Active'
+                    ";
 
                     using (OracleCommand command = new OracleCommand(query, connection))
                     {

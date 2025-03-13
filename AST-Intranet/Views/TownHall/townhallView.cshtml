@@ -1,10 +1,183 @@
-﻿
-@{
-    ViewBag.Title = "townhallmeetingView";
+﻿@{
+    ViewBag.Title = "TownHall Meeting View";
+    var foldersAndImages = ViewBag.FoldersAndImages as Dictionary<string, List<string>>;
 }
 
 <div class="main-content">
     <div class="content">
+        <h2>AST TownHall</h2>
+        @if (foldersAndImages != null && foldersAndImages.Any())
+        {
+            foreach (var folder in foldersAndImages)
+            {
+                // Check if the folder has any images
+                if (folder.Value != null && folder.Value.Any())
+                {
+                    <div class="folder-section">
+                        <h3>@folder.Key</h3> <!-- Folder Name -->
 
+                        <div class="images-gallery">
+                            @foreach (var image in folder.Value)
+                            {
+                                <div class="image-item">
+                                    <img src="@Url.Action("GetImage", "TownHall", new { folderName = folder.Key, fileName = image })"
+                                         alt="Image"
+                                         class="townhall-image"
+                                         onclick="openModal('@Url.Action("GetImage", "TownHall", new { folderName = folder.Key, fileName = image })')" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            <p>No folders or images found.</p>
+        }
     </div>
 </div>
+
+<!-- Modal for Image -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation();">
+        <!-- Close button -->
+        <span class="close-btn" onclick="closeModal()">×</span>
+        <img id="modalImage" src="" alt="Modal Image">
+    </div>
+</div>
+
+
+
+<style>
+    h2 {
+        font-size: 2.5rem;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #000;
+    }
+
+   
+    .folder-section {
+        margin-bottom: 40px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
+
+        .folder-section h3 {
+            font-size: 1.3em;
+            color: #34495e;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+            /* Apply a gradient background */
+            background: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+            /* Clip the background to the text */
+            -webkit-background-clip: text; /* For WebKit-based browsers */
+            color: transparent; /* Make text color transparent to show gradient */
+            /* Ensuring the background-clip works */
+            display: inline-block; /* Ensure text has a proper width and height for background clipping */
+        }
+
+    .images-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .image-item {
+        width: calc(33.333% - 15px); /* Three images per row */
+            margin-bottom: 10px;
+        }
+
+    .townhall-image {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    /* Modal and Image Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        overflow: hidden;
+    }
+
+    #modalImage {
+        width: 100%;
+        height: auto;
+        max-height: 90vh;
+        object-fit: contain;
+    }
+
+    .close-btn {
+        font-weight:bolder;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+        color: #fa0000;
+        border: none;
+        border-radius: 50%;
+        padding: 5px 10px;
+        cursor: pointer;
+        z-index: 2; /* Ensure it stays on top of the image */
+    }
+/*
+        .close-btn:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }*/
+
+</style>
+
+<script>
+    // Open Modal with Image
+    function openModal(imageSrc) {
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+        modalImage.src = imageSrc;
+        modal.style.display = "flex"; // Show modal
+    }
+
+    // Close Modal
+    function closeModal() {
+        const modal = document.getElementById("imageModal");
+        modal.style.display = "none"; // Hide modal
+    }
+
+    // Close modal if clicked outside of it
+    window.onclick = function (event) {
+        if (event.target == document.getElementById("imageModal")) {
+            closeModal();
+        }
+    };
+
+</script>

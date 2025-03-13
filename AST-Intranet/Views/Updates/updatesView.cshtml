@@ -21,7 +21,7 @@
         <div class="card digital-calendar" id="digital-calendar"></div>
 
         <!-- Quote of the Day Section -->
-        <div class="card section">
+        <div class="card-section">
             <h3>Quote of the Day</h3>
             <p id="quote"></p>
         </div>
@@ -36,23 +36,23 @@
                         var birthdayCelebrations = ((List<CelebrationViewModel>)ViewBag.Celebrations).Where(c => c.CelebrationType == "Birthday").ToList();
                         foreach (var celebration in birthdayCelebrations)
                         {
-                    <div class="celebration-item card">
-                        <div class="celebration-card">
-                            <!-- Employee Image in Circle -->
-                            <div class="employee-image">
-                                <img src="@celebration.ImageUrl" alt="@celebration.EmployeeName's Image" class="circle-image" />
+                            <div class="celebration-item card">
+                                <div class="celebration-card">
+                                    <!-- Employee Image in Circle -->
+                                    <div class="employee-image">
+                                        <img src="@celebration.ImageUrl" alt="@celebration.EmployeeName's Image" class="circle-image" />
+                                    </div>
+                                    <div class="celebration-details">
+                                        <h3>@celebration.EmployeeName</h3>
+                                        @*<p>Celebration: @celebration.CelebrationType</p>*@
+                                        @*<p>Date: @celebration.Date</p>*@
+                                        <p>Age: @celebration.Age</p>
+                                        <p>Department: @celebration.Department</p>
+                                        <p>Designation: @celebration.Designation</p>
+                                        <p>Location: @celebration.Location</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="celebration-details">
-                                <h3>@celebration.EmployeeName</h3>
-                                @*<p>Celebration: @celebration.CelebrationType</p>*@
-                                @*<p>Date: @celebration.Date</p>*@
-                                <p>Age: @celebration.Age</p>
-                                <p>Department: @celebration.Department</p>
-                                <p>Designation: @celebration.Designation</p>
-                                <p>Location: @celebration.Location</p>
-                            </div>
-                        </div>
-                    </div>
                         }
                     }
                 </div>
@@ -67,23 +67,23 @@
                         var anniversaryCelebrations = ((List<CelebrationViewModel>)ViewBag.Celebrations).Where(c => c.CelebrationType == "Anniversary").ToList();
                         foreach (var celebration in anniversaryCelebrations)
                         {
-                    <div class="celebration-item card">
-                        <div class="celebration-card">
-                            <!-- Employee Image in Circle -->
-                            <div class="employee-image">
-                                <img src="@celebration.ImageUrl" alt="@celebration.EmployeeName's Image" class="circle-image" />
+                            <div class="celebration-item card">
+                                <div class="celebration-card">
+                                    <!-- Employee Image in Circle -->
+                                    <div class="employee-image">
+                                        <img src="@celebration.ImageUrl" alt="@celebration.EmployeeName's Image" class="circle-image" />
+                                    </div>
+                                    <div class="celebration-details">
+                                        <h3>@celebration.EmployeeName</h3>
+                                        @*<p>Celebration: @celebration.CelebrationType</p>*@
+                                        @*<p>Date: @celebration.Date</p>*@
+                                        <p>Years of Service: @celebration.Year</p>
+                                        <p>Department: @celebration.Department</p>
+                                        <p>Designation: @celebration.Designation</p>
+                                        <p>Location: @celebration.Location</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="celebration-details">
-                                <h3>@celebration.EmployeeName</h3>
-                                @*<p>Celebration: @celebration.CelebrationType</p>*@
-                                @*<p>Date: @celebration.Date</p>*@
-                                <p>Years of Service: @celebration.Year</p>
-                                <p>Department: @celebration.Department</p>
-                                <p>Designation: @celebration.Designation</p>
-                                <p>Location: @celebration.Location</p>
-                            </div>
-                        </div>
-                    </div>
                         }
                     }
                 </div>

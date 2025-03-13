@@ -13,7 +13,7 @@
 
             @foreach (var resource in Model)
             {
-                <div class="resource-item" onclick="toggleResource(this)">
+                <div class="resource-item" onclick="toggleResource(this, event)">
                     <div class="resource-header">
                         <a href="javascript:void(0);" class="resource-title">@resource.Name</a>
                         <p class="resource-description">Click to view all available @resource.Name</p>
@@ -25,25 +25,26 @@
                             <div class="resource-section">
                                 <hr />
                                 <div class="media-grid">
-                                    @* Grid for document files (PDF, DOC, PPT, XLS) *@
 
+                                    @* Grid for document files (PDF, DOC, PPT, XLS) *@
                                     <div class='document-files'>
                                         @foreach (var file in resource.Files.Where(f => IsDocumentFile(f)))
                                         {
                                             var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = resource.Name, fileName = file });
                                             //var isLongFileName = file.Length > 30 ? "long-file-name" : "";  // Example threshold for long names
 
-                                        <div class="file-item">
-                                            <a href="@fileUrl" target="_blank" loading="lazy">@Path.GetFileNameWithoutExtension(file)</a> <!-- Display file name without extension -->
-                                        </div>
+                                            <div class="file-item">
+                                                <a href="@fileUrl" target="_blank" loading="lazy">@Path.GetFileNameWithoutExtension(file)</a> <!-- Display file name without extension -->
+                                            </div>
                                         }
                                     </div>
-                                    <div class='image-files'>
 
+                                    <div class='image-files'>
                                         @* Grid for image files *@
                                         @foreach (var file in resource.Files.Where(f => IsImageFile(f)))
                                         {
                                             var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = resource.Name, fileName = file });
+
                                             <div class="image-file">
                                                 <a href="@fileUrl" target="_blank">
                                                     <img src="@fileUrl" alt="@file" loading="lazy" />
@@ -51,31 +52,32 @@
                                             </div>
                                         }
                                     </div>
+
                                     <div class='other-files'>
                                         @* Grid for other file types (APK, installers, etc.) *@
                                         @foreach (var file in resource.Files.Where(f => IsOtherFile(f)))
                                         {
                                             var fileUrl = Url.Action("GetFiles", "Resources", new { folderName = resource.Name, fileName = file });
 
-                                        <div class="file-item">
-                                            <a href="@fileUrl" target="_blank" loading="lazy">@resource.Name</a> <!-- Display file name without extension@Path.GetFileNameWithoutExtension(file) -->
-                                        </div>
+                                            <div class="file-item">
+                                                <a href="@fileUrl" target="_blank" loading="lazy">@resource.Name</a> <!-- Display file name without extension@Path.GetFileNameWithoutExtension(file) -->
+                                            </div>
                                         }
                                     </div>
                                 </div>
                             </div>
-                        } 
+                        }
                         @* Call the recursive function to render subfolders only if they contain files *@
                         @RenderFoldersAndFiles(resource.SubCategories, resource.Name)
                     </div>
                 </div>
-             } 
-        </div> 
+            }
+        </div>
     </div>
 </div>
 
-@functions {
-    // Recursive function to display folders and files if the folder contains any files
+
+@functions { // Recursive function to display folders and files if the folder contains any files
     public IHtmlString RenderFoldersAndFiles(List<AST_Intranet.Models.Subcategory> subCategories, string parentFolder)
     {
         StringBuilder html = new StringBuilder();
@@ -221,11 +223,9 @@
     {
         string[] otherExtensions = new[] { ".exe", ".msi", ".dmg", ".iso", ".apk" };
         return otherExtensions.Any(ext => fileName.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
-    }
-}
-
+    } }
 <script>
-    function toggleResource(item) {
+    function toggleResource(item, event) {
         const allResources = document.querySelectorAll('.resource-item');
 
         // Close all other resource items
@@ -241,14 +241,23 @@
         const content = item.querySelector('.resource-content');
         const description = item.querySelector('.resource-description');
 
+        // Check if the click was inside the resource-content (don't close if clicked inside it)
+        const isInsideContent = content.contains(event.target);
+        const isLinkClick = event.target.closest('a');  // Check if the click is inside a link
+
         if (item.classList.contains('open')) {
-            item.classList.remove('open');
-            content.style.maxHeight = null;
-            description.style.display = 'block'; // Show description again when closing
+            if (!isInsideContent && !isLinkClick) { // Prevent closing if clicked inside the content or on a link
+                item.classList.remove('open');
+                content.style.maxHeight = null;
+                description.style.display = 'block'; // Show description again when closing
+            }
         } else {
-            item.classList.add('open');
-            content.style.maxHeight = content.scrollHeight + "px"; // Animate opening
-            description.style.display = 'none'; // Hide description when opening
+            if (!isInsideContent || isLinkClick) {  // Open if not inside content, or clicked on a link
+                item.classList.add('open');
+                content.style.maxHeight = content.scrollHeight + "px"; // Animate opening
+                description.style.display = 'none'; // Hide description when opening
+            }
         }
     }
 </script>
+

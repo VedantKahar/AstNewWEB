@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";  // Make sure the layout is set
-
+    ViewBag.Title = "Dashboard ";
     string corporateVideoUrl = ViewBag.CorporateVideoUrl;
     string bgVideoUrl = ViewBag.BgVideoUrl;
 
@@ -104,6 +104,7 @@
             });
 
             // Function to display the celebration person's information
+            // Function to display the celebration person's information
             function displayCelebration(people, celebrationTitle) {
                 celebrationSlider.innerHTML = '';  // Clear any previous content
                 let celebrationText = '';
@@ -118,7 +119,7 @@
                             <p>${person.Department} | ${person.Designation}</p>
                         </div>
                     </div>
-                `;
+                    `;
 
                     // Update the wish message based on celebration type
                     if (person.CelebrationType === 'Birthday') {
@@ -128,7 +129,12 @@
                     }
                 });
 
-                celebrationWishElement.textContent = celebrationText;
+                // Update the wish message in the celebration popup
+                if (celebrationWishElement) {
+                    celebrationWishElement.textContent = celebrationText;
+                } else {
+                    console.error("Celebration wish element not found!");
+                }
 
                 // Change title based on celebration type
                 popupHeader.textContent = celebrationTitle;
@@ -138,6 +144,7 @@
                     celebrationSlider.classList.add('slider-show');
                 }, 100);  // Delay to ensure elements are added first
             }
+
 
             // Function to trigger confetti animation
             function triggerConfetti() {
@@ -461,59 +468,6 @@
 
         <hr>
 
-
-        <!--<section class="employee-achievements-section">
-    <h2>Employee Achievements</h2>
-    <div class="employee-achievement-cards-container">
-        <div class="employee-achievement-card">
-            <div class="achievement-image">
-                <img src="https://static.turbosquid.com/Preview/2019/09/24__07_14_04/render004.jpgE6E6CDF8-D2E0-4F8F-A035-81A31CDEABACDefault.jpg" alt="Company Achievement 1">
-            </div>
-            <h3>Employee of the Month</h3>
-            <p style="color:black">Steve</p>
-            <div class="desc">
-                Beat Ender Dragon and received achievement of "Free the End". Steve can lift up to 97941957.12 pounds (44425720 kg)!"
-            </div>
-        </div>
-
-        <div class="employee-achievement-card">
-            <div class="achievement-image">
-                <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
-            </div>
-            <h3>Most beloved protagonists of all time</h3>
-            <p style="color:black">Arthur Morgan</p>
-            <div class="desc">
-                Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
-                This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
-            </div>
-        </div>-->
-        @*<div class="employee-achievement-card">
-            <div class="achievement-image">
-                <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
-            </div>
-            <h3>Most beloved protagonists of all time</h3>
-            <p style="color:black">Arthur Morgan</p>
-            <div class="desc">
-                Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
-                This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
-            </div>
-        </div>*@
-        @*<div class="employee-achievement-card">
-            <div class="achievement-image">
-                <img src="https://th.bing.com/th/id/OIP.0aVEtx3IsjWsgkibEkFtEQHaKe?rs=1&pid=ImgDetMain" alt="Employee Achievement">
-            </div>
-            <h3>Most beloved protagonists of all time</h3>
-            <p style="color:black">Arthur Morgan</p>
-            <div class="desc">
-                Lovable and enigmatic character, extremely loyal, adapts to pretty much any situation he comes across. This section is longer than usual to demonstrate how scrolling works in the description section.
-                This section is longer than usual to demonstrate how scrolling works in the description section. This section is longer than usual to demonstrate how scrolling works in the description section.
-            </div>
-        </div>*@
-
-        <!--</div>
-    </section>-->
-
-
         <section class="employee-achievements-section">
             <h2>Employee Achievements</h2>
             <div class="employee-achievement-cards-container">
@@ -541,11 +495,7 @@
             </div>
         </section>
 
-
-
         <hr />
-
-
 
         <section class="information-section">
             <div class="box-container">

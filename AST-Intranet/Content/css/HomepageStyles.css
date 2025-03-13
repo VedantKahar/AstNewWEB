@@ -9,14 +9,14 @@
     background-color: rgba(0, 0, 0, 0.6); /* Dark transparent background */
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 30;
     overflow: hidden;
     transition: opacity 0.5s ease-in-out;
 }
 
 /* Popup Content */
 .popup-content {
-    background-color: #fff;
+    background-color: #e5e5e5;
     padding: 20px;
     border-radius: 10px;
     width: 450px;
@@ -67,18 +67,11 @@
     font-size: 1.2em;
     color: #333;
     margin-top: 10px; /* Add some spacing between lines */
+    opacity: 1 !important; /* Ensure it's visible */
+    transform: translateY(0) !important; /* Ensure it is not off-screen */
     visibility: visible; /* Ensure text is visible */
 }
 
-#celebration-wish {
-    background-color: yellow;
-    color: #2c3e50 !important; /* Ensure visibility */
-    border: 1px solid red;
-    font-size: 1.2em;
-    margin-top: 10px;
-    visibility: visible !important; /* Force visibility */
-    z-index: 10; /* Ensure it appears on top */
-}
 
 
 #birthday-person-name {
@@ -96,6 +89,19 @@
 .popup-footer {
     margin-top: 20px;
 }
+
+
+#celebration-wish {
+    background-color: yellow !important; /* Bright background */
+    color: #2c3e50 !important; /* Make sure text is dark enough */
+    font-size: 1.2em;
+    margin-top: 10px;
+    visibility: visible !important;
+    z-index: 9999; /* Make sure it's on top of other elements */
+    opacity: 1 !important; /* Make sure it's not hidden */
+    padding: 10px; /* Add padding for better visibility */
+}
+
 
 #close-popup {
     background:linear-gradient(90deg, #000000 0%, #ff1200 100%);
@@ -121,7 +127,7 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 999;
+    z-index: 2;
 }
 
 /* Celebration Slider styles for smooth sliding */
@@ -950,8 +956,6 @@ h2 {
     transform: rotateY(-15deg); /* Slight 3D rotation */
 }
 
-
-/* Container for Employee Achievement Cards */
 /* Container for Employee Achievement Cards */
 .employee-achievement-cards-container {
     display: flex;
@@ -968,7 +972,7 @@ h2 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-    flex: 1 1 22%; /* Flex-grow, flex-shrink, and flex-basis */
+    flex: 1 1 22%; /*calc(33.333% - 20px) -> if set limit of 3 box Flex-grow, flex-shrink, and flex-basis */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -1039,6 +1043,7 @@ h2 {
     overflow-y: auto; /* Enable vertical scrolling */
     max-height: 150px; /* Set a max height for the description */
     padding-right: 10px; /* Add padding to avoid text being flush with the scroll */
+    padding-left: 15px;
 }
 
 /* Section for Employee Achievements */
@@ -1239,7 +1244,7 @@ section {
 }
 
     .openings-info-box:hover {
-        transform: translateY(-5px);
+        transform: translateY(-2px);
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     }
 

@@ -29,7 +29,7 @@
     }
 
     /* Individual items in the grid */
-    .image-files > div, .video-files > div, .other-files > div, .document-files > div {
+    .image-files > div, .video  -files > div, .other-files > div, .document-files > div {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -161,7 +161,7 @@
         margin-bottom: 30px;
         border-radius: 15px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
+        /*cursor: pointer;*/
         transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
         overflow: hidden;
     }
@@ -177,16 +177,15 @@
         justify-content: space-between;
         width: 100%;
     }
-        .resource-header a {
-            font-weight: bold;
-            font-size: 1.2rem;
-            text-decoration: none;
-            background-image: linear-gradient(90deg, #ff1200 20%, #000000 100%);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
+    .resource-header a {
+        font-weight: bold;
+        font-size: 1.2rem;
+        text-decoration: none;
+        background-image: linear-gradient(90deg, #ff1200 20%, #000000 100%);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
     
-
     .resource-item p {
         font-size: 1rem;
         color: #7f8c8d;
@@ -203,19 +202,20 @@
         transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
         background: white;
         overflow-y: auto;
-    }
-        .resource-content a {
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
 
-            .resource-content a:hover {
-                text-decoration: underline;
-                color: #2980b9;
-                transition: color 0.3s ease, text-decoration 0.3s ease;
-            }
+    }
+    .resource-content a {
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .resource-content a:hover {
+        text-decoration: underline;
+        color: #2980b9;
+        transition: color 0.3s ease, text-decoration 0.3s ease;
+    }
     .resource-content h4 {
         font-size: 1.2rem;
         color: #34495e;
