@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "D:\\astWebsite\\AstNewWEB\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|d:\\astwebsite\\astnewweb\\ast-intranet\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Content\\css\\AchievementsStyles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:AST-Intranet\\Content\\css\\AchievementsStyles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|D:\\astWebsite\\AstNewWEB\\ast-intranet\\views\\dashboard\\eventgallery.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\views\\dashboard\\eventgallery.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|D:\\astWebsite\\AstNewWEB\\ast-intranet\\views\\achievements\\achievementsview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\views\\achievements\\achievementsview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|d:\\astwebsite\\astnewweb\\ast-intranet\\controllers\\achievementscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\controllers\\achievementscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|D:\\astWebsite\\AstNewWEB\\ast-intranet\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|D:\\astWebsite\\AstNewWEB\\ast-intranet\\views\\dashboard\\dashboardview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\views\\dashboard\\dashboardview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|D:\\astWebsite\\AstNewWEB\\ast-intranet\\views\\dashboard\\eventgallery.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|solutionrelative:ast-intranet\\views\\dashboard\\eventgallery.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ACFBFC28-4273-494E-8A39-6FD999EB993C}|AST-Intranet\\AST-Intranet.csproj|D:\\astWebsite\\AstNewWEB\\ast-intranet\\models\\dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,11 +38,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AchievementsStyles.css",
+              "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Content\\css\\AchievementsStyles.css",
+              "RelativeDocumentMoniker": "AST-Intranet\\Content\\css\\AchievementsStyles.css",
+              "ToolTip": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Content\\css\\AchievementsStyles.css",
+              "RelativeToolTip": "AST-Intranet\\Content\\css\\AchievementsStyles.css",
+              "ViewState": "AgIAAJ8AAAAAAAAAAAAAAJ8AAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-03-16T18:09:57.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AchievementsController.cs",
+              "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Controllers\\AchievementsController.cs",
+              "RelativeDocumentMoniker": "AST-Intranet\\Controllers\\AchievementsController.cs",
+              "ToolTip": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Controllers\\AchievementsController.cs",
+              "RelativeToolTip": "AST-Intranet\\Controllers\\AchievementsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-16T12:51:50.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "achievementsView.cshtml",
+              "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Views\\Achievements\\achievementsView.cshtml",
+              "RelativeDocumentMoniker": "AST-Intranet\\Views\\Achievements\\achievementsView.cshtml",
+              "ToolTip": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Views\\Achievements\\achievementsView.cshtml",
+              "RelativeToolTip": "AST-Intranet\\Views\\Achievements\\achievementsView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-16T12:50:45.854Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "EventGallery.cshtml",
               "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Views\\Dashboard\\EventGallery.cshtml",
               "RelativeDocumentMoniker": "AST-Intranet\\Views\\Dashboard\\EventGallery.cshtml",
@@ -42,19 +93,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "dashboardView.cshtml",
               "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Views\\Dashboard\\dashboardView.cshtml",
               "RelativeDocumentMoniker": "AST-Intranet\\Views\\Dashboard\\dashboardView.cshtml",
               "ToolTip": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Views\\Dashboard\\dashboardView.cshtml",
               "RelativeToolTip": "AST-Intranet\\Views\\Dashboard\\dashboardView.cshtml",
-              "ViewState": "AgIAAPsCAAAAtMzMzMwmwCIDAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAG8CAAAAzMzMzMwnwI8CAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-03-07T16:27:33.695Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Dashboard.cs",
               "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Models\\Dashboard.cs",
               "RelativeDocumentMoniker": "AST-Intranet\\Models\\Dashboard.cs",
@@ -66,16 +117,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "DashboardController.cs",
               "DocumentMoniker": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Controllers\\DashboardController.cs",
               "RelativeDocumentMoniker": "AST-Intranet\\Controllers\\DashboardController.cs",
               "ToolTip": "D:\\astWebsite\\AstNewWEB\\AST-Intranet\\Controllers\\DashboardController.cs",
               "RelativeToolTip": "AST-Intranet\\Controllers\\DashboardController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADsAAAAANDMzMzMwwBEAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T16:27:41.695Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-07T16:27:41.695Z"
             }
           ]
         }

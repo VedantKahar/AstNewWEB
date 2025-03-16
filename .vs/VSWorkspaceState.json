@@ -2,10 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\AST-Intranet",
-    "\\AST-Intranet\\Controllers",
-    "\\AST-Intranet\\Scripts",
-    "\\AST-Intranet\\Scripts\\script",
+    "\\AST-Intranet\\Content",
+    "\\AST-Intranet\\Content\\css",
     "\\AST-Intranet\\Views",
+    "\\AST-Intranet\\Views\\Achievements",
     "\\AST-Intranet\\Views\\Dashboard",
     "\\AST-Intranet\\Views\\Employees",
     "\\AST-Intranet\\Views\\Resources",
