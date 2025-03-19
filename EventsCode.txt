@@ -1,0 +1,498 @@
+@{ ViewBag.Title = "Events View"; }
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/EventsStyle.css")">
+
+
+<div class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="page-title"> Calendar</h2>
+                <div class="calendar-control-row mb-4">
+                    <!--<div class="btn-group">
+                        <button id="btnPrevious" class="btn btn-outline-primary">Previous</button>
+                        <button id="btnToday" class="btn btn-primary">Today</button>
+                        <button id="btnNext" class="btn btn-outline-primary">Next</button>
+                    </div>
+                    <div class="btn-group ms-3">
+                        <button class="btn btn-outline-secondary" id="btnMonthView">Month</button>
+                        <button class="btn btn-outline-secondary" id="btnWeekView">Week</button>
+                        <button class="btn btn-outline-secondary" id="btnDayView">Day</button>
+                    </div>
+                    <h3 id="currentViewTitle" class="ms-auto text-muted"></h3>-->
+                </div>
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Event Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventModalLabel">Add Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm">
+                    <input type="hidden" id="eventId" />
+                    <div class="form-group mb-3">
+                        <label for="eventTitle">Title</label>
+                        <input type="text" class="form-control" id="eventTitle" required />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="eventDate">Date</label>
+                        <input type="date" class="form-control" id="eventDate" required />
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="eventStartTime">Start Time</label>
+                            <input type="time" class="form-control" id="eventStartTime" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="eventEndTime">End Time</label>
+                            <input type="time" class="form-control" id="eventEndTime" required />
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="eventDescription">Description</label>
+                        <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="eventColor">Color</label>
+                        <input type="color" class="form-control" id="eventColor" value="#3788d8" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="btnSaveEvent" class="btn btn-success">Save Event</button>
+                <button type="button" id="btnDeleteEvent" class="btn btn-danger" style="display:none;">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Holiday Details Modal -->
+<div class="modal fade" id="holidayModal" tabindex="-1" role="dialog" aria-labelledby="holidayModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="holidayModalLabel">Holiday Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3 id="holidayTitle"></h3>
+                <p id="holidayDate"></p>
+                <p id="holidayDescription"></p>
+                <p id="holidayType"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #f4f7fc;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .main-content {
+        padding-top: 30px;
+    }
+
+    .page-title {
+        color: #333;
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .calendar-control-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .fc-event {
+        cursor: pointer;
+        border-radius: 8px;
+        color: white; /* Change the text color to white */
+        padding: 10px; /* Optional: Adds some space around the text for better readability */
+    }
+
+    .fc-holiday-event {
+        background-color: #ff5733;
+        border-color: #e64a19;
+        color: white; /* Ensures the text inside holiday events is white */
+    }
+
+    .fc-user-event {
+        background-color: #3788d8;
+        border-color: #2c6fb7;
+        color: white; /* Ensures the text inside user events is white */
+    }
+
+
+    #calendar {
+        margin-bottom: 30px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-content {
+        border-radius: 8px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-outline-primary, .btn-outline-secondary {
+        border-radius: 50px;
+    }
+
+    .btn-primary {
+        background-color: #3788d8;
+        border-color: #2c6fb7;
+    }
+
+        .btn-primary:hover {
+            background-color: #2c6fb7;
+            border-color: #2c6fb7;
+        }
+
+    .btn-outline-primary {
+        color: #3788d8;
+    }
+
+    .btn-outline-secondary {
+        color: #6c757d;
+    }
+
+        .btn-outline-primary:hover, .btn-outline-secondary:hover {
+            color: #fff;
+            background-color: #3788d8;
+        }
+
+    .modal-header {
+        background-color: #3788d8;
+        color: white;
+    }
+
+    .modal-title {
+        font-weight: bold;
+    }
+
+    .modal-footer button {
+        border-radius: 20px;
+    }
+
+    .modal-body h3 {
+        font-weight: bold;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let calendar;
+        const API_KEY = 'PFXdUFwPMihLk1IzaFIng3tUuzhftAHd';
+        const COUNTRY = 'in';
+        let userEvents = JSON.parse(localStorage.getItem('userEvents')) || [];
+        let holidays = [];
+        let selectedEvent = null;
+
+        // Initialize FullCalendar
+        const calendarEl = document.getElementById('calendar');
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            views: {
+                timeGridDay: {
+                    titleFormat: { // Show day and date in 'timeGridDay' view
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        weekday: 'long'
+                    }
+                }
+            },
+            height: 'auto',
+            events: function (fetchInfo, successCallback, failureCallback) {
+                // Get holidays for the current view's year
+                const year = fetchInfo.start.getFullYear();
+                fetchHolidays(year, function (fetchedHolidays) {
+                    // Combine holidays and user events
+                    const combinedEvents = [...fetchedHolidays, ...userEvents];
+                    successCallback(combinedEvents);
+                });
+            },
+            eventClick: function (info) {
+                if (info.event.extendedProps.isHoliday) {
+                    showHolidayDetails(info.event);
+                } else {
+                    showEventDetails(info.event);
+                }
+            },
+            dateClick: function (info) {
+                openAddEventModal(info.date);
+            },
+            eventClassNames: function (arg) {
+                return arg.event.extendedProps.isHoliday ? ['fc-holiday-event'] : ['fc-user-event'];
+            },
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: true
+            }
+        });
+
+        calendar.render();
+
+        // Update the title
+        updateViewTitle();
+
+        // Fetch holidays from Calendrific API
+        function fetchHolidays(year, callback) {
+            // Try to get holidays from localStorage first
+            const cachedHolidays = localStorage.getItem(`holidays-${year}`);
+            if (cachedHolidays) {
+                const parsedHolidays = JSON.parse(cachedHolidays);
+                holidays = parsedHolidays;
+                callback(parsedHolidays);
+                return;
+            }
+
+            // If not in cache, fetch from API
+            const url = `https://calendarific.com/api/v2/holidays?api_key=${API_KEY}&country=${COUNTRY}&year=${year}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.response && data.response.holidays) {
+                        const fetchedHolidays = data.response.holidays.map(holiday => {
+                            return {
+                                id: 'holiday-' + holiday.date.iso,
+                                title: holiday.name,
+                                start: holiday.date.iso,
+                                allDay: true,
+                                extendedProps: {
+                                    isHoliday: true,
+                                    description: holiday.description,
+                                    type: holiday.type.join(', ')
+                                }
+                            };
+                        });
+
+                        // Store in localStorage for future use
+                        localStorage.setItem(`holidays-${year}`, JSON.stringify(fetchedHolidays));
+
+                        holidays = fetchedHolidays;
+                        callback(fetchedHolidays);
+                    } else {
+                        console.error('Error fetching holidays:', data);
+                        callback([]);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching holidays:', error);
+                    callback([]);
+                });
+        }
+
+        // Navigation buttons
+        document.getElementById('btnPrevious').addEventListener('click', function () {
+            calendar.prev();
+            updateViewTitle();
+        });
+
+        document.getElementById('btnNext').addEventListener('click', function () {
+            calendar.next();
+            updateViewTitle();
+        });
+
+        document.getElementById('btnToday').addEventListener('click', function () {
+            calendar.today();
+            updateViewTitle();
+        });
+
+        // View buttons
+        document.getElementById('btnMonthView').addEventListener('click', function () {
+            calendar.changeView('dayGridMonth');
+            updateViewTitle();
+        });
+
+        document.getElementById('btnWeekView').addEventListener('click', function () {
+            calendar.changeView('timeGridWeek');
+            updateViewTitle();
+        });
+
+        document.getElementById('btnDayView').addEventListener('click', function () {
+            calendar.changeView('timeGridDay');
+            updateViewTitle();
+        });
+
+        // Update view title (month/year)
+        function updateViewTitle() {
+            const dateInfo = calendar.getDate();
+            const formattedDate = new Intl.DateTimeFormat(navigator.language, {
+                month: 'long',
+                year: 'numeric'
+            }).format(dateInfo);
+            document.getElementById('currentViewTitle').textContent = formattedDate;
+        }
+
+        // Event Modal Handlers
+        const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+        const holidayModal = new bootstrap.Modal(document.getElementById('holidayModal'));
+
+        document.getElementById('btnSaveEvent').addEventListener('click', saveEvent);
+
+        document.getElementById('btnDeleteEvent').addEventListener('click', deleteEvent);
+
+        function openAddEventModal(date) {
+            selectedEvent = null;
+
+            document.getElementById('eventModalLabel').textContent = 'Add Event';
+            document.getElementById('eventId').value = '';
+            document.getElementById('eventTitle').value = '';
+
+            // Format the date to match local time zone (YYYY-MM-DD)
+            const localDate = new Date(date); // Create a local copy of the date
+            const year = localDate.getFullYear();
+            const month = (localDate.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based, pad to ensure two digits
+            const day = localDate.getDate().toString().padStart(2, '0'); // Pad day to ensure two digits
+
+            // Set the formatted date in the input field
+            document.getElementById('eventDate').value = `${year}-${month}-${day}`;
+
+            // Set default start and end times (you can adjust this logic if needed)
+            document.getElementById('eventStartTime').value = '09:00';
+            document.getElementById('eventEndTime').value = '10:00';
+
+            document.getElementById('eventDescription').value = '';
+            document.getElementById('eventColor').value = '#3788d8';
+            document.getElementById('btnDeleteEvent').style.display = 'none';
+
+            eventModal.show();
+        }
+
+
+        function showEventDetails(event) {
+            selectedEvent = event;
+
+            document.getElementById('eventModalLabel').textContent = 'Edit Event';
+            document.getElementById('eventId').value = event.id;
+            document.getElementById('eventTitle').value = event.title;
+
+            // Format date for the input
+            const eventDate = new Date(event.start);
+            document.getElementById('eventDate').value = eventDate.toISOString().slice(0, 10);
+
+            // Format time for the inputs
+            const startTimeStr = eventDate.toTimeString().slice(0, 5);
+            document.getElementById('eventStartTime').value = startTimeStr;
+
+            const endTime = event.end ? new Date(event.end) : new Date(eventDate.getTime() + 60 * 60 * 1000);
+            const endTimeStr = endTime.toTimeString().slice(0, 5);
+            document.getElementById('eventEndTime').value = endTimeStr;
+
+            document.getElementById('eventDescription').value = event.extendedProps.description || '';
+            document.getElementById('eventColor').value = event.backgroundColor || '#3788d8';
+            document.getElementById('btnDeleteEvent').style.display = 'block';
+
+            eventModal.show();
+        }
+
+        function showHolidayDetails(event) {
+            document.getElementById('holidayTitle').textContent = event.title;
+
+            const holidayDate = new Date(event.start);
+            document.getElementById('holidayDate').textContent = holidayDate.toLocaleDateString();
+
+            document.getElementById('holidayDescription').textContent = event.extendedProps.description || 'No description available';
+            document.getElementById('holidayType').textContent = 'Type: ' + event.extendedProps.type;
+
+            holidayModal.show();
+        }
+
+        function saveEvent() {
+            const eventId = document.getElementById('eventId').value;
+            const title = document.getElementById('eventTitle').value;
+            const dateStr = document.getElementById('eventDate').value;
+            const startTimeStr = document.getElementById('eventStartTime').value;
+            const endTimeStr = document.getElementById('eventEndTime').value;
+            const description = document.getElementById('eventDescription').value;
+            const color = document.getElementById('eventColor').value;
+
+            if (!title || !dateStr || !startTimeStr || !endTimeStr) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Create start and end date objects
+            const startDateTime = new Date(dateStr + 'T' + startTimeStr);
+            const endDateTime = new Date(dateStr + 'T' + endTimeStr);
+
+            if (endDateTime <= startDateTime) {
+                alert('End time must be after start time.');
+                return;
+            }
+
+            const eventData = {
+                id: eventId || 'event-' + Date.now(),
+                title: title,
+                start: startDateTime.toISOString(),
+                end: endDateTime.toISOString(),
+                backgroundColor: color,
+                borderColor: color,
+                extendedProps: {
+                    description: description,
+                    isHoliday: false
+                }
+            };
+
+            // Update existing event or add new one
+            if (eventId) {
+                userEvents = userEvents.filter(e => e.id !== eventId);
+            }
+
+            userEvents.push(eventData);
+            localStorage.setItem('userEvents', JSON.stringify(userEvents));
+
+            // Refresh the calendar
+            calendar.refetchEvents();
+
+            // Close the modal
+            eventModal.hide();
+        }
+
+        function deleteEvent() {
+            if (selectedEvent) {
+                const eventId = selectedEvent.id;
+                userEvents = userEvents.filter(e => e.id !== eventId);
+                localStorage.setItem('userEvents', JSON.stringify(userEvents));
+
+                // Refresh the calendar
+                calendar.refetchEvents();
+
+                // Close the modal
+                eventModal.hide();
+            }
+        }
+    });
+
+</script>
